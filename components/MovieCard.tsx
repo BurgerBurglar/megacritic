@@ -2,6 +2,7 @@ import { Image } from "@chakra-ui/image";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import React from "react";
 import { MovieOverview } from "../types/Movie";
+import { formatDates } from "../utils/formatDates";
 import { MovieCardRating } from "./MovieCardRating";
 
 interface MovieCardProps {
@@ -38,7 +39,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         >
           {movie.title}
         </Heading>
-        <Text color="gray.500">{movie.release_date}</Text>
+        <Text color="gray.500">{formatDates(movie.release_date)}</Text>
       </Box>
     </Flex>
   );
