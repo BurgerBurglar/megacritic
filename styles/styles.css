@@ -1,0 +1,36 @@
+body {
+    /* background: #c8c6c4; */
+    background: #3498db;
+}
+
+.App {
+    font-family: sans-serif;
+    padding: 10px 30px;
+}
+
+.App>div {
+    background-color: #5c2e91;
+    background-color: #fff;
+    color: #fff;
+    color: #3498db;
+    text-align: center;
+}
+
+.slick-next:before {
+    color: black !important
+}
+
+.slick-prev:before {
+    color: black !important
+}
+
+button.slick-arrow.slick-next, button.slick-arrow.slick-prev {
+    background-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    width: 50px;
+    z-index: 1;
+}
+
+button.slick-arrow.slick-prev:hover, button.slick-arrow.slick-next:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
