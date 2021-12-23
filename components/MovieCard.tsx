@@ -26,7 +26,16 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         <MovieCardRating rating={movie.vote_average} />
       </Box>
       <Box h="20%">
-        <Heading as="h2" size="sm">
+        <Heading
+          as="h2"
+          size="sm"
+          display="-webkit-box"
+          css={{
+            "-webkit-line-clamp": "2",
+            "-webkit-box-orient": "vertical",
+          }}
+          overflow="hidden"
+        >
           {movie.title}
         </Heading>
         <Text color="gray.500">{movie.release_date}</Text>

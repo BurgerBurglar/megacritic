@@ -2,17 +2,13 @@ import { Heading } from "@chakra-ui/layout";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { MovieSlider } from "../components/MovieSlider";
-import { useOverviews } from "../hooks/useOverviews";
+import { useMovieOverviews } from "../hooks/useOverviews";
 
 interface Props {}
 
 const Home: NextPage<Props> = () => {
-  const {
-    movies: discover,
-    loading,
-    error,
-    refetch,
-  } = useOverviews("discover");
+  const { movies: discover } = useMovieOverviews("discover");
+  const { movies: trending } = useMovieOverviews("trending");
 
   return (
     <>
@@ -23,6 +19,8 @@ const Home: NextPage<Props> = () => {
       </Head>
       <Heading>Discover</Heading>
       <MovieSlider movies={discover} />
+      <Heading>Tending</Heading>
+      <MovieSlider movies={trending} />
     </>
   );
 };

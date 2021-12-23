@@ -4,10 +4,10 @@ import { getHeaders } from "../utils/getCredentials";
 
 type OverviewType = "discover" | "trending";
 
-export const useOverviews = (type: OverviewType) => {
+export const useMovieOverviews = (type: OverviewType) => {
   const typeUrlMap = {
     discover: "https://api.themoviedb.org/4/discover/movie",
-    trending: "https://api.themoviedb.org/4/trending/all/day",
+    trending: "https://api.themoviedb.org/3/trending/movie/day",
   };
   const [{ data, loading, error }, refetch] = useAxios<MovieOverviewList>({
     url: typeUrlMap[type],

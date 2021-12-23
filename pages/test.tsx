@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { MovieCard } from "../components/MovieCard";
 import { useContainerDimensions } from "../hooks/useContainerDimensions";
-import { useOverviews } from "../hooks/useOverviews";
+import { useMovieOverviews } from "../hooks/useOverviews";
 
 interface ArrowProps {
   isLeft: boolean;
@@ -38,8 +38,7 @@ const Arrow = ({ isLeft, className, style, onClick }: any) => {
 };
 
 const App: React.FC = () => {
-  const [{ data, loading, error }, refetch] = useOverviews("discover");
-  const movies = data?.results || [];
+  const { movies } = useMovieOverviews("discover");
 
   const sliderContainerRef = useRef<HTMLDivElement>(null);
   const { width } = useContainerDimensions(sliderContainerRef);
