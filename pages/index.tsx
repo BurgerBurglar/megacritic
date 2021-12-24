@@ -4,9 +4,7 @@ import Head from "next/head";
 import { MovieSlider } from "../components/MovieSlider";
 import { useMovieOverviews } from "../hooks/useOverviews";
 
-interface Props {}
-
-const Home: NextPage<Props> = () => {
+const Home: NextPage = () => {
   const { movies: discover } = useMovieOverviews("discover");
   const { movies: trending } = useMovieOverviews("trending");
 

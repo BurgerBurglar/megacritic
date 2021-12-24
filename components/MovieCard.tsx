@@ -24,7 +24,9 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     >
       <Box h="80%">
         <Image src={poster} alt={movie.title} h="auto" borderRadius="10px" />
-        <MovieCardRating rating={movie.vote_average} />
+        <Box position="relative" top="-15px" left="10px">
+          <MovieCardRating rating={movie.vote_average} />
+        </Box>
       </Box>
       <Box h="20%">
         <Heading
