@@ -79,3 +79,59 @@ export interface SpokenLanguage {
   iso_639_1: string;
   name: string;
 }
+
+export interface MovieCredits {
+  id: number;
+  cast: Cast[];
+  crew: Cast[];
+}
+
+export interface Cast {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: Department;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: null | string;
+  cast_id?: number;
+  character?: string;
+  credit_id: string;
+  order?: number;
+  department?: Department;
+  job?: string;
+}
+
+export enum Department {
+  Acting = "Acting",
+  Art = "Art",
+  Camera = "Camera",
+  CostumeMakeUp = "Costume & Make-Up",
+  Crew = "Crew",
+  Directing = "Directing",
+  Editing = "Editing",
+  Lighting = "Lighting",
+  Production = "Production",
+  Sound = "Sound",
+  VisualEffects = "Visual Effects",
+  Writing = "Writing",
+}
+
+export interface MovieReleaseList {
+  id: number;
+  results: MovieRelease[];
+}
+
+export interface MovieRelease {
+  iso_3166_1: string;
+  release_dates: ReleaseDate[];
+}
+
+export interface ReleaseDate {
+  certification: string;
+  iso_639_1: string | null;
+  note: string;
+  release_date: string;
+  type: number;
+}

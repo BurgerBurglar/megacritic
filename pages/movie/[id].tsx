@@ -13,6 +13,8 @@ import { NextPage } from "next";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { MovieCardRating } from "../../components/MovieCardRating";
+import { useMovieCredential } from "../../hooks/useMovieCredential";
+import { useMovieCredits } from "../../hooks/useMovieCredits";
 import { useMovieDetails } from "../../hooks/useMovieDetails";
 import { formatDates } from "../../utils/formatDates";
 import { getHourMinute } from "../../utils/getHourMinute";
@@ -28,6 +30,11 @@ const CircleIcon: React.FC<IconProps> = (props) => (
 const Movie: NextPage = () => {
   const id = useRouter().query.id as string;
   const { movie, error } = useMovieDetails(id);
+  const { credits } = useMovieCredits(id);
+  const { credential } = useMovieCredential(
+    id,
+    movie?.production_countries[0].iso_3166_1
+  );
   if (!id || !movie || error) return <></>;
   const poster =
     "https://www.themoviedb.org/t/p/w220_and_h330_face/" + movie?.poster_path;
@@ -46,8 +53,15 @@ const Movie: NextPage = () => {
             ({movie?.release_date.substring(0, 4)})
           </Text>
         </Flex>
-        <HStack align="center" divider={<CircleIcon w={2} />}>
-          <Text>{formatDates(movie?.release_date!, { month: "numeric" })}</Text>
+        <HStack align="center" divider={<CircleIcon w={2} border={0} />}>
+          <Box>
+            <Text as="span" border="1px" py="1px" px="3px">
+              {credential}
+            </Text>
+            <Text as="span" ml={2}>
+              {formatDates(movie?.release_date!, { month: "numeric" })}
+            </Text>
+          </Box>
           <Text>{movie.genres.map((genre) => genre.name).join(", ")}</Text>
           <Text>{getHourMinute(movie.runtime)}</Text>
         </HStack>
