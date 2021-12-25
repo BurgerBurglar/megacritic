@@ -9,6 +9,7 @@ import { useKeywords } from "../../hooks/useKeywords";
 import { useMovieCredential } from "../../hooks/useMovieCredential";
 import { useMovieCredits } from "../../hooks/useMovieCredits";
 import { useMovieDetails } from "../../hooks/useMovieDetails";
+import { useMovieLinks } from "../../hooks/useMovieLinks";
 
 const Movie: NextPage = () => {
   const id = useRouter().query.id as string;
@@ -19,8 +20,18 @@ const Movie: NextPage = () => {
     movie?.production_countries[0].iso_3166_1
   );
   const { keywords } = useKeywords(id);
+  const { links } = useMovieLinks(id);
 
-  if (!id || !movie || !crew || !cast || !credential || !keywords || error)
+  if (
+    !id ||
+    !movie ||
+    !crew ||
+    !cast ||
+    !credential ||
+    !keywords ||
+    !links ||
+    error
+  )
     return <></>;
 
   return (
@@ -49,7 +60,12 @@ const Movie: NextPage = () => {
             <MovieMedia id={id} />
           </VStack>
           <Box ml={10}>
-            <MovieSidebar movie={movie} keywords={keywords} />
+            <MovieSidebar
+              movie={movie}
+              keywords={keywords}
+              links={links}
+              homepage={movie.homepage}
+            />
           </Box>
         </Flex>
       </VStack>
