@@ -16,8 +16,8 @@ export const TextElipse: React.FC<TextElipseProps> = ({
     <Element
       display="-webkit-box"
       css={{
-        "-webkit-line-clamp": `${lines}`,
-        "-webkit-box-orient": "vertical",
+        WebkitLineClamp: `${lines}`,
+        WebkitBoxOrient: "vertical",
       }}
       overflow="hidden"
       {...props}
