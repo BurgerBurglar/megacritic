@@ -6,7 +6,11 @@ import { useMovieOverviews } from "../hooks/useOverviews";
 
 const Home: NextPage = () => {
   const { movies: discover } = useMovieOverviews("discover");
+  const { movies: nowPlaying } = useMovieOverviews("nowPlaying");
+  const { movies: popular } = useMovieOverviews("popular");
   const { movies: trending } = useMovieOverviews("trending");
+  const { movies: topRated } = useMovieOverviews("topRated");
+  const { movies: upcoming } = useMovieOverviews("upcoming");
 
   return (
     <>
@@ -17,8 +21,16 @@ const Home: NextPage = () => {
       </Head>
       <Heading>Discover</Heading>
       <MovieSlider movies={discover} />
-      <Heading>Tending</Heading>
+      <Heading>Now Playing</Heading>
+      <MovieSlider movies={nowPlaying} />
+      <Heading>Popular</Heading>
+      <MovieSlider movies={popular} />
+      <Heading>Trending</Heading>
       <MovieSlider movies={trending} />
+      <Heading>Top Rated</Heading>
+      <MovieSlider movies={topRated} />
+      <Heading>Upcoming</Heading>
+      <MovieSlider movies={upcoming} />
     </>
   );
 };
