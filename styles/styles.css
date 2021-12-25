@@ -1,5 +1,4 @@
 body {
-    /* background: #c8c6c4; */
     background: #3498db;
 }
 
@@ -43,4 +42,26 @@ button.slick-arrow.slick-prev:hover, button.slick-arrow.slick-next:hover {
     transition: all .4s ease;
     transform: scale(1.25);
     z-index: 1;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px grey;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border: solid 1px #bbb;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
 }

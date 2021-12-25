@@ -24,7 +24,17 @@ const Movie: NextPage = () => {
     return <></>;
 
   return (
-    <Flex as="main" direction="column" align="center" h="full" minH="100vh">
+    <Flex
+      as="main"
+      direction="column"
+      align="center"
+      h="full"
+      minH="100vh"
+      w="full"
+      maxW="100vw"
+      overflow="hidden"
+      px={5}
+    >
       <MovieHero movie={movie} crew={crew} credential={credential} />
       <VStack spacing={5} maxW="1400px" mt={10} ml={5}>
         <Flex>
