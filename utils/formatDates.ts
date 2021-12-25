@@ -9,6 +9,5 @@ export const formatDates = (
     day: "numeric",
     ...addtionalOptions,
   };
-  console.log(options);
   return Intl.DateTimeFormat(navigator.language, options).format(date);
 };

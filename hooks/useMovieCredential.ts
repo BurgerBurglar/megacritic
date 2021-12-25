@@ -16,9 +16,9 @@ export const useMovieCredential = (id: string, productionCountry = "US") => {
       refetch,
     };
   }
-  let credential = data?.results.filter(
-    (result) => result.iso_3166_1 === productionCountry
-  )[0].release_dates[0].certification;
+  let credential = data.results
+    .filter((result) => result.iso_3166_1 === productionCountry)[0]
+    .release_dates.filter((result) => result.certification)[0].certification;
 
   if (!credential) {
     credential = data?.results[0].release_dates[0].certification as string;

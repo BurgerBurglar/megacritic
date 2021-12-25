@@ -9,8 +9,8 @@ interface MovieCardRatingProps extends FlexProps {
 export const MovieCardRating: React.FC<MovieCardRatingProps> = (props) => {
   const { rating } = props;
   let bgColor = "red";
-  if (rating >= 5) bgColor = "#fc3";
-  if (rating >= 7) bgColor = "#6c3";
+  if (rating >= 50) bgColor = "#fc3";
+  if (rating >= 70) bgColor = "#6c3";
 
   return (
     <Flex
