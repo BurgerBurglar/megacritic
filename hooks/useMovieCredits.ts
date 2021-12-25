@@ -41,7 +41,7 @@ export const useMovieCredits = (id: string) => {
       idCrewMap[id] = { name, jobs: [job] };
     }
   }
-  const credits = Object.entries(idCrewMap)
+  const crew = Object.entries(idCrewMap)
     .map(([id, crew]) => ({
       id,
       ...crew,
@@ -56,8 +56,17 @@ export const useMovieCredits = (id: string) => {
       }
       return 0;
     });
+
+  const cast = data.cast.map(({ id, name, character, profile_path }) => ({
+    id,
+    name,
+    character,
+    profile_path,
+  }));
+
   return {
-    credits,
+    cast,
+    crew,
     loading,
     error,
     refetch,

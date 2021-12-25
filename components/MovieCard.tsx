@@ -4,6 +4,7 @@ import React from "react";
 import { MovieOverview } from "../types/Movie";
 import { formatDates } from "../utils/formatDates";
 import { MovieCardRating } from "./MovieCardRating";
+import { TextElipse } from "./TextElipse";
 
 interface MovieCardProps {
   movie: MovieOverview;
@@ -29,18 +30,9 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         </Box>
       </Box>
       <Box h="20%">
-        <Heading
-          as="h2"
-          size="sm"
-          display="-webkit-box"
-          css={{
-            "-webkit-line-clamp": "2",
-            "-webkit-box-orient": "vertical",
-          }}
-          overflow="hidden"
-        >
+        <TextElipse Element={Heading} as="h2" size="sm">
           {movie.title}
-        </Heading>
+        </TextElipse>
         <Text color="gray.500">{formatDates(movie.release_date)}</Text>
       </Box>
     </Flex>

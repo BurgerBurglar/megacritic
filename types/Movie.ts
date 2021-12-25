@@ -141,3 +141,13 @@ export interface ReleaseDate {
   release_date: string;
   type: number;
 }
+
+export interface MovieKeywordList {
+  id: number;
+  keywords: MovieKeyword[];
+}
+
+export interface MovieKeyword {
+  id: number;
+  name: string;
+}

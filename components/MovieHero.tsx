@@ -27,7 +27,7 @@ const CircleIcon: React.FC<IconProps> = (props) => (
 );
 interface MovieHeroProps {
   movie: Movie;
-  credits: {
+  crew: {
     jobs: string[];
     name: string;
     id: string;
@@ -37,7 +37,7 @@ interface MovieHeroProps {
 
 export const MovieHero: React.FC<MovieHeroProps> = ({
   movie,
-  credits,
+  crew,
   credential,
 }) => {
   const poster =
@@ -45,7 +45,6 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
   const backdrop =
     "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" +
     movie?.backdrop_path;
-  const rating = movie.vote_average * 10;
   return (
     <Flex
       bgImage={backdrop}
@@ -98,7 +97,7 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
             </Box>
             <HStack fontWeight="bold">
               <MovieCardRating
-                rating={rating}
+                rating={movie.vote_average}
                 w="50px"
                 h="50px"
                 fontSize="xl"
@@ -115,11 +114,11 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
             </Heading>
             <Text>{movie.overview}</Text>
             <Flex flexWrap="wrap">
-              {credits
-                ? credits.map((credit) => (
-                    <Box key={credit.id} mr={60} mb={5}>
-                      <Text fontWeight="bold">{credit.name}</Text>
-                      <Text>{credit.jobs.join(", ")}</Text>
+              {crew
+                ? crew.map((crewMember) => (
+                    <Box key={crewMember.id} mr={60} mb={5}>
+                      <Text fontWeight="bold">{crewMember.name}</Text>
+                      <Text>{crewMember.jobs.join(", ")}</Text>
                     </Box>
                   ))
                 : null}

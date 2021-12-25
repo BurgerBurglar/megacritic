@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/layout";
 import type { FlexProps } from "@chakra-ui/react";
 import React from "react";
 
@@ -9,8 +9,8 @@ interface MovieCardRatingProps extends FlexProps {
 export const MovieCardRating: React.FC<MovieCardRatingProps> = (props) => {
   const { rating } = props;
   let bgColor = "red";
-  if (rating >= 50) bgColor = "#fc3";
-  if (rating >= 70) bgColor = "#6c3";
+  if (rating >= 5) bgColor = "#eb2";
+  if (rating >= 7) bgColor = "#6c3";
 
   return (
     <Flex
