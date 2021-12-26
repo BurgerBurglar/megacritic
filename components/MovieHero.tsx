@@ -1,14 +1,18 @@
 import {
-  Flex,
-  HStack,
-  VStack,
   Box,
+  Flex,
   Heading,
-  Image,
-  Link,
-  Text,
+  HStack,
   Icon,
   IconProps,
+  Image,
+  Link,
+  SimpleGrid,
+  Stack,
+  StackDivider,
+  Text,
+  useBreakpointValue,
+  VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
@@ -45,56 +49,104 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
   const backdrop =
     "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" +
     movie?.backdrop_path;
+
+  const Divider = () =>
+    useBreakpointValue({
+      base: <StackDivider />,
+      sm: <CircleIcon w={2} border={0} />,
+    });
+
+  const bgOffsetPixels = useBreakpointValue({
+    base: 0,
+    sm: 200,
+  });
   return (
     <Flex
-      bgImage={backdrop}
-      bgRepeat="no-repeat"
-      bgSize="cover"
-      bgPosition="right -200px top"
+      className="hero"
+      justify="center"
       color="white"
-      h="570px"
+      w="100%"
+      minH="530px"
+      position="relative"
     >
-      <Flex
-        bg="linear-gradient(to right, rgba(20, 20, 20, 1), rgba(20, 20, 20, 1) 200px,rgba(20, 20, 20, 0.8))"
-        w="100vw"
-        justify="center"
+      <Box
+        className="background"
+        w="100%"
+        h="100%"
+        position="absolute"
+        zIndex={-1}
       >
-        <HStack spacing={5} justify="center" w="100%" maxW="1400px">
-          <Image src={poster} alt={movie?.title} h="450px" />
-          <VStack spacing={5} align="start">
-            <Box>
-              <Link>
-                <NextLink href={`http://localhost:3000/movie/${movie?.id}`}>
-                  <Heading display="inline" fontSize="3xl">
-                    {movie?.title}
-                  </Heading>
-                </NextLink>
-              </Link>
-              <Text as="span" color="gray.400" fontSize="3xl">
-                {" (" + movie?.release_date.substring(0, 4)})
+        <Box
+          className="background-photo"
+          w="100%"
+          h="100%"
+          position="absolute"
+          bgImage={backdrop}
+          bgRepeat="no-repeat"
+          bgSize="cover"
+          bgPosition={`right -${bgOffsetPixels}px top`}
+        />
+        <Box
+          className="background-gradient"
+          w="100%"
+          h="100%"
+          position="absolute"
+          bg={`linear-gradient(to right, rgba(20, 20, 20, 1), rgba(20, 20, 20, 1) ${bgOffsetPixels}px,rgba(20, 20, 20, 0.8))`}
+        />
+      </Box>
+      <Stack
+        className="hero-main"
+        direction={{ base: "column", md: "row" }}
+        align={{ base: "center", md: "start" }}
+        spacing={5}
+        py={10}
+        px={2}
+        w="100%"
+        maxW="1400px"
+      >
+        <Image src={poster} alt={movie?.title} w="100vw" maxW="300px" />
+        <VStack className="hero-info" spacing={5} align="start">
+          <Box>
+            <Link>
+              <NextLink href={`http://localhost:3000/movie/${movie?.id}`}>
+                <Heading display="inline" fontSize="3xl">
+                  {movie?.title}
+                </Heading>
+              </NextLink>
+            </Link>
+            <Text as="span" color="gray.400" fontSize="3xl">
+              {" (" + movie?.release_date.substring(0, 4)})
+            </Text>
+          </Box>
+          <Stack
+            direction={{ base: "column", sm: "row" }}
+            align="center"
+            alignSelf={{ base: "center", sm: "start" }}
+            divider={Divider()} //{Divider !== undefined ? <Divider /> : undefined}
+          >
+            <Flex direction="row">
+              <Text
+                as="span"
+                color="gray.300"
+                whiteSpace="nowrap"
+                border="1px"
+                borderColor="gray.300"
+                py="1px"
+                px="3px"
+              >
+                {credential}
               </Text>
-              <HStack align="center" divider={<CircleIcon w={2} border={0} />}>
-                <Box>
-                  <Text
-                    as="span"
-                    color="gray.300"
-                    border="1px"
-                    borderColor="gray.300"
-                    py="1px"
-                    px="3px"
-                  >
-                    {credential}
-                  </Text>
-                  <Text as="span" ml={2}>
-                    {formatDates(movie?.release_date!, { month: "numeric" })}
-                  </Text>
-                </Box>
-                <Text>
-                  {movie.genres.map((genre) => genre.name).join(", ")}
-                </Text>
-                <Text>{getHourMinute(movie.runtime)}</Text>
-              </HStack>
-            </Box>
+              <Text as="span" ml={2}>
+                {formatDates(movie?.release_date!, { month: "numeric" })}
+              </Text>
+            </Flex>
+            <Text>{movie.genres.map((genre) => genre.name).join(", ")}</Text>
+            <Text minW="6em">{getHourMinute(movie.runtime)}</Text>
+          </Stack>
+          <Stack
+            direction={{ base: "row", sm: "column" }}
+            align={{ base: "center", sm: "start" }}
+          >
             <HStack fontWeight="bold">
               <MovieCardRating
                 rating={movie.vote_average}
@@ -109,23 +161,30 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
             <Text as="em" color="gray.300">
               {movie.tagline}
             </Text>
+          </Stack>
+          <Box>
             <Heading as="h3" size="md">
               Overview
             </Heading>
             <Text>{movie.overview}</Text>
-            <Flex flexWrap="wrap">
-              {crew
-                ? crew.map((crewMember) => (
-                    <Box key={crewMember.id} mr={60} mb={5}>
-                      <Text fontWeight="bold">{crewMember.name}</Text>
-                      <Text>{crewMember.jobs.join(", ")}</Text>
-                    </Box>
-                  ))
-                : null}
-            </Flex>
-          </VStack>
-        </HStack>
-      </Flex>
+          </Box>
+          <SimpleGrid
+            minChildWidth={{ base: "8em", lg: "10em" }}
+            spacingX={{ base: "1em", lg: "3em" }}
+            spacingY={{ base: "1em", lg: "2em" }}
+            w="100%"
+          >
+            {crew
+              ? crew.map((crewMember) => (
+                  <Box key={crewMember.id}>
+                    <Text fontWeight="bold">{crewMember.name}</Text>
+                    <Text>{crewMember.jobs.join(", ")}</Text>
+                  </Box>
+                ))
+              : null}
+          </SimpleGrid>
+        </VStack>
+      </Stack>
     </Flex>
   );
 };

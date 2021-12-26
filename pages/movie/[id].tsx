@@ -41,34 +41,36 @@ const Movie: NextPage = () => {
       align="center"
       h="full"
       minH="100vh"
-      w="full"
-      maxW="100vw"
-      overflow="hidden"
-      px={5}
+      w="100vw"
     >
       <MovieHero movie={movie} crew={crew} credential={credential} />
-      <VStack spacing={5} maxW="1400px" mt={10} ml={5}>
-        <Flex>
-          <VStack
-            divider={<StackDivider />}
-            align="start"
-            spacing={10}
-            w="70%"
-            maxW="1080px"
-          >
-            <CastSlider cast={cast} />
-            <MovieMedia id={id} />
-          </VStack>
-          <Box ml={10}>
-            <MovieSidebar
-              movie={movie}
-              keywords={keywords}
-              links={links}
-              homepage={movie.homepage}
-            />
-          </Box>
-        </Flex>
-      </VStack>
+      <Flex
+        className="bottom"
+        direction={{ base: "column", lg: "row" }}
+        w="100vw"
+        maxW="1400px"
+        mt={10}
+        ml={5}
+      >
+        <VStack
+          divider={<StackDivider />}
+          align="start"
+          spacing={10}
+          flexGrow={1}
+          w={{ base: "100%", lg: "70%" }}
+        >
+          <CastSlider cast={cast} />
+          <MovieMedia id={id} />
+        </VStack>
+        <Box className="sidebar" ml={{ base: 0, lg: 10 }} w="30%">
+          <MovieSidebar
+            movie={movie}
+            keywords={keywords}
+            links={links}
+            homepage={movie.homepage}
+          />
+        </Box>
+      </Flex>
     </Flex>
   );
 };

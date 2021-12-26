@@ -127,12 +127,27 @@ export const MovieMedia: React.FC<MovieMediaProps> = ({ id }) => {
     },
   };
   return (
-    <Flex direction="column" w="full">
-      <Flex align="center" mb={3}>
-        <Heading as="h3" size="md">
+    <Flex direction="column" w="100%">
+      <Flex
+        direction={{
+          base: "column",
+          md: "row",
+        }}
+        align={{
+          base: "start",
+          md: "center",
+        }}
+        mb={3}
+      >
+        <Heading as="h3" size="md" mr={20}>
           Media
         </Heading>
-        <HStack spacing={8} ml={20}>
+        <HStack
+          spacing={{
+            base: 2,
+            md: 8,
+          }}
+        >
           <Heading
             data-id="mostPopular"
             as="h4"
