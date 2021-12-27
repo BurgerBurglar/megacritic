@@ -23,13 +23,13 @@ const Movie: NextPage = () => {
   const { links } = useMovieLinks(id);
 
   if (
-    !id ||
-    !movie ||
-    !crew ||
-    !cast ||
-    !credential ||
-    !keywords ||
-    !links ||
+    id === undefined ||
+    movie === undefined ||
+    crew === undefined ||
+    cast === undefined ||
+    credential === undefined ||
+    keywords === undefined ||
+    links === undefined ||
     error
   )
     return <></>;
