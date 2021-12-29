@@ -8,8 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import React, { MouseEvent, useState } from "react";
-import { useMovieImages } from "../hooks/useMovieImages";
-import { useMovieVideos } from "../hooks/useMovieVideos";
+import { useMovieImages } from "../hooks/useFetch";
+import { useMovieVideos } from "../hooks/useFetch";
 import { Slider } from "./Slider";
 
 interface MovieMediaProps {

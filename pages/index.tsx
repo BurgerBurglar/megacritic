@@ -2,7 +2,7 @@ import { Box, Heading } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { MovieSlider } from "../components/MovieSlider";
-import { useMovieOverviews } from "../hooks/useOverviews";
+import { useMovieOverviews } from "../hooks/useFetch";
 
 const Home: NextPage = () => {
   const { movies: discover } = useMovieOverviews("discover");

@@ -5,11 +5,11 @@ import { CastSlider } from "../../components/CastSlider";
 import { MovieHero } from "../../components/MovieHero";
 import { MovieMedia } from "../../components/MovieMedia";
 import { MovieSidebar } from "../../components/MovieSidebar";
-import { useKeywords } from "../../hooks/useKeywords";
-import { useMovieCredential } from "../../hooks/useMovieCredential";
-import { useMovieCredits } from "../../hooks/useMovieCredits";
-import { useMovieDetails } from "../../hooks/useMovieDetails";
-import { useMovieLinks } from "../../hooks/useMovieLinks";
+import { useKeywords } from "../../hooks/useFetch";
+import { useMovieCredential } from "../../hooks/useFetch";
+import { useMovieCredits } from "../../hooks/useFetch";
+import { useMovieDetails } from "../../hooks/useFetch";
+import { useMovieLinks } from "../../hooks/useFetch";
 
 const Movie: NextPage = () => {
   const id = useRouter().query.id as string;

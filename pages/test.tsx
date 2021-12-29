@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { MovieCard } from "../components/MovieCard";
 import { useContainerDimensions } from "../hooks/useContainerDimensions";
-import { useMovieOverviews } from "../hooks/useOverviews";
+import { useMovieOverviews } from "../hooks/useFetch";
 
 interface ArrowProps {
   isLeft: boolean;
