@@ -29,8 +29,10 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ id }) => {
     reviewsSorted ? (
       <Flex
         direction="column"
-        // divider={<StackDivider />}
         align="start"
+        borderColor="gainsboro !important"
+        border="1px"
+        p={5}
         maxH="500px"
         overflow="auto"
         mt={5}
@@ -38,14 +40,14 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ id }) => {
         {reviewsSorted.map((review) => (
           <Flex
             key={review.id}
-            shadow="lg"
+            shadow="md"
             w="100%"
             borderColor="gainsboro !important"
             border="1px"
-            mb={8}
+            mb={4}
             p={5}
             _last={{
-              mb: 4,
+              mb: 2,
             }}
           >
             <Avatar
@@ -57,20 +59,22 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ id }) => {
               <HStack spacing={3}>
                 <Text fontWeight="bold">{review.author}</Text>
                 <Text>{formatDates(review.created_at)}</Text>
-                <Tag
-                  h="2em"
-                  size="sm"
-                  variant="solid"
-                  color="white"
-                  bgColor="black"
-                >
-                  <TagLeftIcon boxSize="12px" as={StarIcon} />
-                  <TagLabel>{review.author_details.rating}</TagLabel>
-                </Tag>
+                {review.author_details.rating ? (
+                  <Tag
+                    h="2em"
+                    size="sm"
+                    variant="solid"
+                    color="white"
+                    bgColor="black"
+                  >
+                    <TagLeftIcon boxSize="12px" as={StarIcon} />
+                    <TagLabel>{review.author_details.rating}</TagLabel>
+                  </Tag>
+                ) : null}
               </HStack>
               <TextElipse lines={5}>
                 {review.content.split("\n").map((p, i) => (
-                  <Text key={i} mb={3}>
+                  <Text as="span" key={i} mb={3}>
                     {p}
                   </Text>
                 ))}
