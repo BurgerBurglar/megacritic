@@ -23,7 +23,7 @@ export const MovieCardRating: React.FC<MovieCardRatingProps> = (props) => {
       color="white"
       {...props}
     >
-      {rating}
+      {(Math.round(rating * 100) / 100).toFixed(1)}
     </Flex>
   );
 };

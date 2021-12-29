@@ -7,6 +7,7 @@ import {
   MovieKeywordList,
   MovieLinks,
   MovieOverviewList,
+  MovieRecommendationList,
   MovieReleaseList,
   MovieReviewList,
   MovieVideoList,
@@ -226,6 +227,18 @@ export const useReviews = (id: string) => {
   );
   return {
     reviews: data?.results || [],
+    loading,
+    error,
+    refetch,
+  };
+};
+
+export const useRecommendations = (id: string) => {
+  const { data, loading, error, refetch } = useFetch<MovieRecommendationList>(
+    `movie/${id}/recommendations`
+  );
+  return {
+    recommendations: data?.results || [],
     loading,
     error,
     refetch,

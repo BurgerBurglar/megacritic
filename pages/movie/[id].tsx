@@ -6,6 +6,7 @@ import { MovieHero } from "../../components/MovieHero";
 import { MovieMedia } from "../../components/MovieMedia";
 import { MovieSidebar } from "../../components/MovieSidebar";
 import { MovieSocial } from "../../components/MovieSocial";
+import { Recommendations } from "../../components/Recommendations";
 import {
   useKeywords,
   useMovieCredential,
@@ -65,6 +66,7 @@ const Movie: NextPage = () => {
           <CastSlider cast={cast} />
           <MovieSocial id={id} />
           <MovieMedia id={id} />
+          <Recommendations id={id} />
         </VStack>
         <Box className="sidebar" ml={{ base: 0, lg: 10 }} w="30%">
           <MovieSidebar
