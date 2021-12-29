@@ -8,6 +8,7 @@ import {
   MovieLinks,
   MovieOverviewList,
   MovieReleaseList,
+  MovieReviewList,
   MovieVideoList,
 } from "../types/Movie";
 import { getHeaders } from "../utils/getCredentials";
@@ -213,6 +214,18 @@ export const useKeywords = (id: string) => {
   );
   return {
     keywords: data?.keywords,
+    loading,
+    error,
+    refetch,
+  };
+};
+
+export const useReviews = (id: string) => {
+  const { data, loading, error, refetch } = useFetch<MovieReviewList>(
+    `movie/${id}/reviews`
+  );
+  return {
+    reviews: data?.results || [],
     loading,
     error,
     refetch,

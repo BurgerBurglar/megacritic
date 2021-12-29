@@ -5,11 +5,14 @@ import { CastSlider } from "../../components/CastSlider";
 import { MovieHero } from "../../components/MovieHero";
 import { MovieMedia } from "../../components/MovieMedia";
 import { MovieSidebar } from "../../components/MovieSidebar";
-import { useKeywords } from "../../hooks/useFetch";
-import { useMovieCredential } from "../../hooks/useFetch";
-import { useMovieCredits } from "../../hooks/useFetch";
-import { useMovieDetails } from "../../hooks/useFetch";
-import { useMovieLinks } from "../../hooks/useFetch";
+import { MovieSocial } from "../../components/MovieSocial";
+import {
+  useKeywords,
+  useMovieCredential,
+  useMovieCredits,
+  useMovieDetails,
+  useMovieLinks,
+} from "../../hooks/useFetch";
 
 const Movie: NextPage = () => {
   const id = useRouter().query.id as string;
@@ -60,6 +63,7 @@ const Movie: NextPage = () => {
           w={{ base: "100%", lg: "70%" }}
         >
           <CastSlider cast={cast} />
+          <MovieSocial id={id} />
           <MovieMedia id={id} />
         </VStack>
         <Box className="sidebar" ml={{ base: 0, lg: 10 }} w="30%">
