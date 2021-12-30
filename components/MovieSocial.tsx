@@ -1,6 +1,7 @@
 import { StarIcon } from "@chakra-ui/icons";
 import {
   Avatar,
+  Box,
   Flex,
   HStack,
   Tag,
@@ -13,6 +14,7 @@ import { useReviews } from "../hooks/useFetch";
 import { formatDates } from "../utils/formatDates";
 import { Tabs } from "./Tabs";
 import { TextElipse } from "./TextElipse";
+import parse from "html-react-parser";
 
 interface MovieSocialProps {
   id: string;
@@ -72,10 +74,10 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ id }) => {
                   </Tag>
                 ) : null}
               </HStack>
-              <TextElipse lines={5}>
+              <TextElipse Element={Box} lines={5}>
                 {review.content.split("\n").map((p, i) => (
-                  <Text as="span" key={i} mb={3}>
-                    {p}
+                  <Text key={i} mb={3}>
+                    {parse(p)}
                   </Text>
                 ))}
               </TextElipse>
