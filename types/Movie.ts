@@ -245,3 +245,34 @@ export interface MovieRecommendation {
   vote_average: number;
   vote_count: number;
 }
+
+export interface MovieWatchProviderList {
+  id: number;
+  results: MovieWatchProviderMap;
+}
+
+export type MovieWatchProviderMap = Record<
+  string,
+  MovieWatchProvider1 & MovieWatchProvider2
+>;
+
+export interface MovieWatchProvider1 {
+  link: string;
+  rent: MovieWatchProviderDetail[];
+  buy: MovieWatchProviderDetail[];
+  flatrate?: MovieWatchProviderDetail[];
+  free?: MovieWatchProviderDetail[];
+  ads?: MovieWatchProviderDetail[];
+}
+
+export interface MovieWatchProvider2 {
+  link: string;
+  flatrate: MovieWatchProviderDetail[];
+}
+
+export interface MovieWatchProviderDetail {
+  display_priority: number;
+  logo_path: string;
+  provider_id: number;
+  provider_name: string;
+}

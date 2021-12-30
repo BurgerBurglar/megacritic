@@ -11,6 +11,7 @@ import {
   MovieReleaseList,
   MovieReviewList,
   MovieVideoList,
+  MovieWatchProviderList,
 } from "../types/Movie";
 import { getHeaders } from "../utils/getCredentials";
 import { BASE_URL } from "../utils/constants";
@@ -239,6 +240,22 @@ export const useRecommendations = (id: string) => {
   );
   return {
     recommendations: data?.results || [],
+    loading,
+    error,
+    refetch,
+  };
+};
+
+export const useWatchProviders = (id: string) => {
+  // const { data, loading, error, refetch } = useFetch<MovieWatchProviderList>(
+  //   `movie/${id}/watch/providers`
+  // );
+  const { data, loading, error, refetch } = useFetch<MovieRecommendationList>(
+    `movie/${id}/recommendations`
+  );
+  console.log({ data });
+  return {
+    providers: data?.results || {},
     loading,
     error,
     refetch,

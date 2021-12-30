@@ -20,6 +20,7 @@ import { Movie } from "../types/Movie";
 import { formatDates } from "../utils/formatDates";
 import { getHourMinute } from "../utils/getHourMinute";
 import { MovieCardRating } from "./MovieCardRating";
+import { MovieWatch } from "./MovieWatch";
 
 const CircleIcon: React.FC<IconProps> = (props) => (
   <Icon viewBox="0 0 200 200" {...props}>
@@ -104,7 +105,16 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
         w="100%"
         maxW="1400px"
       >
-        <Image src={poster} alt={movie?.title} w="100vw" maxW="300px" />
+        <Flex
+          direction="column"
+          w="100vw"
+          maxW="300px"
+          borderRadius="lg"
+          overflow="hidden"
+        >
+          <Image src={poster} alt={movie?.title} />
+          <MovieWatch id={movie.id} />
+        </Flex>
         <VStack className="hero-info" spacing={5} align="start">
           <Box>
             <Link>
