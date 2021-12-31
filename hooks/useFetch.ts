@@ -184,11 +184,20 @@ export const useMovieCredential = (id: string, productionCountry = "US") => {
       refetch,
     };
   }
-  // let credential = data.results
-  //   .filter((result) => result.iso_3166_1 === productionCountry)[0]
-  //   .release_dates.filter((result) => result.certification)[0].certification;
+  const americanReleaseDate = data.results
+    .filter(({ iso_3166_1 }) => iso_3166_1 === "US")[0]
+    .release_dates.filter(({ certification }) => certification);
+
+  if (americanReleaseDate && americanReleaseDate.length) {
+    return {
+      credential: americanReleaseDate[0].certification,
+      loading,
+      error,
+      refetch,
+    };
+  }
   const releaseDatesWCertification = data.results[0]?.release_dates.filter(
-    (result) => result.certification
+    ({ certification }) => certification
   );
 
   if (!releaseDatesWCertification?.length) {
