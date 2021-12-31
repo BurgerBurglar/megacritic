@@ -36,6 +36,7 @@ export const CastSlider: React.FC<CastSliderProps> = ({ cast }) => {
               <Image
                 src={getProfileUrl(castMember.profile_path)}
                 alt={castMember.name}
+                h="62%"
               />
               <Box p={3} whiteSpace="normal">
                 <TextElipse fontWeight="bold">{castMember.name}</TextElipse>
