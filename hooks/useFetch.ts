@@ -180,7 +180,7 @@ export const useMovieCredits = (id: string) => {
   };
 };
 
-export const useMovieCredential = (id: string, productionCountry = "US") => {
+export const useMovieCredential = (id: string) => {
   const { data, loading, error, refetch } = useFetch<MovieReleaseList>(
     `movie/${id}/release_dates`
   );
@@ -194,7 +194,7 @@ export const useMovieCredential = (id: string, productionCountry = "US") => {
   }
   const americanReleaseDate = data.results
     .filter(({ iso_3166_1 }) => iso_3166_1 === "US")[0]
-    .release_dates.filter(({ certification }) => certification);
+    ?.release_dates.filter(({ certification }) => certification);
 
   if (americanReleaseDate && americanReleaseDate.length) {
     return {

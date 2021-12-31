@@ -146,8 +146,12 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
                 {formatDates(movie?.release_date!, { month: "numeric" })}
               </Text>
             </Flex>
-            <Text>{movie?.genres.map((genre) => genre.name).join(", ")}</Text>
-            <Text minW="6em">{getHourMinute(movie?.runtime)}</Text>
+            {movie?.genres.length ? (
+              <Text>{movie?.genres.map((genre) => genre.name).join(", ")}</Text>
+            ) : null}
+            {movie?.runtime ? (
+              <Text minW="6em">{getHourMinute(movie?.runtime)}</Text>
+            ) : null}
           </Stack>
           <Stack
             direction={{ base: "row", sm: "column" }}
