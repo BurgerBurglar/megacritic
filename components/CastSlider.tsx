@@ -26,7 +26,7 @@ export const CastSlider: React.FC<CastSliderProps> = ({ cast }) => {
               key={castMember.id}
               w="140px"
               minW="140px"
-              h="full"
+              h="90%"
               display="inline-block"
               m={2}
               borderRadius="lg"
@@ -36,11 +36,13 @@ export const CastSlider: React.FC<CastSliderProps> = ({ cast }) => {
               <Image
                 src={getProfileUrl(castMember.profile_path)}
                 alt={castMember.name}
-                h="62%"
+                h="175px"
               />
-              <Box p={3} whiteSpace="normal">
+              <Box p={3} pb={5} whiteSpace="normal">
                 <TextElipse fontWeight="bold">{castMember.name}</TextElipse>
-                <TextElipse color="gray.600">{castMember.character}</TextElipse>
+                <TextElipse fontSize="sm" color="gray.600">
+                  {castMember.character}
+                </TextElipse>
               </Box>
             </Flex>
           ))}

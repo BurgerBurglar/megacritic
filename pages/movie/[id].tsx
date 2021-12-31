@@ -58,10 +58,7 @@ const Movie: NextPage<MovieProps> = ({ id }) => {
           <MovieSocial id={id} />
           <MovieMedia id={id} />
           {movie?.belongs_to_collection ? (
-            <MovieCollection
-              id={movie.belongs_to_collection.id.toString()}
-              movieId={id}
-            />
+            <MovieCollection id={movie.belongs_to_collection.id.toString()} />
           ) : null}
           <Recommendations id={id} />
         </VStack>

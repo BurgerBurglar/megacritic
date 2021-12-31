@@ -1,23 +1,16 @@
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { useCollection } from "../hooks/useFetch";
-import { BelongsToCollection } from "../types/Movie";
 import { getBackdropUrl } from "../utils/getUrl";
 
 interface MovieCollectionProps {
   id: string;
-  movieId: string;
 }
 
-export const MovieCollection: React.FC<MovieCollectionProps> = ({
-  id,
-  movieId,
-}) => {
+export const MovieCollection: React.FC<MovieCollectionProps> = ({ id }) => {
   const { collection } = useCollection(id);
   if (!collection) return null;
-  const partTitles = collection.parts
-    .filter(({ id }) => id.toString() !== movieId)
-    .map(({ title }) => title);
+  const partTitles = collection.parts.map(({ title }) => title);
   const backdrop = getBackdropUrl(collection.backdrop_path, "wide");
   return (
     <Flex
@@ -42,12 +35,14 @@ export const MovieCollection: React.FC<MovieCollectionProps> = ({
         <Heading as="h4" size="lg" color="white">
           Part of the {collection.name}
         </Heading>
-        <Text color="white">Inlcludes {partTitles.join(", ")}</Text>
+        <Text color="white">Includes {partTitles.join(", ")}</Text>
         <Button
           colorScheme="gray"
           textcol
           width="fit-content"
           borderRadius="full"
+          textTransform="uppercase"
+          fontSize="sm"
           px={5}
           mt={5}
         >

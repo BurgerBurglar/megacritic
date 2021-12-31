@@ -32,17 +32,23 @@ export const Recommendations: React.FC<RecommendationsProps> = ({ id }) => {
                 h="full"
                 display="inline-block"
                 m={2}
-                borderRadius="lg"
-                overflow="hidden"
               >
                 <Image
                   src={getBackdropUrl(recommendation.backdrop_path)}
                   alt={recommendation.title}
+                  borderRadius="lg"
+                  overflow="hidden"
                   w="100%"
                 />
-                <Flex justify="space-between" p={3} whiteSpace="normal">
+                <Flex
+                  justify="space-between"
+                  align="center"
+                  whiteSpace="normal"
+                  fontSize="sm"
+                  mt={1}
+                >
                   <Flex>
-                    <TextElipse>{recommendation.title}</TextElipse>
+                    <TextElipse lines={1}>{recommendation.title}</TextElipse>
                     <Text color="gray.500" ml={1}>
                       ({recommendation.release_date.slice(0, 4)})
                     </Text>

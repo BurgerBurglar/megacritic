@@ -13,7 +13,6 @@ export const Slider: React.FC<SliderProps> = ({ children, ...props }) => {
       overflow="hidden"
       position="relative"
       mt={2}
-      h="300px"
       {...props}
       _after={{
         content: "''",
