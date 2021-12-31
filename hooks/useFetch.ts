@@ -141,7 +141,7 @@ export const useMovieCredits = (id: string) => {
       idCrewMap[id] = { name, jobs: [job] };
     }
   }
-  const crew = Object.entries(idCrewMap)
+  const sortedCrew = Object.entries(idCrewMap)
     .map(([id, crew]) => ({
       id,
       ...crew,
@@ -156,6 +156,14 @@ export const useMovieCredits = (id: string) => {
       }
       return 0;
     });
+
+  const directors = sortedCrew.filter((crewMember) =>
+    crewMember.jobs.includes("Director")
+  );
+  const nonDirectors = sortedCrew.filter(
+    (crewMember) => !crewMember.jobs.includes("Director")
+  );
+  const crew = [...directors, ...nonDirectors];
 
   const cast = data.cast.map(({ id, name, character, profile_path }) => ({
     id,
