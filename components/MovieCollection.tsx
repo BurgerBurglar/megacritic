@@ -38,7 +38,6 @@ export const MovieCollection: React.FC<MovieCollectionProps> = ({ id }) => {
         <Text color="white">Includes {partTitles.join(", ")}</Text>
         <Button
           colorScheme="gray"
-          textcol
           width="fit-content"
           borderRadius="full"
           textTransform="uppercase"

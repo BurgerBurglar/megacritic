@@ -12,10 +12,9 @@ import {
   MovieReleaseList,
   MovieReviewList,
   MovieVideoList,
-  MovieWatchProviderList,
 } from "../types/Movie";
-import { getHeaders } from "../utils/getCredentials";
 import { BASE_URL } from "../utils/constants";
+import { getHeaders } from "../utils/getCredentials";
 
 export const useFetch = <T = any>(
   url: string,
