@@ -1,6 +1,7 @@
 import {
   BACKDROP_PREFIX_LG,
   BACKDROP_PREFIX_SM,
+  BACKDROP_PREFIX_WIDE,
   POSTER_PLACEHOLDER,
   POSTER_PREFIX_LG,
   POSTER_PREFIX_SM,
@@ -23,12 +24,13 @@ export const getPosterUrl = (
 
 export const getBackdropUrl = (
   path: string | null | undefined,
-  size: "sm" | "lg" = "sm"
+  size: "sm" | "lg" | "wide" = "sm"
 ) => {
   if (!path) return POSTER_PLACEHOLDER;
   const sizeMap = {
     sm: BACKDROP_PREFIX_SM,
     lg: BACKDROP_PREFIX_LG,
+    wide: BACKDROP_PREFIX_WIDE,
   };
   const prefix = sizeMap[size];
   return prefix + path;

@@ -276,3 +276,12 @@ export interface MovieWatchProviderDetail {
   provider_id: number;
   provider_name: string;
 }
+
+export interface Collection {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: null;
+  backdrop_path: string;
+  parts: MovieOverview[];
+}

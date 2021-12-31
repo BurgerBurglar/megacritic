@@ -1,6 +1,7 @@
 import { Method } from "axios";
 import useAxios from "axios-hooks";
 import {
+  Collection,
   Movie,
   MovieCredits,
   MovieImages,
@@ -265,6 +266,18 @@ export const useWatchProviders = (id: string) => {
   console.log({ data });
   return {
     providers: data?.results || {},
+    loading,
+    error,
+    refetch,
+  };
+};
+
+export const useCollection = (id: string) => {
+  const { data, loading, error, refetch } = useFetch<Collection>(
+    `collection/${id}`
+  );
+  return {
+    collection: data,
     loading,
     error,
     refetch,

@@ -1,6 +1,7 @@
 import { Box, Flex, StackDivider, VStack } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import { CastSlider } from "../../components/CastSlider";
+import { MovieCollection } from "../../components/MovieCollection";
 import { MovieHero } from "../../components/MovieHero";
 import { MovieMedia } from "../../components/MovieMedia";
 import { MovieSidebar } from "../../components/MovieSidebar";
@@ -19,7 +20,7 @@ interface MovieProps {
 }
 
 const Movie: NextPage<MovieProps> = ({ id }) => {
-  const { movie, error } = useMovieDetails(id);
+  const { movie } = useMovieDetails(id);
   const { crew, cast } = useMovieCredits(id);
   const { credential } = useMovieCredential(
     id,
@@ -56,6 +57,12 @@ const Movie: NextPage<MovieProps> = ({ id }) => {
           <CastSlider cast={cast || []} />
           <MovieSocial id={id} />
           <MovieMedia id={id} />
+          {movie?.belongs_to_collection ? (
+            <MovieCollection
+              id={movie.belongs_to_collection.id.toString()}
+              movieId={id}
+            />
+          ) : null}
           <Recommendations id={id} />
         </VStack>
         <Box className="sidebar" ml={{ base: 0, lg: 10 }} w="30%">
