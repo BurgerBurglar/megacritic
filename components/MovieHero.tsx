@@ -21,7 +21,6 @@ import { formatDates } from "../utils/formatDates";
 import { getHourMinute } from "../utils/getHourMinute";
 import { getBackdropUrl, getPosterUrl } from "../utils/getUrl";
 import { MovieCardRating } from "./MovieCardRating";
-import { MovieWatch } from "./MovieWatch";
 
 const CircleIcon: React.FC<IconProps> = (props) => (
   <Icon viewBox="0 0 200 200" {...props}>
@@ -111,7 +110,6 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
           overflow="hidden"
         >
           <Image src={poster} alt={movie?.title} />
-          <MovieWatch id={movie?.id} />
         </Flex>
         <VStack className="hero-info" spacing={5} align="start">
           <Box>
@@ -132,7 +130,7 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
             alignSelf={{ base: "center", sm: "start" }}
             divider={Divider()} //{Divider !== undefined ? <Divider /> : undefined}
           >
-            <Flex direction="row">
+            <Flex direction="row" align="center">
               <Text
                 as="span"
                 color="gray.300"
