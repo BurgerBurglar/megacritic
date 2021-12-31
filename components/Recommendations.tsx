@@ -5,7 +5,7 @@ import { useRecommendations } from "../hooks/useFetch";
 import { getBackdropUrl } from "../utils/getUrl";
 import { MovieCardRating } from "./MovieCardRating";
 import { Slider } from "./Slider";
-import { TextElipse } from "./TextElipse";
+import { TextEllipse } from "./TextEllipse";
 
 interface RecommendationsProps {
   id: string;
@@ -48,7 +48,7 @@ export const Recommendations: React.FC<RecommendationsProps> = ({ id }) => {
                   mt={1}
                 >
                   <Flex>
-                    <TextElipse lines={1}>{recommendation.title}</TextElipse>
+                    <TextEllipse lines={1}>{recommendation.title}</TextEllipse>
                     <Text color="gray.500" ml={1}>
                       ({recommendation.release_date.slice(0, 4)})
                     </Text>

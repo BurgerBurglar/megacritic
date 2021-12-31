@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { getProfileUrl } from "../utils/getUrl";
 import { Slider } from "./Slider";
-import { TextElipse } from "./TextElipse";
+import { TextEllipse } from "./TextEllipse";
 
 interface CastSliderProps {
   cast: {
@@ -39,10 +39,10 @@ export const CastSlider: React.FC<CastSliderProps> = ({ cast }) => {
                 h="175px"
               />
               <Box p={3} pb={5} whiteSpace="normal">
-                <TextElipse fontWeight="bold">{castMember.name}</TextElipse>
-                <TextElipse fontSize="sm" color="gray.600">
+                <TextEllipse fontWeight="bold">{castMember.name}</TextEllipse>
+                <TextEllipse fontSize="sm" color="gray.600">
                   {castMember.character}
-                </TextElipse>
+                </TextEllipse>
               </Box>
             </Flex>
           ))}

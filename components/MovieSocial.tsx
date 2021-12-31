@@ -13,7 +13,7 @@ import React from "react";
 import { useReviews } from "../hooks/useFetch";
 import { formatDates } from "../utils/formatDates";
 import { Tabs } from "./Tabs";
-import { TextElipse } from "./TextElipse";
+import { TextEllipse } from "./TextEllipse";
 import parse from "html-react-parser";
 
 interface MovieSocialProps {
@@ -75,13 +75,13 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ id }) => {
                   </Tag>
                 ) : null}
               </HStack>
-              <TextElipse Element={Box} lines={5}>
+              <TextEllipse Element={Box} lines={5}>
                 {review.content.split("\n").map((p, i) => (
                   <Text key={i} mb={3}>
                     {parse(p)}
                   </Text>
                 ))}
-              </TextElipse>
+              </TextEllipse>
             </Flex>
           </Flex>
         ))}
