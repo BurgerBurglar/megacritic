@@ -4,7 +4,7 @@ import { useWatchProviders } from "../hooks/useFetch";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface MovieWatchProps {
-  id: number;
+  id?: number;
 }
 
 export const MovieWatch: React.FC<MovieWatchProps> = ({ id }) => {

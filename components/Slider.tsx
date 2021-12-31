@@ -1,10 +1,11 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { Box, BoxProps, Flex } from "@chakra-ui/react";
-import React from "react";
+import { Box, BoxProps, Flex, Text } from "@chakra-ui/react";
+import React, { Children } from "react";
 
 interface SliderProps extends BoxProps {}
 
 export const Slider: React.FC<SliderProps> = ({ children, ...props }) => {
+  const hasChildren = Children.count(children) !== 0;
   return (
     <Box
       className="slider-box"
@@ -33,11 +34,17 @@ export const Slider: React.FC<SliderProps> = ({ children, ...props }) => {
         align="center"
         h="full"
       >
-        {children}
-        <Flex align="center" ml={4} mr={10} fontWeight="bold">
-          View More
-          <ArrowForwardIcon ml={2} boxSize={5} />
-        </Flex>
+        {hasChildren ? (
+          <>
+            {children}{" "}
+            <Flex align="center" ml={4} mr={10} fontWeight="bold">
+              View More
+              <ArrowForwardIcon ml={2} boxSize={5} />
+            </Flex>
+          </>
+        ) : (
+          <Text>Wow, such empty.</Text>
+        )}
       </Flex>
     </Box>
   );

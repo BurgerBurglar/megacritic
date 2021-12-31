@@ -1,7 +1,7 @@
 import { ChakraComponent, Text, TextProps } from "@chakra-ui/react";
 import React from "react";
 interface TextElipseProps extends TextProps {
-  Element?: ChakraComponent<any> | string;
+  Element?: ChakraComponent<any, any> | string;
   lines?: number;
 }
 

@@ -9,5 +9,9 @@ export const formatDates = (
     day: "numeric",
     ...addtionalOptions,
   };
-  return Intl.DateTimeFormat(navigator.language, options).format(date);
+  try {
+    return Intl.DateTimeFormat(navigator.language, options).format(date);
+  } catch (error) {
+    return "";
+  }
 };

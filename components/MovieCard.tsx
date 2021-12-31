@@ -6,14 +6,14 @@ import { formatDates } from "../utils/formatDates";
 import { MovieCardRating } from "./MovieCardRating";
 import { TextElipse } from "./TextElipse";
 import NextLink from "next/link";
+import { getPosterUrl } from "../utils/getUrl";
 interface MovieCardProps {
   movie: MovieOverview;
   itemId: string;
 }
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
-  const poster =
-    "https://www.themoviedb.org/t/p/w220_and_h330_face" + movie.poster_path;
+  const poster = getPosterUrl(movie.poster_path);
 
   return (
     <NextLink key={movie.id} href={"http://localhost:3000/movie/" + movie.id}>

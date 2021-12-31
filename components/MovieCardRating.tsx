@@ -3,14 +3,17 @@ import type { FlexProps } from "@chakra-ui/react";
 import React from "react";
 
 interface MovieCardRatingProps extends FlexProps {
-  rating: number;
+  rating?: number;
 }
 
-export const MovieCardRating: React.FC<MovieCardRatingProps> = (props) => {
-  const { rating } = props;
-  let bgColor = "red";
-  if (rating >= 5) bgColor = "#eb2";
-  if (rating >= 7) bgColor = "#6c3";
+export const MovieCardRating: React.FC<MovieCardRatingProps> = ({
+  rating,
+  ...props
+}) => {
+  let bgColor = "gray";
+  if (rating) bgColor = "red";
+  if (rating && rating >= 5) bgColor = "#eb2";
+  if (rating && rating >= 7) bgColor = "#6c3";
 
   return (
     <Flex
@@ -23,7 +26,7 @@ export const MovieCardRating: React.FC<MovieCardRatingProps> = (props) => {
       color="white"
       {...props}
     >
-      {(Math.round(rating * 100) / 100).toFixed(1)}
+      {(Math.round((rating || 0) * 100) / 100).toFixed(1)}
     </Flex>
   );
 };

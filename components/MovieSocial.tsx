@@ -27,8 +27,9 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ id }) => {
   );
 
   const tabs = ["Reviews", "Discussions"];
+  const counts = [reviews.length, 0];
   const elements = [
-    reviewsSorted ? (
+    reviewsSorted.length ? (
       <Flex
         direction="column"
         align="start"
@@ -85,7 +86,12 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ id }) => {
           </Flex>
         ))}
       </Flex>
-    ) : null,
+    ) : (
+      <Text mt={3}>Wow, such empty.</Text>
+    ),
+    null,
   ];
-  return <Tabs header="Social" tabs={tabs} elements={elements} />;
+  return (
+    <Tabs header="Social" tabs={tabs} counts={counts} elements={elements} />
+  );
 };

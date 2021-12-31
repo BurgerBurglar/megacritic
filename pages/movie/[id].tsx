@@ -1,6 +1,5 @@
 import { Box, Flex, StackDivider, VStack } from "@chakra-ui/react";
-import { NextPage } from "next";
-import { useRouter } from "next/router";
+import { GetServerSideProps, NextPage } from "next";
 import { CastSlider } from "../../components/CastSlider";
 import { MovieHero } from "../../components/MovieHero";
 import { MovieMedia } from "../../components/MovieMedia";
@@ -15,28 +14,19 @@ import {
   useMovieLinks,
 } from "../../hooks/useFetch";
 
-const Movie: NextPage = () => {
-  const id = useRouter().query.id as string;
+interface MovieProps {
+  id: string;
+}
+
+const Movie: NextPage<MovieProps> = ({ id }) => {
   const { movie, error } = useMovieDetails(id);
   const { crew, cast } = useMovieCredits(id);
   const { credential } = useMovieCredential(
     id,
-    movie?.production_countries[0].iso_3166_1
+    movie?.production_countries[0]?.iso_3166_1
   );
   const { keywords } = useKeywords(id);
   const { links } = useMovieLinks(id);
-
-  if (
-    id === undefined ||
-    movie === undefined ||
-    crew === undefined ||
-    cast === undefined ||
-    credential === undefined ||
-    keywords === undefined ||
-    links === undefined ||
-    error
-  )
-    return <></>;
 
   return (
     <Flex
@@ -47,7 +37,7 @@ const Movie: NextPage = () => {
       minH="100vh"
       w="100vw"
     >
-      <MovieHero movie={movie} crew={crew} credential={credential} />
+      <MovieHero movie={movie} crew={crew || []} credential={credential} />
       <Flex
         className="bottom"
         direction={{ base: "column", lg: "row" }}
@@ -63,7 +53,7 @@ const Movie: NextPage = () => {
           flexGrow={1}
           w={{ base: "100%", lg: "70%" }}
         >
-          <CastSlider cast={cast} />
+          <CastSlider cast={cast || []} />
           <MovieSocial id={id} />
           <MovieMedia id={id} />
           <Recommendations id={id} />
@@ -71,9 +61,9 @@ const Movie: NextPage = () => {
         <Box className="sidebar" ml={{ base: 0, lg: 10 }} w="30%">
           <MovieSidebar
             movie={movie}
-            keywords={keywords}
+            keywords={keywords || []}
             links={links}
-            homepage={movie.homepage}
+            homepage={movie?.homepage}
           />
         </Box>
       </Flex>
@@ -81,3 +71,13 @@ const Movie: NextPage = () => {
   );
 };
 export default Movie;
+export const getServerSideProps: GetServerSideProps<MovieProps> = async (
+  context
+) => {
+  const id = context.params?.id as string;
+  return {
+    props: {
+      id,
+    },
+  };
+};

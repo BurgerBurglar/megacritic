@@ -1,13 +1,19 @@
-import { Flex, Heading, HStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack } from "@chakra-ui/react";
 import React, { MouseEvent, useState } from "react";
 
 interface TabsProps {
   header: string;
   tabs: string[];
+  counts: (number | null)[];
   elements?: (JSX.Element | null)[];
 }
 
-export const Tabs: React.FC<TabsProps> = ({ header, tabs, elements }) => {
+export const Tabs: React.FC<TabsProps> = ({
+  header,
+  tabs,
+  counts,
+  elements,
+}) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const getTabs = () => {
@@ -37,6 +43,9 @@ export const Tabs: React.FC<TabsProps> = ({ header, tabs, elements }) => {
         {...(activeTab === i ? activeBarProps : null)}
       >
         {tab}
+        <Box as="span" color="gray.500" ml={1}>
+          {counts[i]}
+        </Box>
       </Heading>
     ));
   };

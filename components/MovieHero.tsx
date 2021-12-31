@@ -19,6 +19,7 @@ import React from "react";
 import { Movie } from "../types/Movie";
 import { formatDates } from "../utils/formatDates";
 import { getHourMinute } from "../utils/getHourMinute";
+import { getBackdropUrl, getPosterUrl } from "../utils/getUrl";
 import { MovieCardRating } from "./MovieCardRating";
 import { MovieWatch } from "./MovieWatch";
 
@@ -31,13 +32,13 @@ const CircleIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 interface MovieHeroProps {
-  movie: Movie;
+  movie?: Movie;
   crew: {
     jobs: string[];
     name: string;
     id: string;
   }[];
-  credential: string;
+  credential?: string;
 }
 
 export const MovieHero: React.FC<MovieHeroProps> = ({
@@ -45,11 +46,8 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
   crew,
   credential,
 }) => {
-  const poster =
-    "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/" + movie?.poster_path;
-  const backdrop =
-    "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" +
-    movie?.backdrop_path;
+  const poster = getPosterUrl(movie?.poster_path, "lg");
+  const backdrop = getBackdropUrl(movie?.backdrop_path, "lg");
 
   const Divider = () =>
     useBreakpointValue({
@@ -113,7 +111,7 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
           overflow="hidden"
         >
           <Image src={poster} alt={movie?.title} />
-          <MovieWatch id={movie.id} />
+          <MovieWatch id={movie?.id} />
         </Flex>
         <VStack className="hero-info" spacing={5} align="start">
           <Box>
@@ -150,8 +148,8 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
                 {formatDates(movie?.release_date!, { month: "numeric" })}
               </Text>
             </Flex>
-            <Text>{movie.genres.map((genre) => genre.name).join(", ")}</Text>
-            <Text minW="6em">{getHourMinute(movie.runtime)}</Text>
+            <Text>{movie?.genres.map((genre) => genre.name).join(", ")}</Text>
+            <Text minW="6em">{getHourMinute(movie?.runtime)}</Text>
           </Stack>
           <Stack
             direction={{ base: "row", sm: "column" }}
@@ -159,7 +157,7 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
           >
             <HStack fontWeight="bold">
               <MovieCardRating
-                rating={movie.vote_average}
+                rating={movie?.vote_average}
                 w="50px"
                 h="50px"
                 fontSize="xl"
@@ -169,30 +167,39 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
               </Box>
             </HStack>
             <Text as="em" color="gray.300">
-              {movie.tagline}
+              {movie?.tagline}
             </Text>
           </Stack>
           <Box>
-            <Heading as="h3" size="md">
+            <Heading as="h3" size="md" mb={3}>
               Overview
             </Heading>
-            <Text>{movie.overview}</Text>
+            <Text>
+              {movie?.overview
+                ? movie.overview
+                : "We don't have an overview translated in English. Help us expand our database by adding one."}
+            </Text>
           </Box>
-          <SimpleGrid
-            minChildWidth={{ base: "8em", lg: "10em" }}
-            spacingX={{ base: "1em", lg: "3em" }}
-            spacingY={{ base: "1em", lg: "2em" }}
-            w="100%"
-          >
-            {crew
-              ? crew.map((crewMember) => (
-                  <Box key={crewMember.id}>
-                    <Text fontWeight="bold">{crewMember.name}</Text>
-                    <Text>{crewMember.jobs.join(", ")}</Text>
-                  </Box>
-                ))
-              : null}
-          </SimpleGrid>
+          {crew?.length ? (
+            <SimpleGrid
+              minChildWidth={{ base: "8em", lg: "10em" }}
+              spacingX={{ base: "1em", lg: "3em" }}
+              spacingY={{ base: "1em", lg: "2em" }}
+              w="100%"
+            >
+              {crew.map((crewMember) => (
+                <Box key={crewMember.id}>
+                  <Text fontWeight="bold">{crewMember.name}</Text>
+                  <Text>{crewMember.jobs.join(", ")}</Text>
+                </Box>
+              ))}
+            </SimpleGrid>
+          ) : (
+            <Text>
+              We don&apos;t have any crew added to this movie. You can help by
+              adding some!
+            </Text>
+          )}
         </VStack>
       </Stack>
     </Flex>
