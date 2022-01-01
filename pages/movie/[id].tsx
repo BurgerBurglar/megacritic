@@ -1,5 +1,6 @@
 import { Box, Flex, StackDivider, VStack } from "@chakra-ui/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import useSWR from "swr";
 import { CastSlider } from "../../components/CastSlider";
 import { MovieCollection } from "../../components/MovieCollection";
 import { MovieHero } from "../../components/MovieHero";
@@ -35,9 +36,10 @@ const Movie = ({
   // videos,
   collection,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const videos = useFetch(getMovieVideos, id) || [];
-  const images = useFetch(getMovieImages, id);
-  const reviews = useFetch(getReviews, id) || [];
+  const reviews = useSWR("reviews", () => getReviews(id)).data || [];
+  const videos = useSWR("videos", () => getMovieVideos(id)).data || [];
+  const { data: images } = useSWR("images", () => getMovieImages(id));
+
   return (
     <Flex
       as="main"
@@ -64,8 +66,10 @@ const Movie = ({
           w={{ base: "100%", lg: "70%" }}
         >
           <CastSlider cast={cast || []} />
-          <MovieSocial reviews={reviews} />
-          {images ? <MovieMedia images={images} videos={videos} /> : null}
+          {reviews.length ? <MovieSocial reviews={reviews} /> : null}
+          {images && videos ? (
+            <MovieMedia images={images} videos={videos} />
+          ) : null}
           {collection ? <MovieCollection collection={collection} /> : null}
           <Recommendations recommendations={recommendations} />
         </VStack>
