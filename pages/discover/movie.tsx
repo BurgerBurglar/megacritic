@@ -1,6 +1,6 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { InfiniteGrid } from "../../components/discover/InfiniteGrid";
 import { SideBar } from "../../components/discover/SideBar";
 import { MovieOverview } from "../../types/Movie";
@@ -12,11 +12,18 @@ interface Props {
 
 const Movie: NextPage<Props> = ({ movies }) => {
   const [allMovies, setAllMovies] = useState<MovieOverview[]>(movies);
-  const [page, setPage] = useState(2);
+
+  const paramsRef = useRef<any>({ page: 2 });
+  const [sortBy, setSortBy] = useState("popularity.desc");
+
+  useEffect(() => {
+    paramsRef.current.sort_by = sortBy;
+    getMovieOverviews("discover", paramsRef.current).then(setAllMovies);
+  }, [sortBy]);
 
   const loadMore = async () => {
-    setPage((prevPage) => prevPage + 1);
-    const newMovies = await getMovieOverviews("discover", { page });
+    const newMovies = await getMovieOverviews("discover", paramsRef.current);
+    paramsRef.current.page++;
     setAllMovies((prevMovies) => [...prevMovies, ...newMovies]);
   };
 
@@ -28,7 +35,7 @@ const Movie: NextPage<Props> = ({ movies }) => {
             Popular Movies
           </Heading>
           <Flex w="100%">
-            <SideBar />
+            <SideBar sortBy={sortBy} setSortBy={setSortBy} />
             <Box w="100%" ml={3}>
               <InfiniteGrid movies={allMovies} loadMore={loadMore} />
             </Box>

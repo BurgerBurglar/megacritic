@@ -1,17 +1,20 @@
 import {
   Accordion,
-  AccordionItem,
   AccordionButton,
-  Box,
   AccordionIcon,
+  AccordionItem,
   AccordionPanel,
+  Box,
   Select,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
-interface SideBarProps {}
+interface SideBarProps {
+  sortBy: string;
+  setSortBy: Dispatch<SetStateAction<string>>;
+}
 
-export const SideBar: React.FC<SideBarProps> = () => {
+export const SideBar: React.FC<SideBarProps> = ({ sortBy, setSortBy }) => {
   return (
     <Accordion
       defaultIndex={[0]}
@@ -44,15 +47,18 @@ export const SideBar: React.FC<SideBarProps> = () => {
             borderX="none"
             borderTop="none"
             borderRadius={0}
+            value={sortBy}
+            onChange={(e) => {
+              setSortBy(e.target.value);
+            }}
           >
-            <option value="option1">Most Popular</option>
-            <option value="option2">Least Popular</option>
-            <option value="option1">Highest Rate</option>
-            <option value="option2">Lowest Rate</option>
-            <option value="option1">Earliest Released</option>
-            <option value="option2">Latest Released</option>
-            <option value="option1">Earliest Released</option>
-            <option value="option2">Alphabetical</option>
+            <option value="popularity.desc">Most Popular</option>
+            <option value="popularity.asc">Least Popular</option>
+            <option value="vote_average.desc">Highest Rate</option>
+            <option value="vote_average.asc">Lowest Rate</option>
+            <option value="primary_release_date.asc">Earliest Released</option>
+            <option value="primary_release_date.desc">Latest Released</option>
+            <option value="original_title.asc">Alphabetical</option>
           </Select>
         </AccordionPanel>
       </AccordionItem>
