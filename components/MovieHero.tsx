@@ -5,7 +5,6 @@ import {
   HStack,
   Icon,
   IconProps,
-  Image,
   Link,
   SimpleGrid,
   Stack,
@@ -110,7 +109,12 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
           borderRadius="lg"
           overflow="hidden"
         >
-          <NextImage src={poster} alt={movie?.title} h="450px" />
+          <NextImage
+            src={poster}
+            alt={movie?.title}
+            imageProps={{ quality: 100 }}
+            h="450px"
+          />
         </Flex>
         <VStack className="hero-info" spacing={5} align="start">
           <Box>

@@ -1,4 +1,4 @@
-import { AspectRatio, Image } from "@chakra-ui/react";
+import { AspectRatio } from "@chakra-ui/react";
 import React from "react";
 import { MovieImages, MovieVideo } from "../types/Movie";
 import { getBackdropUrl, getPosterUrl } from "../utils/getUrl";
@@ -12,8 +12,6 @@ interface MovieMediaProps {
 }
 
 export const MovieMedia: React.FC<MovieMediaProps> = ({ images, videos }) => {
-  if (!images || !videos) return <></>;
-
   const tabs = ["Most Popular", "Videos", "Backdrops", "Posters"];
   const counts = [
     null,
@@ -41,7 +39,9 @@ export const MovieMedia: React.FC<MovieMediaProps> = ({ images, videos }) => {
               key={images.backdrops[0].file_path}
               src={getBackdropUrl(images.backdrops[0].file_path)}
               alt={images.backdrops[0].file_path}
+              w="533px"
               h="300px"
+              flexShrink={0}
             />
           ) : null}
           {images.posters[0] ? (
@@ -49,7 +49,9 @@ export const MovieMedia: React.FC<MovieMediaProps> = ({ images, videos }) => {
               key={images.posters[0].file_path}
               src={getPosterUrl(images.posters[0].file_path)}
               alt={images.posters[0].file_path}
+              w="200px"
               h="300px"
+              flexShrink={0}
             />
           ) : null}
         </>
@@ -74,7 +76,9 @@ export const MovieMedia: React.FC<MovieMediaProps> = ({ images, videos }) => {
           key={backdrop.file_path}
           src={getBackdropUrl(backdrop.file_path)}
           alt={backdrop.file_path}
+          w="533px"
           h="300px"
+          flexShrink={0}
         />
       ))}
     </Slider>,
@@ -84,7 +88,9 @@ export const MovieMedia: React.FC<MovieMediaProps> = ({ images, videos }) => {
           key={poster.file_path}
           src={getPosterUrl(poster.file_path)}
           alt={poster.file_path}
+          w="200px"
           h="300px"
+          flexShrink={0}
         />
       ))}
     </Slider>,
