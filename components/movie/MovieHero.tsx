@@ -15,12 +15,12 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
-import { Movie } from "../types/Movie";
-import { formatDates } from "../utils/formatDates";
-import { getHourMinute } from "../utils/getHourMinute";
-import { getBackdropUrl, getPosterUrl } from "../utils/getUrl";
-import { MovieCardRating } from "./MovieCardRating";
-import { NextImage } from "./NextImage";
+import { Movie } from "../../types/Movie";
+import { formatDates } from "../../utils/formatDates";
+import { getHourMinute } from "../../utils/getHourMinute";
+import { getBackdropUrl, getPosterUrl } from "../../utils/getUrl";
+import { MovieCardRating } from "../MovieCardRating";
+import { NextImage } from "../NextImage";
 
 const CircleIcon: React.FC<IconProps> = (props) => (
   <Icon viewBox="0 0 200 200" {...props}>

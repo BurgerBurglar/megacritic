@@ -10,11 +10,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { formatDates } from "../utils/formatDates";
-import { Tabs } from "./Tabs";
-import { TextEllipse } from "./TextEllipse";
+import { formatDates } from "../../utils/formatDates";
+import { Tabs } from "../Tabs";
+import { TextEllipse } from "../TextEllipse";
 import parse from "html-react-parser";
-import { MovieReview } from "../types/Movie";
+import { MovieReview } from "../../types/Movie";
 
 interface MovieSocialProps {
   reviews: MovieReview[];

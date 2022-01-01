@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
-import { Collection } from "../types/Movie";
-import { getBackdropUrl } from "../utils/getUrl";
+import { Collection } from "../../types/Movie";
+import { getBackdropUrl } from "../../utils/getUrl";
 
 interface MovieCollectionProps {
   collection: Collection;

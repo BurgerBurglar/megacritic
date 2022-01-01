@@ -17,8 +17,8 @@ import {
   FaInstagram,
   FaTwitter,
 } from "react-icons/fa";
-import { Movie, MovieKeyword, MovieLinks } from "../types/Movie";
-import { formatLanguage } from "../utils/formatLanguage";
+import { Movie, MovieKeyword, MovieLinks } from "../../types/Movie";
+import { formatLanguage } from "../../utils/formatLanguage";
 
 interface MovieSidebarProps {
   movie?: Movie;

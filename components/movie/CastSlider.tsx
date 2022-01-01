@@ -1,9 +1,9 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
-import { getProfileUrl } from "../utils/getUrl";
-import { NextImage } from "./NextImage";
-import { Slider } from "./Slider";
-import { TextEllipse } from "./TextEllipse";
+import { getProfileUrl } from "../../utils/getUrl";
+import { NextImage } from "../NextImage";
+import { Slider } from "../Slider";
+import { TextEllipse } from "../TextEllipse";
 
 interface CastSliderProps {
   cast: {

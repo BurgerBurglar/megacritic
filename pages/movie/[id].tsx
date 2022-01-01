@@ -1,13 +1,13 @@
 import { Box, Flex, StackDivider, VStack } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import useSWR from "swr";
-import { CastSlider } from "../../components/CastSlider";
-import { MovieCollection } from "../../components/MovieCollection";
-import { MovieHero } from "../../components/MovieHero";
-import { MovieMedia } from "../../components/MovieMedia";
-import { MovieSidebar } from "../../components/MovieSidebar";
-import { MovieSocial } from "../../components/MovieSocial";
-import { Recommendations } from "../../components/Recommendations";
+import { CastSlider } from "../../components/movie/CastSlider";
+import { MovieCollection } from "../../components/movie/MovieCollection";
+import { MovieHero } from "../../components/movie/MovieHero";
+import { MovieMedia } from "../../components/movie/MovieMedia";
+import { MovieSidebar } from "../../components/movie/MovieSidebar";
+import { MovieSocial } from "../../components/movie/MovieSocial";
+import { Recommendations } from "../../components/movie/Recommendations";
 import {
   CastOverview,
   Collection,

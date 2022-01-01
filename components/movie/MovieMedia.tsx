@@ -1,10 +1,10 @@
 import { AspectRatio } from "@chakra-ui/react";
 import React from "react";
-import { MovieImages, MovieVideo } from "../types/Movie";
-import { getBackdropUrl, getPosterUrl } from "../utils/getUrl";
-import { NextImage } from "./NextImage";
-import { Slider } from "./Slider";
-import { Tabs } from "./Tabs";
+import { MovieImages, MovieVideo } from "../../types/Movie";
+import { getBackdropUrl, getPosterUrl } from "../../utils/getUrl";
+import { NextImage } from "../NextImage";
+import { Slider } from "../Slider";
+import { Tabs } from "../Tabs";
 
 interface MovieMediaProps {
   images: MovieImages;
