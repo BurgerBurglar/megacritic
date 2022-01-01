@@ -1,18 +1,21 @@
 import { Flex, Heading, Image, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
-import { useRecommendations } from "../hooks/useFetch";
+import { getRecommendations } from "../utils/request";
+import { MovieRecommendation } from "../types/Movie";
 import { getBackdropUrl } from "../utils/getUrl";
 import { MovieCardRating } from "./MovieCardRating";
 import { Slider } from "./Slider";
 import { TextEllipse } from "./TextEllipse";
+import { NextImage } from "./NextImage";
 
 interface RecommendationsProps {
-  id: string;
+  recommendations: MovieRecommendation[];
 }
 
-export const Recommendations: React.FC<RecommendationsProps> = ({ id }) => {
-  const { recommendations } = useRecommendations(id);
+export const Recommendations: React.FC<RecommendationsProps> = ({
+  recommendations,
+}) => {
   return (
     <Flex direction="column" w="100%" maxW="1400px">
       <Heading as="h3" size="md">
@@ -33,12 +36,11 @@ export const Recommendations: React.FC<RecommendationsProps> = ({ id }) => {
                 display="inline-block"
                 m={2}
               >
-                <Image
+                <NextImage
                   src={getBackdropUrl(recommendation.backdrop_path)}
                   alt={recommendation.title}
                   borderRadius="lg"
                   overflow="hidden"
-                  w="100%"
                 />
                 <Flex
                   justify="space-between"
@@ -48,7 +50,9 @@ export const Recommendations: React.FC<RecommendationsProps> = ({ id }) => {
                   mt={1}
                 >
                   <Flex>
-                    <TextEllipse lines={1}>{recommendation.title}</TextEllipse>
+                    <TextEllipse tooltip={recommendation.title} lines={1}>
+                      {recommendation.title}
+                    </TextEllipse>
                     <Text color="gray.500" ml={1}>
                       ({recommendation.release_date.slice(0, 4)})
                     </Text>

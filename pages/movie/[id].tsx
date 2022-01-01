@@ -1,5 +1,5 @@
 import { Box, Flex, StackDivider, VStack } from "@chakra-ui/react";
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { CastSlider } from "../../components/CastSlider";
 import { MovieCollection } from "../../components/MovieCollection";
 import { MovieHero } from "../../components/MovieHero";
@@ -7,28 +7,37 @@ import { MovieMedia } from "../../components/MovieMedia";
 import { MovieSidebar } from "../../components/MovieSidebar";
 import { MovieSocial } from "../../components/MovieSocial";
 import { Recommendations } from "../../components/Recommendations";
+import { useFetch } from "../../hooks/useFetch";
 import {
-  useKeywords,
-  useMovieCredential,
-  useMovieCredits,
-  useMovieDetails,
-  useMovieLinks,
-} from "../../hooks/useFetch";
+  getCollection,
+  getKeywords,
+  getMovieCredential,
+  getMovieCredits,
+  getMovieDetails,
+  getMovieImages,
+  getMovieLinks,
+  getMovieVideos,
+  getRecommendations,
+  getReviews,
+} from "../../utils/request";
 
-interface MovieProps {
-  id: string;
-}
-
-const Movie: NextPage<MovieProps> = ({ id }) => {
-  const { movie } = useMovieDetails(id);
-  const { crew, cast } = useMovieCredits(id);
-  const { credential } = useMovieCredential(
-    id,
-    movie?.production_countries[0]?.iso_3166_1
-  );
-  const { keywords } = useKeywords(id);
-  const { links } = useMovieLinks(id);
-
+const Movie = ({
+  id,
+  movie,
+  crew,
+  cast,
+  credential,
+  keywords,
+  links,
+  recommendations,
+  // reviews,
+  // images,
+  // videos,
+  collection,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const videos = useFetch(getMovieVideos, id) || [];
+  const images = useFetch(getMovieImages, id);
+  const reviews = useFetch(getReviews, id) || [];
   return (
     <Flex
       as="main"
@@ -55,12 +64,10 @@ const Movie: NextPage<MovieProps> = ({ id }) => {
           w={{ base: "100%", lg: "70%" }}
         >
           <CastSlider cast={cast || []} />
-          <MovieSocial id={id} />
-          <MovieMedia id={id} />
-          {movie?.belongs_to_collection ? (
-            <MovieCollection id={movie.belongs_to_collection.id.toString()} />
-          ) : null}
-          <Recommendations id={id} />
+          <MovieSocial reviews={reviews} />
+          {images ? <MovieMedia images={images} videos={videos} /> : null}
+          {collection ? <MovieCollection collection={collection} /> : null}
+          <Recommendations recommendations={recommendations} />
         </VStack>
         <Box className="sidebar" ml={{ base: 0, lg: 10 }} w="30%">
           <MovieSidebar
@@ -75,13 +82,37 @@ const Movie: NextPage<MovieProps> = ({ id }) => {
   );
 };
 export default Movie;
-export const getServerSideProps: GetServerSideProps<MovieProps> = async (
-  context
-) => {
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id as string;
+  const movie = await getMovieDetails(id);
+  const { crew, cast } = await getMovieCredits(id);
+  const credential = await getMovieCredential(id);
+  const keywords = await getKeywords(id);
+  const links = await getMovieLinks(id);
+  const recommendations = await getRecommendations(id);
+  // const reviews = await getReviews(id);
+  // const images = await getMovieImages(id);
+  // const videos = await getMovieVideos(id);
+  const collection = await getCollection(
+    movie.belongs_to_collection
+      ? movie.belongs_to_collection.id.toString()
+      : null
+  );
   return {
     props: {
       id,
+      movie,
+      crew,
+      cast,
+      credential,
+      keywords,
+      links,
+      recommendations,
+      // reviews,
+      // images,
+      // videos,
+      collection,
     },
   };
 };

@@ -1,17 +1,25 @@
 import { Box, Heading } from "@chakra-ui/react";
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { MovieSlider } from "../components/MovieSlider";
-import { useMovieOverviews } from "../hooks/useFetch";
-
-const Home: NextPage = () => {
-  const { movies: discover } = useMovieOverviews("discover");
-  const { movies: nowPlaying } = useMovieOverviews("nowPlaying");
-  const { movies: popular } = useMovieOverviews("popular");
-  const { movies: trending } = useMovieOverviews("trending");
-  const { movies: topRated } = useMovieOverviews("topRated");
-  const { movies: upcoming } = useMovieOverviews("upcoming");
-
+import { getMovieOverviews } from "../utils/request";
+import { MovieOverview } from "../types/Movie";
+interface HomeProps {
+  discover: MovieOverview[];
+  nowPlaying: MovieOverview[];
+  popular: MovieOverview[];
+  trending: MovieOverview[];
+  topRated: MovieOverview[];
+  upcoming: MovieOverview[];
+}
+const Home: NextPage<HomeProps> = ({
+  discover,
+  nowPlaying,
+  popular,
+  trending,
+  topRated,
+  upcoming,
+}) => {
   return (
     <>
       <Head>
@@ -38,3 +46,21 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  const discover = await getMovieOverviews("discover");
+  const nowPlaying = await getMovieOverviews("nowPlaying");
+  const popular = await getMovieOverviews("popular");
+  const trending = await getMovieOverviews("trending");
+  const topRated = await getMovieOverviews("topRated");
+  const upcoming = await getMovieOverviews("upcoming");
+  return {
+    props: {
+      discover,
+      nowPlaying,
+      popular,
+      trending,
+      topRated,
+      upcoming,
+    },
+  };
+};

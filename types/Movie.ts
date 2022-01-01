@@ -25,7 +25,7 @@ export interface MovieOverview {
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
-  belongs_to_collection: BelongsToCollection;
+  belongs_to_collection: BelongsToCollection | null;
   budget: number;
   genres: Genre[];
   homepage: string;
@@ -107,6 +107,19 @@ export interface Cast extends Staff {
 export interface Crew extends Staff {
   department: Department;
   job: string;
+}
+
+export interface CastOverview {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string | null;
+}
+
+export interface CrewOverview {
+  jobs: string[];
+  name: string;
+  id: string;
 }
 
 export enum Department {

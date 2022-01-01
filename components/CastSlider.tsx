@@ -1,6 +1,7 @@
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { getProfileUrl } from "../utils/getUrl";
+import { NextImage } from "./NextImage";
 import { Slider } from "./Slider";
 import { TextEllipse } from "./TextEllipse";
 
@@ -33,14 +34,20 @@ export const CastSlider: React.FC<CastSliderProps> = ({ cast }) => {
               shadow="xl"
               overflow="hidden"
             >
-              <Image
+              <NextImage
+                h="175px"
                 src={getProfileUrl(castMember.profile_path)}
                 alt={castMember.name}
-                h="175px"
               />
               <Box p={3} pb={5} whiteSpace="normal">
-                <TextEllipse fontWeight="bold">{castMember.name}</TextEllipse>
-                <TextEllipse fontSize="sm" color="gray.600">
+                <TextEllipse tooltip={castMember.name} fontWeight="bold">
+                  {castMember.name}
+                </TextEllipse>
+                <TextEllipse
+                  tooltip={castMember.character}
+                  fontSize="sm"
+                  color="gray.600"
+                >
                   {castMember.character}
                 </TextEllipse>
               </Box>

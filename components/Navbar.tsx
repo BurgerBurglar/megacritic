@@ -10,11 +10,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { ReactNode } from "react";
 
 const Links: string[] = [];
 
-const NavLink = ({ children }: { children: ReactNode }) => (
+const NavLink: React.FC = ({ children }) => (
   <Link
     px={2}
     py={1}

@@ -10,18 +10,17 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { useReviews } from "../hooks/useFetch";
 import { formatDates } from "../utils/formatDates";
 import { Tabs } from "./Tabs";
 import { TextEllipse } from "./TextEllipse";
 import parse from "html-react-parser";
+import { MovieReview } from "../types/Movie";
 
 interface MovieSocialProps {
-  id: string;
+  reviews: MovieReview[];
 }
 
-export const MovieSocial: React.FC<MovieSocialProps> = ({ id }) => {
-  const { reviews } = useReviews(id);
+export const MovieSocial: React.FC<MovieSocialProps> = ({ reviews }) => {
   const reviewsSorted = reviews.sort(
     (x, y) => Date.parse(x.updated_at) - Date.parse(y.updated_at)
   );

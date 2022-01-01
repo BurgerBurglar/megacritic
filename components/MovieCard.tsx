@@ -7,6 +7,7 @@ import { MovieCardRating } from "./MovieCardRating";
 import { TextEllipse } from "./TextEllipse";
 import NextLink from "next/link";
 import { getPosterUrl } from "../utils/getUrl";
+import { NextImage } from "./NextImage";
 interface MovieCardProps {
   movie: MovieOverview;
   itemId: string;
@@ -28,13 +29,23 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         }}
       >
         <Box h="80%">
-          <Image src={poster} alt={movie.title} h="auto" borderRadius="10px" />
+          <NextImage
+            src={getPosterUrl(poster)}
+            alt={movie.title}
+            h="225px"
+            borderRadius="10px"
+          />
           <Box position="relative" top="-15px" left="10px">
             <MovieCardRating rating={movie.vote_average} />
           </Box>
         </Box>
         <Box h="20%">
-          <TextEllipse Element={Heading} as="h2" size="sm">
+          <TextEllipse
+            tooltip={movie.title}
+            Element={Heading}
+            as="h2"
+            size="sm"
+          >
             {movie.title}
           </TextEllipse>
           <Text color="gray.500">{formatDates(movie.release_date)}</Text>

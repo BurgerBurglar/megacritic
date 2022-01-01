@@ -1,14 +1,15 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
-import { useCollection } from "../hooks/useFetch";
+import { Collection } from "../types/Movie";
 import { getBackdropUrl } from "../utils/getUrl";
 
 interface MovieCollectionProps {
-  id: string;
+  collection: Collection;
 }
 
-export const MovieCollection: React.FC<MovieCollectionProps> = ({ id }) => {
-  const { collection } = useCollection(id);
+export const MovieCollection: React.FC<MovieCollectionProps> = ({
+  collection,
+}) => {
   if (!collection) return null;
   const partTitles = collection.parts.map(({ title }) => title);
   const backdrop = getBackdropUrl(collection.backdrop_path, "wide");

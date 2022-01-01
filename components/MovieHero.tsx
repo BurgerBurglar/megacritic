@@ -21,6 +21,7 @@ import { formatDates } from "../utils/formatDates";
 import { getHourMinute } from "../utils/getHourMinute";
 import { getBackdropUrl, getPosterUrl } from "../utils/getUrl";
 import { MovieCardRating } from "./MovieCardRating";
+import { NextImage } from "./NextImage";
 
 const CircleIcon: React.FC<IconProps> = (props) => (
   <Icon viewBox="0 0 200 200" {...props}>
@@ -109,7 +110,7 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
           borderRadius="lg"
           overflow="hidden"
         >
-          <Image src={poster} alt={movie?.title} />
+          <NextImage src={poster} alt={movie?.title} h="450px" />
         </Flex>
         <VStack className="hero-info" spacing={5} align="start">
           <Box>
@@ -142,7 +143,7 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
               >
                 {credential}
               </Text>
-              <Text as="span" ml={2}>
+              <Text as="span" ml={2} suppressHydrationWarning>
                 {formatDates(movie?.release_date!, { month: "numeric" })}
               </Text>
             </Flex>
