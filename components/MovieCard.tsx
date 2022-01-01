@@ -10,7 +10,6 @@ import { getPosterUrl } from "../utils/getUrl";
 import { NextImage } from "./NextImage";
 interface MovieCardProps {
   movie: MovieOverview;
-  itemId: string;
 }
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
@@ -21,25 +20,35 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
       <Flex
         direction="column"
         justify="space-between"
-        w="150px"
-        h="310px"
+        border="1px"
+        borderColor="gray.200"
+        borderRadius="md"
+        shadow="md"
         mx="auto"
+        w="200px"
+        h="400px"
+        boxSizing="content-box"
         _hover={{
           cursor: "pointer",
+          transition: "all .4s ease",
+          bgColor: "gray.100",
         }}
       >
         <Box h="80%">
           <NextImage
             src={getPosterUrl(poster)}
             alt={movie.title}
-            h="225px"
+            h="300px"
             borderRadius="10px"
           />
-          <Box position="relative" top="-15px" left="10px">
-            <MovieCardRating rating={movie.vote_average} />
-          </Box>
+          <MovieCardRating
+            rating={movie.vote_average}
+            position="relative"
+            top="-15px"
+            left="10px"
+          />
         </Box>
-        <Box h="20%">
+        <Box h="20%" px={2}>
           <TextEllipse
             tooltip={movie.title}
             Element={Heading}

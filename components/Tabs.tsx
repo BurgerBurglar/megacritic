@@ -39,6 +39,7 @@ export const Tabs: React.FC<TabsProps> = ({
         as="h4"
         size="sm"
         position="relative"
+        margin="10px 0"
         onClick={handleTabClick}
         {...(activeTab === i ? activeBarProps : null)}
       >
@@ -67,6 +68,8 @@ export const Tabs: React.FC<TabsProps> = ({
           {header}
         </Heading>
         <HStack
+          maxW="100%"
+          flexWrap="wrap"
           spacing={{
             base: 2,
             md: 8,

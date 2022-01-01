@@ -15,7 +15,7 @@ export const MovieSlider: React.FC<MovieSliderProps> = ({ movies }) => {
   const sliderContainerRef = useRef<HTMLDivElement>(null);
   const { width } = useContainerDimensions(sliderContainerRef);
 
-  const slidesToShow = Math.round(width / 200);
+  const slidesToShow = Math.floor(width / 200);
   const dots = slidesToShow >= 2;
 
   const settings = {
@@ -31,7 +31,7 @@ export const MovieSlider: React.FC<MovieSliderProps> = ({ movies }) => {
       <Box ref={sliderContainerRef}>
         <Slider {...settings}>
           {movies.map((movie) => (
-            <MovieCard key={movie.id} itemId={movie.title} movie={movie} />
+            <MovieCard key={movie.id} movie={movie} />
           ))}
         </Slider>
       </Box>

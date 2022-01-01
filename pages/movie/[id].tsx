@@ -57,22 +57,15 @@ const Movie: NextPage<Props> = ({
   const { data: images } = useSWR("images", () => getMovieImages(id));
 
   return (
-    <Flex
-      as="main"
-      direction="column"
-      align="center"
-      h="full"
-      minH="100vh"
-      w="100vw"
-    >
+    <Flex as="main" direction="column" align="center" w="100%">
       <MovieHero movie={movie} crew={crew || []} credential={credential} />
       <Flex
         className="bottom"
         direction={{ base: "column", lg: "row" }}
-        w="100vw"
+        w="100%"
         maxW="1400px"
         mt={10}
-        ml={5}
+        px={5}
       >
         <VStack
           divider={<StackDivider />}
@@ -89,7 +82,13 @@ const Movie: NextPage<Props> = ({
           {collection ? <MovieCollection collection={collection} /> : null}
           <Recommendations recommendations={recommendations} />
         </VStack>
-        <Box className="sidebar" ml={{ base: 0, lg: 10 }} w="30%">
+        <Box
+          className="sidebar"
+          ml={{ base: 0, lg: 10 }}
+          w="100%"
+          maxW="300px"
+          // flex={0}
+        >
           <MovieSidebar
             movie={movie}
             keywords={keywords || []}

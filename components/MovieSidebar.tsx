@@ -43,7 +43,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
   ];
   return (
     <VStack align="start" spacing={5}>
-      <HStack>
+      <HStack flexWrap="wrap">
         {links?.facebook_id ? (
           <NextLink href={"https://www.facebook.com/" + links.facebook_id}>
             <IconButton

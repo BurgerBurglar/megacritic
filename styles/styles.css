@@ -1,6 +1,6 @@
 html, body {
     margin: 0 auto;
-    overflow-x: hidden;
+    width: 100%;
 }
 
 html {
@@ -45,12 +45,6 @@ button.slick-arrow.slick-prev:hover, button.slick-arrow.slick-next:hover {
 
 .slick-slide {
     padding: 38px 0;
-}
-
-.slick-slide:hover {
-    transition: all .4s ease;
-    transform: scale(1.25);
-    z-index: 1;
 }
 
 ::-webkit-scrollbar {

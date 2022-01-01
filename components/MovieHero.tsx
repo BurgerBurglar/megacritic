@@ -104,7 +104,7 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
       >
         <Flex
           direction="column"
-          w="100vw"
+          w="100%"
           maxW="300px"
           borderRadius="lg"
           overflow="hidden"
