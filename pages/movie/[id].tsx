@@ -1,5 +1,5 @@
 import { Box, Flex, StackDivider, VStack } from "@chakra-ui/react";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import useSWR from "swr";
 import { CastSlider } from "../../components/CastSlider";
 import { MovieCollection } from "../../components/MovieCollection";
@@ -8,7 +8,15 @@ import { MovieMedia } from "../../components/MovieMedia";
 import { MovieSidebar } from "../../components/MovieSidebar";
 import { MovieSocial } from "../../components/MovieSocial";
 import { Recommendations } from "../../components/Recommendations";
-import { useFetch } from "../../hooks/useFetch";
+import {
+  CastOverview,
+  Collection,
+  CrewOverview,
+  Movie,
+  MovieKeyword,
+  MovieLinks,
+  MovieRecommendation,
+} from "../../types/Movie";
 import {
   getCollection,
   getKeywords,
@@ -22,7 +30,18 @@ import {
   getReviews,
 } from "../../utils/request";
 
-const Movie = ({
+interface Props {
+  id: string;
+  movie: Movie;
+  crew: CrewOverview[];
+  cast: CastOverview[];
+  credential?: string;
+  keywords: MovieKeyword[];
+  links: MovieLinks;
+  recommendations: MovieRecommendation[];
+  collection: Collection | null;
+}
+const Movie: NextPage<Props> = ({
   id,
   movie,
   crew,
@@ -31,11 +50,8 @@ const Movie = ({
   keywords,
   links,
   recommendations,
-  // reviews,
-  // images,
-  // videos,
   collection,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+}) => {
   const reviews = useSWR("reviews", () => getReviews(id)).data || [];
   const videos = useSWR("videos", () => getMovieVideos(id)).data || [];
   const { data: images } = useSWR("images", () => getMovieImages(id));
@@ -85,9 +101,10 @@ const Movie = ({
     </Flex>
   );
 };
-export default Movie;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
   const id = context.params?.id as string;
   const movie = await getMovieDetails(id);
   const { crew, cast } = await getMovieCredits(id);
@@ -95,9 +112,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const keywords = await getKeywords(id);
   const links = await getMovieLinks(id);
   const recommendations = await getRecommendations(id);
-  // const reviews = await getReviews(id);
-  // const images = await getMovieImages(id);
-  // const videos = await getMovieVideos(id);
   const collection = await getCollection(
     movie.belongs_to_collection
       ? movie.belongs_to_collection.id.toString()
@@ -113,10 +127,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       keywords,
       links,
       recommendations,
-      // reviews,
-      // images,
-      // videos,
       collection,
     },
   };
 };
+export default Movie;
