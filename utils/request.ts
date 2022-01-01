@@ -39,7 +39,7 @@ type OverviewType =
   | "topRated"
   | "upcoming";
 
-export const getMovieOverviews = async (type: OverviewType) => {
+export const getMovieOverviews = async (type: OverviewType, params?: any) => {
   const typeUrlMap = {
     discover: "discover/movie",
     trending: "trending/movie/day",
@@ -48,7 +48,11 @@ export const getMovieOverviews = async (type: OverviewType) => {
     topRated: "movie/top_rated",
     upcoming: "movie/upcoming",
   };
-  const data = await request<MovieOverviewList>(typeUrlMap[type]);
+  const data = await request<MovieOverviewList>(
+    typeUrlMap[type],
+    "GET",
+    params
+  );
   return data?.results || [];
 };
 
