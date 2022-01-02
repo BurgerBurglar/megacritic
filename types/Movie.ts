@@ -27,7 +27,7 @@ export interface Movie {
   backdrop_path: string;
   belongs_to_collection: BelongsToCollection | null;
   budget: number;
-  genres: Genre[];
+  genres: MovieGenre[];
   homepage: string;
   id: number;
   imdb_id: string;
@@ -57,7 +57,7 @@ export interface BelongsToCollection {
   backdrop_path: string;
 }
 
-export interface Genre {
+export interface MovieGenre {
   id: number;
   name: string;
 }
@@ -297,4 +297,13 @@ export interface Collection {
   poster_path: null;
   backdrop_path: string;
   parts: MovieOverview[];
+}
+
+export interface MovieGenreList {
+  genres: MovieGenre[];
+}
+
+export interface MovieGenre {
+  id: number;
+  name: string;
 }

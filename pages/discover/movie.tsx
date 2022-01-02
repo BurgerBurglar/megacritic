@@ -1,8 +1,9 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { InfiniteGrid } from "../../components/discover/InfiniteGrid";
 import { SideBar } from "../../components/discover/SideBar";
+import { useSortFilter } from "../../hooks/useSortFilter";
 import { MovieOverview } from "../../types/Movie";
 import { getMovieOverviews } from "../../utils/request";
 
@@ -11,21 +12,16 @@ interface Props {
 }
 
 const Movie: NextPage<Props> = ({ movies }) => {
-  const [allMovies, setAllMovies] = useState<MovieOverview[]>(movies);
-
-  const paramsRef = useRef<any>({ page: 2 });
-  const [sortBy, setSortBy] = useState("popularity.desc");
-
-  useEffect(() => {
-    paramsRef.current.sort_by = sortBy;
-    getMovieOverviews("discover", paramsRef.current).then(setAllMovies);
-  }, [sortBy]);
-
-  const loadMore = async () => {
-    const newMovies = await getMovieOverviews("discover", paramsRef.current);
-    paramsRef.current.page++;
-    setAllMovies((prevMovies) => [...prevMovies, ...newMovies]);
-  };
+  const {
+    sortBy,
+    setSortBy,
+    selectedGenreIds,
+    handleToggleGenre,
+    refreshMovies,
+    clearGenres,
+    allMovies,
+    loadMore,
+  } = useSortFilter(movies);
 
   return (
     <>
@@ -35,7 +31,14 @@ const Movie: NextPage<Props> = ({ movies }) => {
             Popular Movies
           </Heading>
           <Flex w="100%">
-            <SideBar sortBy={sortBy} setSortBy={setSortBy} />
+            <SideBar
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              selectedGenreIds={selectedGenreIds}
+              handleToggleGenre={handleToggleGenre}
+              refreshMovies={refreshMovies}
+              clearGenres={clearGenres}
+            />
             <Box w="100%" ml={3}>
               <InfiniteGrid movies={allMovies} loadMore={loadMore} />
             </Box>

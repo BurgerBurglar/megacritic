@@ -1,3 +1,4 @@
+import { CloseIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -5,16 +6,34 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Button,
+  Flex,
+  Heading,
   Select,
 } from "@chakra-ui/react";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import useSWR from "swr";
+import { getMovieGenres } from "../../utils/request";
 
 interface SideBarProps {
   sortBy: string;
   setSortBy: Dispatch<SetStateAction<string>>;
+  selectedGenreIds: Set<number>;
+  handleToggleGenre: (genreId: number) => void;
+  refreshMovies: () => void;
+  clearGenres: () => void;
 }
 
-export const SideBar: React.FC<SideBarProps> = ({ sortBy, setSortBy }) => {
+export const SideBar: React.FC<SideBarProps> = ({
+  sortBy,
+  setSortBy,
+  selectedGenreIds,
+  handleToggleGenre,
+  refreshMovies,
+  clearGenres,
+}) => {
+  const genres = useSWR("movieGenre", getMovieGenres).data || [];
+
   return (
     <Accordion
       defaultIndex={[0]}
@@ -62,6 +81,66 @@ export const SideBar: React.FC<SideBarProps> = ({ sortBy, setSortBy }) => {
           </Select>
         </AccordionPanel>
       </AccordionItem>
+      <AccordionItem
+        border="1px"
+        borderColor="LightGray !important"
+        borderRadius="md"
+        shadow="md"
+        mb={3}
+      >
+        <h2>
+          <AccordionButton
+            borderBottom="1px"
+            borderColor="LightGray !important"
+          >
+            <Box flex="1" textAlign="left" fontWeight="bold">
+              Filters
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+        </h2>
+        <AccordionPanel pb={4}>
+          <Heading as="h3" size="sm" fontWeight="normal" mb={1}>
+            Genres
+          </Heading>
+          {genres?.map((genre) => (
+            <Button
+              key={genre.id}
+              variant={selectedGenreIds.has(genre.id) ? "solid" : "outline"}
+              colorScheme="telegram"
+              size="sm"
+              borderRadius="full"
+              fontWeight="normal"
+              m={1}
+              ml={0}
+              onClick={() => handleToggleGenre(genre.id)}
+            >
+              {genre.name}
+            </Button>
+          ))}
+          <Flex>
+            <Button
+              variant="outline"
+              borderRadius="full"
+              size="sm"
+              colorScheme="blackAlpha"
+              ml="auto"
+              onClick={clearGenres}
+            >
+              <CloseIcon w={3} mr={1} />
+              Clear
+            </Button>
+          </Flex>
+        </AccordionPanel>
+      </AccordionItem>
+      <Button
+        colorScheme="telegram"
+        borderRadius="full"
+        w="100%"
+        onClick={refreshMovies}
+      >
+        Search
+      </Button>
     </Accordion>
   );
 };

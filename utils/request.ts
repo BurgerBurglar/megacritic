@@ -5,6 +5,7 @@ import {
   CrewOverview,
   Movie,
   MovieCredits,
+  MovieGenreList,
   MovieImages,
   MovieKeywordList,
   MovieLinks,
@@ -194,4 +195,9 @@ export const getCollection = async (id: string | null) => {
   if (!id) return null;
   const data = await request<Collection>(`collection/${id}`);
   return data;
+};
+
+export const getMovieGenres = async () => {
+  const { genres } = await request<MovieGenreList>("genre/movie/list");
+  return genres;
 };
