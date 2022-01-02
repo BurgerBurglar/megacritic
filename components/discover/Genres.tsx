@@ -5,7 +5,7 @@ import useSWR from "swr";
 import { getMovieGenres } from "../../utils/request";
 
 interface GenresProps {
-  selectedGenreIds: Set<number>;
+  selectedGenreIds: number[];
   handleToggleGenre: (genreId: number) => void;
   clearGenres: () => void;
 }
@@ -24,7 +24,7 @@ export const Genres: React.FC<GenresProps> = ({
       {genres?.map((genre) => (
         <Button
           key={genre.id}
-          variant={selectedGenreIds.has(genre.id) ? "solid" : "outline"}
+          variant={selectedGenreIds.includes(genre.id) ? "solid" : "outline"}
           colorScheme="telegram"
           size="sm"
           borderRadius="full"

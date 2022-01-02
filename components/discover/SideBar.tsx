@@ -19,7 +19,7 @@ import { ReleaseDates } from "./ReleaseDates";
 interface SideBarProps {
   sortBy: string;
   setSortBy: Dispatch<SetStateAction<string>>;
-  selectedGenreIds: Set<number>;
+  selectedGenreIds: number[];
   handleToggleGenre: (genreId: number) => void;
   refreshMovies: () => void;
   clearGenres: () => void;
@@ -43,7 +43,7 @@ export const SideBar: React.FC<SideBarProps> = ({
 }) => {
   return (
     <Accordion
-      defaultIndex={[0]}
+      defaultIndex={[0, 1]}
       allowMultiple
       w="30%"
       maxW="300px"
