@@ -21,6 +21,7 @@ const Movie: NextPage<Props> = ({ movies }) => {
     clearGenres,
     allMovies,
     loadMore,
+    hasMore,
   } = useSortFilter(movies);
 
   return (
@@ -40,7 +41,11 @@ const Movie: NextPage<Props> = ({ movies }) => {
               clearGenres={clearGenres}
             />
             <Box w="100%" ml={3}>
-              <InfiniteGrid movies={allMovies} loadMore={loadMore} />
+              <InfiniteGrid
+                movies={allMovies}
+                loadMore={loadMore}
+                hasMore={hasMore}
+              />
             </Box>
           </Flex>
         </Flex>
@@ -51,7 +56,7 @@ const Movie: NextPage<Props> = ({ movies }) => {
 
 export default Movie;
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const movies: MovieOverview[] = await getMovieOverviews("discover");
+  const { overviews: movies } = await getMovieOverviews("discover");
   return {
     props: { movies },
   };

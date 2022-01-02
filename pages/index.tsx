@@ -47,12 +47,12 @@ const Home: NextPage<HomeProps> = ({
 
 export default Home;
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const discover = await getMovieOverviews("discover");
-  const nowPlaying = await getMovieOverviews("nowPlaying");
-  const popular = await getMovieOverviews("popular");
-  const trending = await getMovieOverviews("trending");
-  const topRated = await getMovieOverviews("topRated");
-  const upcoming = await getMovieOverviews("upcoming");
+  const { overviews: discover } = await getMovieOverviews("discover");
+  const { overviews: nowPlaying } = await getMovieOverviews("nowPlaying");
+  const { overviews: popular } = await getMovieOverviews("popular");
+  const { overviews: trending } = await getMovieOverviews("trending");
+  const { overviews: topRated } = await getMovieOverviews("topRated");
+  const { overviews: upcoming } = await getMovieOverviews("upcoming");
   return {
     props: {
       discover,

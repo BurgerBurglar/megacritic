@@ -7,15 +7,11 @@ export const useSortFilter = (movies: MovieOverview[]) => {
 
   const paramsRef = useRef<any>({ page: 1 });
   const [sortBy, setSortBy] = useState("popularity.desc");
+  const [hasMore, setHasMore] = useState(true);
 
   const refreshMovies = useCallback(() => {
     paramsRef.current.page = 1;
-    fetchMovies()
-      .then((movies) => {
-        console.log(movies.map((movie) => movie.original_title));
-        return movies;
-      })
-      .then(setAllMovies);
+    fetchMovies().then(({ overviews: newMovies }) => setAllMovies(newMovies));
   }, []);
 
   useEffect(() => {
@@ -29,8 +25,13 @@ export const useSortFilter = (movies: MovieOverview[]) => {
 
   const loadMore = async () => {
     paramsRef.current.page++;
-    const newMovies = await fetchMovies();
+    const { overviews: newMovies, totalPages } = await fetchMovies();
     setAllMovies((prevMovies) => [...prevMovies, ...newMovies]);
+    if (paramsRef.current.page >= totalPages) {
+      setHasMore(false);
+    } else {
+      setHasMore(true);
+    }
   };
   const [selectedGenreIds, setSelectedGenreIds] = useState<Set<number>>(
     new Set()
@@ -58,5 +59,6 @@ export const useSortFilter = (movies: MovieOverview[]) => {
     clearGenres,
     allMovies,
     loadMore,
+    hasMore,
   };
 };

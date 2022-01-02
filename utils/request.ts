@@ -54,7 +54,12 @@ export const getMovieOverviews = async (type: OverviewType, params?: any) => {
     "GET",
     params
   );
-  return data?.results || [];
+  const overviews = data?.results || [];
+  const totalPages = data.total_pages;
+  return {
+    overviews,
+    totalPages,
+  };
 };
 
 export const getMovieVideos = async (id: string) => {
