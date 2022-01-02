@@ -1,11 +1,10 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
-import React, { useState } from "react";
+import React from "react";
 import { InfiniteGrid } from "../../components/discover/InfiniteGrid";
 import { SideBar } from "../../components/discover/SideBar";
 import { useSortFilter } from "../../hooks/useSortFilter";
 import { MovieOverview } from "../../types/Movie";
-import { DateRange } from "../../types/utils";
 import { getMovieOverviews } from "../../utils/request";
 
 interface Props {
@@ -25,6 +24,8 @@ const Movie: NextPage<Props> = ({ movies }) => {
     hasMore,
     dateRange,
     setDateRange,
+    ratings,
+    setRatings,
   } = useSortFilter(movies);
 
   return (
@@ -44,6 +45,8 @@ const Movie: NextPage<Props> = ({ movies }) => {
               clearGenres={clearGenres}
               dateRange={dateRange}
               setDateRange={setDateRange}
+              ratings={ratings}
+              setRatings={setRatings}
             />
             <Box w="100%" ml={3}>
               <InfiniteGrid

@@ -58,11 +58,13 @@ export const useSortFilter = (movies: MovieOverview[]) => {
     from: undefined,
     to: new Date(),
   });
+  
+  const [[minRating, maxRating], setRatings] = useState([0, 10]);
 
   useEffect(() => {
-    paramsRef.current["primary_release_date.gte"] = dateRange.from;
-    paramsRef.current["primary_release_date.lte"] = dateRange.to;
-  }, [dateRange]);
+    paramsRef.current["vote_average.gte"] = minRating;
+    paramsRef.current["vote_average.lte"] = maxRating;
+  }, [minRating, maxRating]);
 
   return {
     sortBy,
@@ -76,5 +78,7 @@ export const useSortFilter = (movies: MovieOverview[]) => {
     hasMore,
     dateRange,
     setDateRange,
+    ratings: [minRating, maxRating] as [number, number],
+    setRatings,
   };
 };

@@ -13,6 +13,7 @@ import {
 import React, { Dispatch, SetStateAction } from "react";
 import { DateRange } from "../../types/utils";
 import { Genres } from "./Genres";
+import { RatingSlider } from "./RatingSlider";
 import { ReleaseDates } from "./ReleaseDates";
 
 interface SideBarProps {
@@ -23,7 +24,9 @@ interface SideBarProps {
   refreshMovies: () => void;
   clearGenres: () => void;
   dateRange: DateRange;
+  ratings: [number, number];
   setDateRange: Dispatch<SetStateAction<DateRange>>;
+  setRatings: Dispatch<SetStateAction<[number, number]>>;
 }
 
 export const SideBar: React.FC<SideBarProps> = ({
@@ -35,6 +38,8 @@ export const SideBar: React.FC<SideBarProps> = ({
   clearGenres,
   dateRange,
   setDateRange,
+  ratings,
+  setRatings,
 }) => {
   return (
     <Accordion
@@ -109,6 +114,7 @@ export const SideBar: React.FC<SideBarProps> = ({
               clearGenres={clearGenres}
             />
             <ReleaseDates dateRange={dateRange} setDateRange={setDateRange} />
+            <RatingSlider ratings={ratings} setRatings={setRatings} />
           </VStack>
         </AccordionPanel>
       </AccordionItem>
