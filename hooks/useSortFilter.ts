@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MovieOverview } from "../types/Movie";
-import { DateRange } from "../types/utils";
+import { DateRange, Keyword } from "../types/utils";
 import { parseDateRange, stringifyDateRange } from "../utils/date";
 import { getMovieOverviews } from "../utils/request";
 import { useLocalStorage } from "./useLocalStorage";
@@ -76,9 +76,15 @@ export const useSortFilter = (movies: MovieOverview[]) => {
   );
 
   useEffect(() => {
-    paramsRef.current["vote_average.gte"] = minRating;
-    paramsRef.current["vote_average.lte"] = maxRating;
+    paramsRef.current["vote_average.gte"] = minRating || undefined;
+    paramsRef.current["vote_average.lte"] = maxRating || undefined;
   }, [minRating, maxRating]);
+
+  const [queries, setQueries] = useState<Keyword[]>([]);
+
+  useEffect(() => {
+    paramsRef.current.with_keywords = queries.map(({ id }) => id).join(",");
+  }, [queries]);
 
   return {
     sortBy,
@@ -94,5 +100,7 @@ export const useSortFilter = (movies: MovieOverview[]) => {
     setDateRange,
     ratings: [minRating, maxRating] as [number, number],
     setRatings,
+    queries,
+    setQueries,
   };
 };

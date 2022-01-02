@@ -6,12 +6,18 @@ import {
   AccordionPanel,
   Box,
   Button,
+  Heading,
+  Input,
   Select,
   StackDivider,
+  Tag,
+  TagCloseButton,
+  TagLabel,
   VStack,
 } from "@chakra-ui/react";
-import React, { Dispatch, SetStateAction } from "react";
-import { DateRange } from "../../types/utils";
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { DateRange, Keyword } from "../../types/utils";
+import { searchKeywords } from "../../utils/request";
 import { Genres } from "./Genres";
 import { RatingSlider } from "./RatingSlider";
 import { ReleaseDates } from "./ReleaseDates";
@@ -27,6 +33,8 @@ interface SideBarProps {
   ratings: [number, number];
   setDateRange: Dispatch<SetStateAction<DateRange>>;
   setRatings: Dispatch<SetStateAction<[number, number]>>;
+  queries: Keyword[];
+  setQueries: Dispatch<SetStateAction<Keyword[]>>;
 }
 
 export const SideBar: React.FC<SideBarProps> = ({
@@ -40,7 +48,21 @@ export const SideBar: React.FC<SideBarProps> = ({
   setDateRange,
   ratings,
   setRatings,
+  queries,
+  setQueries,
 }) => {
+  const [newQuery, setNewQuery] = useState("");
+  const [keywords, setKeywords] = useState<Keyword[]>([]);
+  const handleQueryChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setNewQuery(input);
+    if (input.length >= 2) {
+      setKeywords(await searchKeywords(input));
+    } else {
+      setKeywords([]);
+    }
+  };
+
   return (
     <Accordion
       defaultIndex={[0, 1]}
@@ -115,6 +137,49 @@ export const SideBar: React.FC<SideBarProps> = ({
             />
             <ReleaseDates dateRange={dateRange} setDateRange={setDateRange} />
             <RatingSlider ratings={ratings} setRatings={setRatings} />
+            <Box w="full">
+              <Heading as="h3" size="sm" fontWeight="normal" mb={1}>
+                Keywords
+              </Heading>
+              <Input
+                placeholder="Filter by keywords..."
+                value={newQuery}
+                onChange={handleQueryChange}
+              />
+              {newQuery.length >= 2 ? (
+                keywords.length ? (
+                  <Select
+                    placeholder="Select a keyword"
+                    onChange={(e) => {
+                      setQueries([...queries, JSON.parse(e.target.value)]);
+                      setNewQuery("");
+                    }}
+                  >
+                    {keywords.map((keyword) => (
+                      <option key={keyword.id} value={JSON.stringify(keyword)}>
+                        {keyword.name}
+                      </option>
+                    ))}
+                  </Select>
+                ) : null
+              ) : null}
+              {queries.map(({ id, name }) => (
+                <Tag
+                  size="sm"
+                  key={id}
+                  borderRadius="full"
+                  variant="solid"
+                  colorScheme="green"
+                >
+                  <TagLabel>{name}</TagLabel>
+                  <TagCloseButton
+                    onClick={() =>
+                      setQueries(queries.filter((query) => query.id !== id))
+                    }
+                  />
+                </Tag>
+              ))}
+            </Box>
           </VStack>
         </AccordionPanel>
       </AccordionItem>

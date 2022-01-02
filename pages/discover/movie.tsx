@@ -26,6 +26,8 @@ const Movie: NextPage<Props> = ({ movies }) => {
     setDateRange,
     ratings,
     setRatings,
+    queries,
+    setQueries,
   } = useSortFilter(movies);
 
   return (
@@ -47,6 +49,8 @@ const Movie: NextPage<Props> = ({ movies }) => {
               setDateRange={setDateRange}
               ratings={ratings}
               setRatings={setRatings}
+              queries={queries}
+              setQueries={setQueries}
             />
             <Box w="100%" ml={3}>
               <InfiniteGrid

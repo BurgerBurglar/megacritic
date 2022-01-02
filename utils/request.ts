@@ -15,6 +15,7 @@ import {
   MovieReviewList,
   MovieVideoList,
 } from "../types/Movie";
+import { KeywordList } from "../types/utils";
 import { BASE_URL } from "./constants";
 import { getHeaders } from "./getCredentials";
 
@@ -205,4 +206,9 @@ export const getCollection = async (id: string | null) => {
 export const getMovieGenres = async () => {
   const { genres } = await request<MovieGenreList>("genre/movie/list");
   return genres;
+};
+
+export const searchKeywords = async (query: string) => {
+  const data = await request<KeywordList>("search/keyword", "GET", { query });
+  return data?.results || [];
 };
