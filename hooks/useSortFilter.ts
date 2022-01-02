@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MovieOverview } from "../types/Movie";
+import { DateRange } from "../types/utils";
 import { getMovieOverviews } from "../utils/request";
 
 export const useSortFilter = (movies: MovieOverview[]) => {
@@ -33,6 +34,7 @@ export const useSortFilter = (movies: MovieOverview[]) => {
       setHasMore(true);
     }
   };
+
   const [selectedGenreIds, setSelectedGenreIds] = useState<Set<number>>(
     new Set()
   );
@@ -46,10 +48,22 @@ export const useSortFilter = (movies: MovieOverview[]) => {
     }
   };
   const clearGenres = () => setSelectedGenreIds(new Set());
+
   useEffect(() => {
     paramsRef.current.with_genres =
       [...selectedGenreIds].join(",") || undefined;
   }, [selectedGenreIds]);
+
+  const [dateRange, setDateRange] = useState<DateRange>({
+    from: undefined,
+    to: new Date(),
+  });
+
+  useEffect(() => {
+    paramsRef.current["primary_release_date.gte"] = dateRange.from;
+    paramsRef.current["primary_release_date.lte"] = dateRange.to;
+  }, [dateRange]);
+
   return {
     sortBy,
     setSortBy,
@@ -60,5 +74,7 @@ export const useSortFilter = (movies: MovieOverview[]) => {
     allMovies,
     loadMore,
     hasMore,
+    dateRange,
+    setDateRange,
   };
 };

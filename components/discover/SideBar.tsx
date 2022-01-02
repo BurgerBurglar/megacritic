@@ -1,4 +1,3 @@
-import { CloseIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -7,13 +6,14 @@ import {
   AccordionPanel,
   Box,
   Button,
-  Flex,
-  Heading,
   Select,
+  StackDivider,
+  VStack,
 } from "@chakra-ui/react";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import useSWR from "swr";
-import { getMovieGenres } from "../../utils/request";
+import React, { Dispatch, SetStateAction } from "react";
+import { DateRange } from "../../types/utils";
+import { Genres } from "./Genres";
+import { ReleaseDates } from "./ReleaseDates";
 
 interface SideBarProps {
   sortBy: string;
@@ -22,6 +22,8 @@ interface SideBarProps {
   handleToggleGenre: (genreId: number) => void;
   refreshMovies: () => void;
   clearGenres: () => void;
+  dateRange: DateRange;
+  setDateRange: Dispatch<SetStateAction<DateRange>>;
 }
 
 export const SideBar: React.FC<SideBarProps> = ({
@@ -31,9 +33,9 @@ export const SideBar: React.FC<SideBarProps> = ({
   handleToggleGenre,
   refreshMovies,
   clearGenres,
+  dateRange,
+  setDateRange,
 }) => {
-  const genres = useSWR("movieGenre", getMovieGenres).data || [];
-
   return (
     <Accordion
       defaultIndex={[0]}
@@ -100,37 +102,14 @@ export const SideBar: React.FC<SideBarProps> = ({
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <Heading as="h3" size="sm" fontWeight="normal" mb={1}>
-            Genres
-          </Heading>
-          {genres?.map((genre) => (
-            <Button
-              key={genre.id}
-              variant={selectedGenreIds.has(genre.id) ? "solid" : "outline"}
-              colorScheme="telegram"
-              size="sm"
-              borderRadius="full"
-              fontWeight="normal"
-              m={1}
-              ml={0}
-              onClick={() => handleToggleGenre(genre.id)}
-            >
-              {genre.name}
-            </Button>
-          ))}
-          <Flex>
-            <Button
-              variant="outline"
-              borderRadius="full"
-              size="sm"
-              colorScheme="blackAlpha"
-              ml="auto"
-              onClick={clearGenres}
-            >
-              <CloseIcon w={3} mr={1} />
-              Clear
-            </Button>
-          </Flex>
+          <VStack divider={<StackDivider />} spacing={3}>
+            <Genres
+              selectedGenreIds={selectedGenreIds}
+              handleToggleGenre={handleToggleGenre}
+              clearGenres={clearGenres}
+            />
+            <ReleaseDates dateRange={dateRange} setDateRange={setDateRange} />
+          </VStack>
         </AccordionPanel>
       </AccordionItem>
       <Button
