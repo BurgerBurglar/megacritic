@@ -23,7 +23,7 @@ export const Slider: React.FC<SliderProps> = ({ children, ...props }) => {
         right: 0,
         bg: useColorModeValue(
           "linear-gradient(to right, #FFFFFF00 0%, #FFFFFFFF)",
-          "linear-gradient(to right, #20242C00 0%, #20242CFF)"
+          "linear-gradient(to right, #0B001400 0%, #0B0014FF)"
         ),
         willChange: "opacity",
         pointerEvents: "none",

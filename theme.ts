@@ -1,7 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 import { createBreakpoints, mode } from "@chakra-ui/theme-tools";
-const dark = "#232323";
-const light = "red";
+const dark = "purple.1000";
+const light = "purple.50";
 const breakpoints = createBreakpoints({
   sm: "320px",
   smallish: "600px",
@@ -12,9 +12,16 @@ const breakpoints = createBreakpoints({
 });
 export const theme = extendTheme({
   breakpoints,
-  global: (props: any) => ({
-    body: {
-      bg: mode(light, dark)(props),
+  colors: {
+    purple: {
+      1000: "#0B0014",
     },
-  }),
+  },
+  styles: {
+    global: (props: any) => ({
+      body: {
+        bg: mode(light, dark)(props),
+      },
+    }),
+  },
 });
