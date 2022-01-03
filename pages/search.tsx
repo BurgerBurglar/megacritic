@@ -8,7 +8,6 @@ import {
   InputGroup,
   InputLeftElement,
   Text,
-  useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
@@ -17,11 +16,7 @@ import { useRouter } from "next/router";
 import { KeyboardEvent, useState } from "react";
 import { NextImage } from "../components/NextImage";
 import { TextEllipse } from "../components/TextEllipse";
-import {
-  useBorderColor,
-  useTenShadesOfGray,
-  useThemeColor,
-} from "../hooks/useColors";
+import { useTenShadesOfGray, useThemeColor } from "../hooks/useColors";
 import { MovieOverview } from "../types/Movie";
 import { formatDates } from "../utils/formatDates";
 import { getPosterUrl } from "../utils/getUrl";

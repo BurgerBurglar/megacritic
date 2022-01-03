@@ -2,8 +2,8 @@ import { Box, Heading } from "@chakra-ui/react";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { MovieSlider } from "../components/MovieSlider";
-import { getMovieOverviews } from "../utils/request";
 import { MovieOverview } from "../types/Movie";
+import { getMovieOverviews } from "../utils/request";
 interface HomeProps {
   discover: MovieOverview[];
   nowPlaying: MovieOverview[];
