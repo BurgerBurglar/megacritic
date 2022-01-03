@@ -2,6 +2,7 @@ import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
+  Heading,
   HStack,
   IconButton,
   Link,
@@ -45,7 +46,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
         <HStack spacing={8} alignItems={"center"}>
           <NextLink href="/">
             <Link>
-              <Box>Megacritic</Box>
+              <Heading as="h1" size="md">
+                Megacritic
+              </Heading>
+            </Link>
+          </NextLink>
+          <NextLink href="/discover/movie">
+            <Link>
+              <Box>Discover</Box>
             </Link>
           </NextLink>
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
