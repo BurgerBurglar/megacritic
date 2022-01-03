@@ -5,12 +5,14 @@ import {
   Stack,
   SimpleGrid,
   Text,
-  Link,
   VisuallyHidden,
   chakra,
   useColorModeValue,
+  Button,
+  IconButton,
 } from "@chakra-ui/react";
-import { FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
+import { FaTwitter, FaYoutube, FaInstagram, FaGithub } from "react-icons/fa";
+import NextLink from "next/link";
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -30,7 +32,7 @@ const SocialButton = ({
   href: string;
 }) => {
   return (
-    <chakra.button
+    <Button
       bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
       rounded={"full"}
       w={8}
@@ -48,7 +50,7 @@ const SocialButton = ({
     >
       <VisuallyHidden>{label}</VisuallyHidden>
       {children}
-    </chakra.button>
+    </Button>
   );
 };
 
@@ -73,17 +75,21 @@ export const Footer: React.FC = () => {
           justify={{ md: "space-between" }}
           align={{ md: "center" }}
         >
-          <Text>© 2020 Chakra Templates. All rights reserved</Text>
+          <Text>
+            © I don&rsquo;t know what to put in a footer. I guess all rights
+            reserved or something.
+          </Text>
           <Stack direction={"row"} spacing={6}>
-            <SocialButton label={"Twitter"} href={"#"}>
-              <FaTwitter />
-            </SocialButton>
-            <SocialButton label={"YouTube"} href={"#"}>
-              <FaYoutube />
-            </SocialButton>
-            <SocialButton label={"Instagram"} href={"#"}>
-              <FaInstagram />
-            </SocialButton>
+            <NextLink href="https://github.com/BurgerBurglar">
+              <IconButton
+                icon={<FaGithub />}
+                aria-label="GitHub"
+                borderRadius="full"
+                variant="outline"
+                colorScheme="purple"
+                size="md"
+              />
+            </NextLink>
           </Stack>
         </Container>
       </Box>
