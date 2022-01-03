@@ -76,13 +76,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
           </HStack>
         </HStack>
         <Flex alignItems={"center"}>
-          <Button
+          <IconButton
+            icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+            aria-label="color mode"
             colorScheme="purple"
             variant="outline"
+            borderRadius="full"
             onClick={toggleColorMode}
-          >
-            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-          </Button>
+          />
         </Flex>
       </Flex>
 
