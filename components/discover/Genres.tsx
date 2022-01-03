@@ -2,6 +2,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { Heading, Button, Flex, Box } from "@chakra-ui/react";
 import React from "react";
 import useSWR from "swr";
+import { THEME } from "../../utils/constants";
 import { getMovieGenres } from "../../utils/request";
 
 interface GenresProps {
@@ -25,7 +26,7 @@ export const Genres: React.FC<GenresProps> = ({
         <Button
           key={genre.id}
           variant={selectedGenreIds.includes(genre.id) ? "solid" : "outline"}
-          colorScheme="purple"
+          colorScheme={THEME}
           size="sm"
           borderRadius="full"
           fontWeight="normal"

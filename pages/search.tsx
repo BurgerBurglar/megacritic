@@ -1,14 +1,12 @@
-import { PhoneIcon, Search2Icon, SearchIcon } from "@chakra-ui/icons";
+import { Search2Icon } from "@chakra-ui/icons";
 import {
   Box,
   Container,
   Flex,
   Heading,
-  HStack,
   Input,
   InputGroup,
   InputLeftElement,
-  Link,
   Text,
   useColorModeValue,
   VStack,
@@ -16,11 +14,15 @@ import {
 import { GetServerSideProps, NextPage } from "next";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { KeyboardEvent, useEffect, useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { NextImage } from "../components/NextImage";
 import { TextEllipse } from "../components/TextEllipse";
+import {
+  useBorderColor,
+  useTenShadesOfGray,
+  useThemeColor,
+} from "../hooks/useColors";
 import { MovieOverview } from "../types/Movie";
-import { parseDate } from "../utils/date";
 import { formatDates } from "../utils/formatDates";
 import { getPosterUrl } from "../utils/getUrl";
 import { getMovieOverviews } from "../utils/request";
@@ -31,9 +33,9 @@ interface Props {
 const Search: NextPage<Props> = ({ overviews, totalPages }) => {
   const [query, setQuery] = useState("");
   const router = useRouter();
-  const borderColor = useColorModeValue("gray.200", "gray.700");
-  const hoverColor = useColorModeValue("purple.100", "purple.900");
-  const titleColor = useColorModeValue("purple.700", "purple.300");
+  const borderColor = useTenShadesOfGray(200);
+  const hoverColor = useThemeColor(100);
+  const titleColor = useThemeColor(700);
   const handleEnter = (e: KeyboardEvent<HTMLInputElement>) =>
     e.key === "Enter" && router.push(`/search?query=${query}`);
 

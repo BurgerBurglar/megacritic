@@ -13,11 +13,12 @@ import {
   Tag,
   TagCloseButton,
   TagLabel,
-  useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { useTenShadesOfGray } from "../../hooks/useColors";
 import { DateRange, Keyword } from "../../types/utils";
+import { THEME } from "../../utils/constants";
 import { searchKeywords } from "../../utils/request";
 import { Genres } from "./Genres";
 import { RatingSlider } from "./RatingSlider";
@@ -74,10 +75,7 @@ export const SideBar: React.FC<SideBarProps> = ({
     >
       <AccordionItem
         border="1px"
-        borderColor={useColorModeValue(
-          "var(--chakra-colors-gray-200) !important",
-          "var(--chakra-colors-gray-700) !important"
-        )}
+        borderColor={useTenShadesOfGray(200)}
         borderRadius="md"
         shadow="md"
         mb={3}
@@ -85,10 +83,7 @@ export const SideBar: React.FC<SideBarProps> = ({
         <h2>
           <AccordionButton
             borderBottom="1px"
-            borderColor={useColorModeValue(
-              "var(--chakra-colors-gray-200) !important",
-              "var(--chakra-colors-gray-700) !important"
-            )}
+            borderColor={useTenShadesOfGray(200)}
           >
             <Box flex="1" textAlign="left" fontWeight="bold">
               Sort
@@ -119,10 +114,7 @@ export const SideBar: React.FC<SideBarProps> = ({
       </AccordionItem>
       <AccordionItem
         border="1px"
-        borderColor={useColorModeValue(
-          "var(--chakra-colors-gray-200) !important",
-          "var(--chakra-colors-gray-700) !important"
-        )}
+        borderColor={useTenShadesOfGray(200)}
         borderRadius="md"
         shadow="md"
         mb={3}
@@ -130,10 +122,7 @@ export const SideBar: React.FC<SideBarProps> = ({
         <h2>
           <AccordionButton
             borderBottom="1px"
-            borderColor={useColorModeValue(
-              "var(--chakra-colors-gray-200) !important",
-              "var(--chakra-colors-gray-700) !important"
-            )}
+            borderColor={useTenShadesOfGray(200)}
           >
             <Box flex="1" textAlign="left" fontWeight="bold">
               Filters
@@ -182,7 +171,7 @@ export const SideBar: React.FC<SideBarProps> = ({
                   key={id}
                   borderRadius="full"
                   variant="solid"
-                  colorScheme="green"
+                  colorScheme={THEME}
                 >
                   <TagLabel>{name}</TagLabel>
                   <TagCloseButton
@@ -197,7 +186,7 @@ export const SideBar: React.FC<SideBarProps> = ({
         </AccordionPanel>
       </AccordionItem>
       <Button
-        colorScheme="purple"
+        colorScheme={THEME}
         borderRadius="full"
         w="100%"
         onClick={refreshMovies}

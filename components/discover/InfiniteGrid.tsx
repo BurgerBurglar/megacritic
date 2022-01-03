@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useThemeColor } from "../../hooks/useColors";
 import { MovieOverview } from "../../types/Movie";
 import { MovieCard } from "../MovieCard";
 
@@ -30,7 +31,7 @@ export const InfiniteGrid: React.FC<GridProps> = ({
         <Flex
           justify="center"
           align="center"
-          bgColor={useColorModeValue("purple.200", "purple.800")}
+          bgColor={useThemeColor(200)}
           borderRadius="md"
           w="100%"
           h="50px"
@@ -43,7 +44,7 @@ export const InfiniteGrid: React.FC<GridProps> = ({
         <Flex
           justify="center"
           align="center"
-          bgColor={useColorModeValue("purple.200", "purple.800")}
+          bgColor={useThemeColor(200)}
           borderRadius="md"
           w="100%"
           h="50px"

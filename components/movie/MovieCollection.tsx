@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { Collection } from "../../types/Movie";
+import { THEME } from "../../utils/constants";
 import { getBackdropUrl } from "../../utils/getUrl";
 
 interface MovieCollectionProps {
@@ -22,16 +23,33 @@ export const MovieCollection: React.FC<MovieCollectionProps> = ({
       overflow="hidden"
     >
       <Box
-        bgImage={`linear-gradient(to right, #150029FF 0%, #150029AA 100%), url(${backdrop})`}
-        bgRepeat="no-repeat"
-        bgPosition="50% 50%"
-        bgSize="cover"
+        className="bg"
         position="absolute"
         top={0}
         w="100%"
         h="100%"
         zIndex={-1}
-      />
+      >
+        <Box
+          className="bg-image"
+          bgImage={`linear-gradient(to right, #000000FF 0%, #000000AA 100%), url(${backdrop})`}
+          bgRepeat="no-repeat"
+          bgPosition="50% 50%"
+          bgSize="cover"
+          w="full"
+          h="full"
+        />
+        <Box
+          className="bg-tint"
+          position="absolute"
+          top={0}
+          left={0}
+          bgColor={`var(--chakra-colors-${THEME}-900)`}
+          opacity={0.3}
+          w="full"
+          h="full"
+        />
+      </Box>
       <Flex direction="column" justify="center" ml={5}>
         <Heading as="h4" size="lg" color="white">
           Part of the {collection.name}

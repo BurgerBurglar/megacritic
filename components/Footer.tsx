@@ -1,18 +1,9 @@
-import { ReactNode } from "react";
-import {
-  Box,
-  Container,
-  Stack,
-  SimpleGrid,
-  Text,
-  VisuallyHidden,
-  chakra,
-  useColorModeValue,
-  Button,
-  IconButton,
-} from "@chakra-ui/react";
-import { FaTwitter, FaYoutube, FaInstagram, FaGithub } from "react-icons/fa";
+import { Box, Container, IconButton, Stack, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { ReactNode } from "react";
+import { FaGithub } from "react-icons/fa";
+import { useTenShadesOfGray, useThemeColor } from "../hooks/useColors";
+import { THEME } from "../utils/constants";
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -22,49 +13,13 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const SocialButton = ({
-  children,
-  label,
-  href,
-}: {
-  children: ReactNode;
-  label: string;
-  href: string;
-}) => {
-  return (
-    <Button
-      bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
-      rounded={"full"}
-      w={8}
-      h={8}
-      cursor={"pointer"}
-      as={"a"}
-      href={href}
-      display={"inline-flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      transition={"background 0.3s ease"}
-      _hover={{
-        bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
-      }}
-    >
-      <VisuallyHidden>{label}</VisuallyHidden>
-      {children}
-    </Button>
-  );
-};
-
 export const Footer: React.FC = () => {
   return (
-    <Box
-      bg={useColorModeValue("purple.100", "purple.900")}
-      color={useColorModeValue("gray.700", "gray.200")}
-      mt={10}
-    >
+    <Box bg={useThemeColor(100)} color={useTenShadesOfGray(700)} mt={10}>
       <Box
         borderTopWidth={1}
         borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.700")}
+        borderColor={useTenShadesOfGray(200)}
       >
         <Container
           as={Stack}
@@ -86,7 +41,7 @@ export const Footer: React.FC = () => {
                 aria-label="GitHub"
                 borderRadius="full"
                 variant="outline"
-                colorScheme="purple"
+                colorScheme={THEME}
                 size="md"
               />
             </NextLink>

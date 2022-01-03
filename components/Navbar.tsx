@@ -13,6 +13,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useThemeColor } from "../hooks/useColors";
+import { THEME } from "../utils/constants";
 
 const NavLink: React.FC = ({ children }) => (
   <Link
@@ -21,7 +23,7 @@ const NavLink: React.FC = ({ children }) => (
     rounded={"md"}
     _hover={{
       textDecoration: "none",
-      bg: useColorModeValue("purple.200", "purple.800"),
+      bg: useThemeColor(200),
     }}
     href={"#"}
   >
@@ -47,8 +49,8 @@ export const Navbar: React.FC<NavbarProps> = () => {
   return (
     <Box
       as="nav"
-      bg={useColorModeValue("purple.100", "purple.900")}
-      color={useColorModeValue("purple.900", "purple.100")}
+      bg={useThemeColor(100)}
+      color={useThemeColor(900)}
       position="sticky"
       top={0}
       zIndex={9}
@@ -57,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <IconButton
           size={"md"}
-          colorScheme="purple"
+          colorScheme={THEME}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
           aria-label={"Open Menu"}
           display={{ md: "none" }}
@@ -79,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
           <IconButton
             icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             aria-label="color mode"
-            colorScheme="purple"
+            colorScheme={THEME}
             variant="outline"
             borderRadius="full"
             onClick={toggleColorMode}

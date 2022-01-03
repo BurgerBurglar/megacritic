@@ -19,7 +19,9 @@ import {
   FaInstagram,
   FaTwitter,
 } from "react-icons/fa";
+import { useThemeColor } from "../../hooks/useColors";
 import { Movie, MovieKeyword, MovieLinks } from "../../types/Movie";
+import { THEME } from "../../utils/constants";
 import { formatLanguage } from "../../utils/formatLanguage";
 
 interface MovieSidebarProps {
@@ -43,7 +45,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
       ),
     ]),
   ];
-  const purple = useColorModeValue("purple.700", "purple.300");
+  const iconColor = useThemeColor(700);
   return (
     <VStack align="start" spacing={5}>
       <HStack flexWrap="wrap">
@@ -53,7 +55,9 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
               variant="ghost"
               aria-label="facebook"
               size="sm"
-              icon={<Icon as={FaFacebookSquare} color={purple} w={6} h={6} />}
+              icon={
+                <Icon as={FaFacebookSquare} color={iconColor} w={6} h={6} />
+              }
             />
           </NextLink>
         ) : null}
@@ -63,7 +67,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
               variant="ghost"
               aria-label="twitter"
               size="sm"
-              icon={<Icon as={FaTwitter} color={purple} w={6} h={6} />}
+              icon={<Icon as={FaTwitter} color={iconColor} w={6} h={6} />}
             />
           </NextLink>
         ) : null}
@@ -73,7 +77,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
               variant="ghost"
               aria-label="instagram"
               size="sm"
-              icon={<Icon as={FaInstagram} color={purple} w={6} h={6} />}
+              icon={<Icon as={FaInstagram} color={iconColor} w={6} h={6} />}
             />
           </NextLink>
         ) : null}
@@ -83,7 +87,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
               variant="ghost"
               aria-label="imdb"
               size="sm"
-              icon={<Icon as={FaImdb} color={purple} w={6} h={6} />}
+              icon={<Icon as={FaImdb} color={iconColor} w={6} h={6} />}
             />
           </NextLink>
         ) : null}
@@ -93,31 +97,31 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
               variant="ghost"
               aria-label="homepage"
               size="sm"
-              icon={<Icon as={FaHome} color={purple} w={6} h={6} />}
+              icon={<Icon as={FaHome} color={iconColor} w={6} h={6} />}
             />
           </NextLink>
         ) : null}
       </HStack>
       <Box>
-        <Heading as="h4" color={purple} size="sm">
+        <Heading as="h4" color={iconColor} size="sm">
           Status
         </Heading>
         {movie?.status}
       </Box>
       <Box>
-        <Heading as="h4" color={purple} size="sm">
+        <Heading as="h4" color={iconColor} size="sm">
           Original Language
         </Heading>
         {languages.join(", ")}
       </Box>
       <Box>
-        <Heading as="h4" color={purple} size="sm">
+        <Heading as="h4" color={iconColor} size="sm">
           Budget
         </Heading>
         {movie?.budget ? `$${Number(movie.budget).toLocaleString("en")}` : "-"}
       </Box>
       <Box>
-        <Heading as="h4" color={purple} size="sm">
+        <Heading as="h4" color={iconColor} size="sm">
           Revenue
         </Heading>
         {movie?.revenue
@@ -125,7 +129,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
           : "-"}
       </Box>
       <Box>
-        <Heading as="h4" color={purple} size="sm">
+        <Heading as="h4" color={iconColor} size="sm">
           Keywords
         </Heading>
         <Flex flexWrap="wrap">
@@ -133,7 +137,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
             keywords.map((keyword) => (
               <Tag
                 key={keyword.id}
-                colorScheme="purple"
+                colorScheme={THEME}
                 size="md"
                 border="1px"
                 mx="2px"

@@ -1,5 +1,6 @@
 import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
+import { useTenShadesOfGray, useThemeColor } from "../../hooks/useColors";
 import { getProfileUrl } from "../../utils/getUrl";
 import { NextImage } from "../NextImage";
 import { Slider } from "../Slider";
@@ -15,8 +16,8 @@ interface CastSliderProps {
 }
 
 export const CastSlider: React.FC<CastSliderProps> = ({ cast }) => {
-  const purple = useColorModeValue("purple.700", "purple.300");
-  const gray = useColorModeValue("gray.600", "gray.400");
+  const nameColor = useThemeColor(700);
+  const gray = useTenShadesOfGray(600);
   return (
     <Flex direction="column" w="100%" maxW="1400px">
       <Heading as="h3" size="md" mb={3}>
@@ -44,7 +45,7 @@ export const CastSlider: React.FC<CastSliderProps> = ({ cast }) => {
               <Box p={3} pb={5} whiteSpace="normal">
                 <TextEllipse
                   tooltip={castMember.name}
-                  color={purple}
+                  color={nameColor}
                   fontWeight="bold"
                 >
                   {castMember.name}

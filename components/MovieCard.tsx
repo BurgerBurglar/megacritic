@@ -2,6 +2,11 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { useColorMode, useColorModeValue } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+import {
+  useBorderColor,
+  useTenShadesOfGray,
+  useThemeColor,
+} from "../hooks/useColors";
 import { MovieOverview } from "../types/Movie";
 import { formatDates } from "../utils/formatDates";
 import { getPosterUrl } from "../utils/getUrl";
@@ -21,7 +26,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         direction="column"
         justify="space-between"
         border="1px"
-        borderColor={useColorModeValue("gray.200", "gray.800")}
+        borderColor={useTenShadesOfGray(200)}
         borderRadius="md"
         shadow="md"
         mx="auto"
@@ -31,7 +36,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         _hover={{
           cursor: "pointer",
           transition: "all .4s ease",
-          bgColor: useColorModeValue("purple.100", "purple.900"),
+          bgColor: useThemeColor(100),
         }}
       >
         <Box h="80%">
@@ -53,7 +58,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
             tooltip={movie.title}
             Element={Heading}
             as="h2"
-            color={useColorModeValue("purple.700", "purple.300")}
+            color={useThemeColor(700)}
             size="sm"
           >
             {movie.title}

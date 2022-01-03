@@ -8,14 +8,15 @@ import {
   TagLabel,
   TagLeftIcon,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
+import parse from "html-react-parser";
 import React from "react";
+import { useTenShadesOfGray } from "../../hooks/useColors";
+import { MovieReview } from "../../types/Movie";
+import { THEME } from "../../utils/constants";
 import { formatDates } from "../../utils/formatDates";
 import { Tabs } from "../Tabs";
 import { TextEllipse } from "../TextEllipse";
-import parse from "html-react-parser";
-import { MovieReview } from "../../types/Movie";
 
 interface MovieSocialProps {
   reviews: MovieReview[];
@@ -29,10 +30,7 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ reviews }) => {
   const tabs = ["Reviews", "Discussions"];
   const counts = [reviews.length, 0];
 
-  const gray = useColorModeValue(
-    "var(--chakra-colors-gray-200) !important",
-    "var(--chakra-colors-gray-700) !important"
-  );
+  const gray = useTenShadesOfGray(200);
   const elements = [
     reviewsSorted.length ? (
       <Flex
@@ -68,7 +66,7 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ reviews }) => {
                 <Text fontWeight="bold">{review.author}</Text>
                 <Text>{formatDates(review.created_at)}</Text>
                 {review.author_details.rating ? (
-                  <Tag h="2em" size="sm" variant="solid" colorScheme="purple">
+                  <Tag h="2em" size="sm" variant="solid" colorScheme={THEME}>
                     <TagLeftIcon boxSize="12px" as={StarIcon} />
                     <TagLabel>{review.author_details.rating}</TagLabel>
                   </Tag>

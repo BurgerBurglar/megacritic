@@ -6,6 +6,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { MouseEvent, useState } from "react";
+import { useTenShadesOfGray } from "../hooks/useColors";
 
 interface TabsProps {
   header: string;
@@ -22,7 +23,7 @@ export const Tabs: React.FC<TabsProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState(0);
 
-  const activeTabColor = useColorModeValue("gray.800", "gray.100");
+  const activeTabColor = useTenShadesOfGray(800);
 
   const getTabs = () => {
     const activeBarProps = {

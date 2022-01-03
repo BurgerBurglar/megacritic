@@ -15,7 +15,9 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+import { useThemeColor } from "../../hooks/useColors";
 import { Movie } from "../../types/Movie";
+import { THEME } from "../../utils/constants";
 import { formatDates } from "../../utils/formatDates";
 import { getHourMinute } from "../../utils/getHourMinute";
 import { getBackdropUrl, getPosterUrl } from "../../utils/getUrl";
@@ -45,6 +47,8 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
   crew,
   credential,
 }) => {
+  const bgColor = `var(--chakra-colors-${THEME}-900)`;
+
   const poster = getPosterUrl(movie?.poster_path, "lg");
   const backdrop = getBackdropUrl(movie?.backdrop_path, "lg");
 
@@ -89,7 +93,15 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
           w="100%"
           h="100%"
           position="absolute"
-          bg={`linear-gradient(to right, #0B0014FF, #0B0014FF ${bgOffsetPixels}px,rgba(20, 20, 20, 0.8))`}
+          bg={`linear-gradient(to right, ${bgColor}, ${bgColor} ${bgOffsetPixels}px,rgba(20, 20, 20, 0.8))`}
+        />
+        <Box
+          className="background-black"
+          w="100%"
+          h="100%"
+          position="absolute"
+          bgColor="black"
+          opacity={0.3}
         />
       </Box>
       <Stack
