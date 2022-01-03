@@ -1,13 +1,13 @@
 import { useColorModeValue } from "@chakra-ui/react";
-import { shade, ColorScheme } from "../types/utils";
-import { THEME } from "../utils/constants";
+import { useColorSchemeContext } from "../contexts/ColorSchemeProvider";
+import { ColorScheme, shade } from "../types/utils";
 
 export const useColorScheme = (
   colorScheme: ColorScheme,
   lightShade: shade,
   darkShade?: shade
 ) => {
-  let realDarkShade: shade = 50;
+  let realDarkShade: shade | undefined = darkShade;
   if (darkShade === undefined) {
     if (lightShade === 50) {
       realDarkShade = 900;
@@ -23,8 +23,9 @@ export const useColorScheme = (
   );
 };
 
-export const useThemeColor = (lightShade: shade, darkShade?: shade) =>
-  useColorScheme(THEME, lightShade, darkShade);
-
+export const useThemeColor = (lightShade: shade, darkShade?: shade) => {
+  const colorScheme = useColorSchemeContext();
+  return useColorScheme(colorScheme, lightShade, darkShade);
+};
 export const useTenShadesOfGray = (lightShade: shade, darkShade?: shade) =>
   useColorScheme("gray", lightShade, darkShade);

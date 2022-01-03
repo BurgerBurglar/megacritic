@@ -1,38 +1,61 @@
-import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import {
+  ChevronDownIcon,
+  CloseIcon,
+  HamburgerIcon,
+  MoonIcon,
+  SunIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
-  Button,
+  BoxProps,
+  Container,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
   Flex,
   Heading,
   HStack,
+  Icon,
   IconButton,
-  Link,
-  Stack,
+  Menu,
+  MenuButton,
+  MenuList,
+  Select,
+  StackDivider,
+  Text,
   useColorMode,
-  useColorModeValue,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useContext, useRef } from "react";
+import { FaPalette } from "react-icons/fa";
+import {
+  SetColorSchemeContext,
+  useColorSchemeContext,
+} from "../contexts/ColorSchemeProvider";
 import { useThemeColor } from "../hooks/useColors";
-import { THEME } from "../utils/constants";
+import { ColorScheme } from "../types/utils";
+import { colorSchemes } from "../utils/constants";
 
-const NavLink: React.FC = ({ children }) => (
-  <Link
-    px={2}
+const NavLink: React.FC<BoxProps> = ({ children, ...props }) => (
+  <Box
+    as="a"
     py={1}
-    rounded={"md"}
+    px={{ base: 0, md: 2 }}
+    rounded="md"
     _hover={{
-      textDecoration: "none",
       bg: useThemeColor(200),
     }}
-    href={"#"}
+    {...props}
   >
     {children}
-  </Link>
+  </Box>
 );
-interface NavbarProps {}
 
-const navLinks = () => (
+const NavLinks: React.FC = () => (
   <>
     <NavLink>
       <NextLink href="/discover/movie">
@@ -42,60 +65,143 @@ const navLinks = () => (
   </>
 );
 
-export const Navbar: React.FC<NavbarProps> = () => {
+const ColorSchemeSelector: React.FC<{ colorScheme: ColorScheme }> = ({
+  colorScheme,
+}) => {
+  const setColorScheme = useContext(SetColorSchemeContext)!;
+  return (
+    <HStack justify="space-between" w="full">
+      <Text w="full">Color Scheme</Text>
+      <Select
+        value={colorScheme}
+        bgColor={useThemeColor(100)}
+        onChange={(e) => setColorScheme(e.target.value as ColorScheme)}
+      >
+        {colorSchemes.map((color) => (
+          <option key={color} value={color}>
+            {color}
+          </option>
+        ))}
+      </Select>
+    </HStack>
+  );
+};
+
+const ThemeToggler: React.FC<{ colorScheme: ColorScheme }> = ({
+  colorScheme,
+}) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  return (
+    <HStack justify="space-between" w="full">
+      <Text w="full">Light / Dark Mode</Text>
+      <IconButton
+        icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+        aria-label="color mode"
+        colorScheme={colorScheme}
+        variant="outline"
+        borderRadius="full"
+        onClick={toggleColorMode}
+      />
+    </HStack>
+  );
+};
+export const Navbar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const colorScheme = useColorSchemeContext();
+  const btnRef = useRef<any>();
 
   return (
     <Box
       as="nav"
-      bg={useThemeColor(100)}
+      bg={useThemeColor(300, 900)}
       color={useThemeColor(900)}
       position="sticky"
       top={0}
       zIndex={9}
-      px={4}
+      py={2}
     >
-      <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-        <IconButton
-          size={"md"}
-          colorScheme={THEME}
-          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-          aria-label={"Open Menu"}
-          display={{ md: "none" }}
-          onClick={isOpen ? onClose : onOpen}
-        />
-        <HStack spacing={8} alignItems={"center"}>
-          <NavLink>
-            <NextLink href="/">
+      <Container maxW="1400px" display="flex" justifyContent="space-between">
+        <Flex display={{ md: "none" }} w={10} h={10}>
+          <IconButton
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            aria-label="drawer button"
+            colorScheme={colorScheme}
+            variant="ghost"
+            onClick={onOpen}
+          />
+          <Drawer
+            size="xs"
+            isOpen={isOpen}
+            placement="left"
+            onClose={onClose}
+            finalFocusRef={btnRef}
+          >
+            <DrawerOverlay />
+            <DrawerContent bg={useThemeColor(100)}>
+              <DrawerHeader>
+                <NextLink href="/">
+                  <NavLink>
+                    <Heading as="h1" size="md">
+                      Megacritic
+                    </Heading>
+                  </NavLink>
+                </NextLink>
+              </DrawerHeader>
+              <DrawerBody>
+                <VStack spacing={2} divider={<StackDivider />} align="start">
+                  <NavLinks />
+                  <ColorSchemeSelector colorScheme={colorScheme} />
+                  <ThemeToggler colorScheme={colorScheme} />
+                </VStack>
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+        </Flex>
+
+        <Flex className="nav-left" align="center">
+          <NextLink href="/">
+            <NavLink>
               <Heading as="h1" size="md">
                 Megacritic
               </Heading>
-            </NextLink>
-          </NavLink>
-          <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-            {navLinks()}
-          </HStack>
-        </HStack>
-        <Flex alignItems={"center"}>
-          <IconButton
-            icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            aria-label="color mode"
-            colorScheme={THEME}
-            variant="outline"
-            borderRadius="full"
-            onClick={toggleColorMode}
-          />
+            </NavLink>
+          </NextLink>
+          <Flex display={{ base: "none", md: "flex" }}>
+            <NavLinks />
+          </Flex>
         </Flex>
-      </Flex>
-
-      {isOpen ? (
-        <Box pb={4} display={{ md: "none" }}>
-          <Stack as={"nav"} spacing={4}>
-            {navLinks()}
-          </Stack>
-        </Box>
-      ) : null}
+        <Flex
+          className="center helper"
+          visibility="hidden"
+          display={{ md: "none" }}
+          w={10}
+          h={10}
+        />
+        <Flex
+          className="menu-container"
+          align="center"
+          w="fit-content"
+          display={{ base: "none", md: "flex" }}
+        >
+          <Menu closeOnSelect={false}>
+            <MenuButton
+              colorScheme={colorScheme}
+              as={IconButton}
+              variant="ghost"
+              icon={<Icon as={FaPalette} />}
+              aria-label="color scheme"
+              rightIcon={<ChevronDownIcon />}
+              p={4}
+            />
+            <MenuList bgColor={useThemeColor(100)} p={5}>
+              <VStack divider={<StackDivider />}>
+                <ColorSchemeSelector colorScheme={colorScheme} />
+                <ThemeToggler colorScheme={colorScheme} />
+              </VStack>
+            </MenuList>
+          </Menu>
+        </Flex>
+      </Container>
     </Box>
   );
 };

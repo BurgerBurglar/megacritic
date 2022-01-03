@@ -1,12 +1,12 @@
-import { Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 import { MovieRecommendation } from "../../types/Movie";
 import { getBackdropUrl } from "../../utils/getUrl";
 import { MovieCardRating } from "../MovieCardRating";
+import { NextImage } from "../NextImage";
 import { Slider } from "../Slider";
 import { TextEllipse } from "../TextEllipse";
-import { NextImage } from "../NextImage";
 
 interface RecommendationsProps {
   recommendations: MovieRecommendation[];

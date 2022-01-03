@@ -11,9 +11,9 @@ import {
 } from "@chakra-ui/react";
 import parse from "html-react-parser";
 import React from "react";
+import { useColorSchemeContext } from "../../contexts/ColorSchemeProvider";
 import { useTenShadesOfGray } from "../../hooks/useColors";
 import { MovieReview } from "../../types/Movie";
-import { THEME } from "../../utils/constants";
 import { formatDates } from "../../utils/formatDates";
 import { Tabs } from "../Tabs";
 import { TextEllipse } from "../TextEllipse";
@@ -23,6 +23,7 @@ interface MovieSocialProps {
 }
 
 export const MovieSocial: React.FC<MovieSocialProps> = ({ reviews }) => {
+  const colorScheme = useColorSchemeContext();
   const reviewsSorted = reviews.sort(
     (x, y) => Date.parse(x.updated_at) - Date.parse(y.updated_at)
   );
@@ -66,7 +67,12 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ reviews }) => {
                 <Text fontWeight="bold">{review.author}</Text>
                 <Text>{formatDates(review.created_at)}</Text>
                 {review.author_details.rating ? (
-                  <Tag h="2em" size="sm" variant="solid" colorScheme={THEME}>
+                  <Tag
+                    h="2em"
+                    size="sm"
+                    variant="solid"
+                    colorScheme={colorScheme}
+                  >
                     <TagLeftIcon boxSize="12px" as={StarIcon} />
                     <TagLabel>{review.author_details.rating}</TagLabel>
                   </Tag>

@@ -1,11 +1,11 @@
 import {
   Box,
-  Tooltip,
+  Flex,
   RangeSlider,
-  RangeSliderTrack,
   RangeSliderFilledTrack,
   RangeSliderThumb,
-  Flex,
+  RangeSliderTrack,
+  Tooltip,
 } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction } from "react";
 

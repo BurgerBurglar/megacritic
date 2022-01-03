@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-
 // See: https://usehooks-ts.com/react-hook/use-event-listener
 import { useEventListener } from "./useEventListener";
 
@@ -11,7 +10,6 @@ export function useLocalStorage<T>(
   serializer?: (value: T) => string,
   deserializer?: (value: string) => T
 ): [T, SetValue<T>] {
-
   const serialize = (value: T) => {
     if (serializer === undefined) {
       return JSON.stringify(value);

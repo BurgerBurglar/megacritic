@@ -1,8 +1,8 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Heading, Button, Flex, Box } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
 import useSWR from "swr";
-import { THEME } from "../../utils/constants";
+import { useColorSchemeContext } from "../../contexts/ColorSchemeProvider";
 import { getMovieGenres } from "../../utils/request";
 
 interface GenresProps {
@@ -16,6 +16,7 @@ export const Genres: React.FC<GenresProps> = ({
   handleToggleGenre,
   clearGenres,
 }) => {
+  const colorScheme = useColorSchemeContext();
   const genres = useSWR("movieGenre", getMovieGenres).data || [];
   return (
     <Box>
@@ -26,7 +27,7 @@ export const Genres: React.FC<GenresProps> = ({
         <Button
           key={genre.id}
           variant={selectedGenreIds.includes(genre.id) ? "solid" : "outline"}
-          colorScheme={THEME}
+          colorScheme={colorScheme}
           size="sm"
           borderRadius="full"
           fontWeight="normal"

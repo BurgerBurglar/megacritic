@@ -18,10 +18,10 @@ export const theme = extendTheme({
     },
   },
   styles: {
-    global: (props: any) => ({
-      body: {
-        bg: mode(light, dark)(props),
-      },
-    }),
+    // global: (props: any) => ({
+    //   body: {
+    //     bg: mode(light, dark)(props),
+    //   },
+    // }),
   },
 });

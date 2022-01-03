@@ -2,8 +2,8 @@ import { Box, Container, IconButton, Stack, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ReactNode } from "react";
 import { FaGithub } from "react-icons/fa";
+import { useColorSchemeContext } from "../contexts/ColorSchemeProvider";
 import { useTenShadesOfGray, useThemeColor } from "../hooks/useColors";
-import { THEME } from "../utils/constants";
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -14,6 +14,7 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 };
 
 export const Footer: React.FC = () => {
+  const colorScheme = useColorSchemeContext();
   return (
     <Box bg={useThemeColor(100)} color={useTenShadesOfGray(700)} mt={10}>
       <Box
@@ -41,7 +42,7 @@ export const Footer: React.FC = () => {
                 aria-label="GitHub"
                 borderRadius="full"
                 variant="outline"
-                colorScheme={THEME}
+                colorScheme={colorScheme}
                 size="md"
               />
             </NextLink>

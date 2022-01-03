@@ -18,4 +18,23 @@ export const PROFILE_PLACEHOLDER =
 export const PROFILE_PREFIX =
   "https://www.themoviedb.org/t/p/w138_and_h175_face/";
 
-export const THEME: ColorScheme = "purple";
+export const colorSchemes: ColorScheme[] = [
+  "purple",
+  "gray",
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "teal",
+  "blue",
+  "cyan",
+  "pink",
+  "linkedin",
+  "facebook",
+  "messenger",
+  "whatsapp",
+  "twitter",
+  "telegram",
+];
+
+export const initialColorScheme: ColorScheme = "messenger";

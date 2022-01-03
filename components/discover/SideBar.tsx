@@ -16,9 +16,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { useColorSchemeContext } from "../../contexts/ColorSchemeProvider";
 import { useTenShadesOfGray } from "../../hooks/useColors";
 import { DateRange, Keyword } from "../../types/utils";
-import { THEME } from "../../utils/constants";
 import { searchKeywords } from "../../utils/request";
 import { Genres } from "./Genres";
 import { RatingSlider } from "./RatingSlider";
@@ -53,6 +53,7 @@ export const SideBar: React.FC<SideBarProps> = ({
   queries,
   setQueries,
 }) => {
+  const colorScheme = useColorSchemeContext();
   const [newQuery, setNewQuery] = useState("");
   const [keywords, setKeywords] = useState<Keyword[]>([]);
   const handleQueryChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -171,7 +172,7 @@ export const SideBar: React.FC<SideBarProps> = ({
                   key={id}
                   borderRadius="full"
                   variant="solid"
-                  colorScheme={THEME}
+                  colorScheme={colorScheme}
                 >
                   <TagLabel>{name}</TagLabel>
                   <TagCloseButton
@@ -186,7 +187,7 @@ export const SideBar: React.FC<SideBarProps> = ({
         </AccordionPanel>
       </AccordionItem>
       <Button
-        colorScheme={THEME}
+        colorScheme={colorScheme}
         borderRadius="full"
         w="100%"
         onClick={refreshMovies}

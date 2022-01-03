@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
+import { useColorSchemeContext } from "../../contexts/ColorSchemeProvider";
 import { Collection } from "../../types/Movie";
-import { THEME } from "../../utils/constants";
 import { getBackdropUrl } from "../../utils/getUrl";
 
 interface MovieCollectionProps {
@@ -11,6 +11,7 @@ interface MovieCollectionProps {
 export const MovieCollection: React.FC<MovieCollectionProps> = ({
   collection,
 }) => {
+  const colorScheme = useColorSchemeContext();
   if (!collection) return null;
   const partTitles = collection.parts.map(({ title }) => title);
   const backdrop = getBackdropUrl(collection.backdrop_path, "wide");
@@ -44,7 +45,7 @@ export const MovieCollection: React.FC<MovieCollectionProps> = ({
           position="absolute"
           top={0}
           left={0}
-          bgColor={`var(--chakra-colors-${THEME}-900)`}
+          bgColor={`var(--chakra-colors-${colorScheme}-900)`}
           opacity={0.3}
           w="full"
           h="full"

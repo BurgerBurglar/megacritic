@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { useTenShadesOfGray, useThemeColor } from "../../hooks/useColors";
 import { getProfileUrl } from "../../utils/getUrl";

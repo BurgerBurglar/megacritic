@@ -1,12 +1,7 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
-import { useColorMode, useColorModeValue } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
-import {
-  useBorderColor,
-  useTenShadesOfGray,
-  useThemeColor,
-} from "../hooks/useColors";
+import { useTenShadesOfGray, useThemeColor } from "../hooks/useColors";
 import { MovieOverview } from "../types/Movie";
 import { formatDates } from "../utils/formatDates";
 import { getPosterUrl } from "../utils/getUrl";

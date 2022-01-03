@@ -1,10 +1,4 @@
-import {
-  Flex,
-  Spinner,
-  SimpleGrid,
-  Image,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Flex, Image, SimpleGrid, Spinner } from "@chakra-ui/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useThemeColor } from "../../hooks/useColors";

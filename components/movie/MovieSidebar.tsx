@@ -7,7 +7,6 @@ import {
   IconButton,
   Tag,
   Text,
-  useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
@@ -19,9 +18,9 @@ import {
   FaInstagram,
   FaTwitter,
 } from "react-icons/fa";
+import { useColorSchemeContext } from "../../contexts/ColorSchemeProvider";
 import { useThemeColor } from "../../hooks/useColors";
 import { Movie, MovieKeyword, MovieLinks } from "../../types/Movie";
-import { THEME } from "../../utils/constants";
 import { formatLanguage } from "../../utils/formatLanguage";
 
 interface MovieSidebarProps {
@@ -37,6 +36,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
   links,
   homepage,
 }) => {
+  const colorScheme = useColorSchemeContext();
   const languages = [
     ...new Set([
       formatLanguage(movie?.original_language),
@@ -137,7 +137,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
             keywords.map((keyword) => (
               <Tag
                 key={keyword.id}
-                colorScheme={THEME}
+                colorScheme={colorScheme}
                 size="md"
                 border="1px"
                 mx="2px"

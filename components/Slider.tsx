@@ -7,7 +7,6 @@ interface SliderProps extends BoxProps {}
 
 export const Slider: React.FC<SliderProps> = ({ children, ...props }) => {
   const rightColor = useThemeColor(50);
-  console.log({ rightColor });
   const hasChildren = Children.count(children) !== 0;
   return (
     <Box

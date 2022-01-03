@@ -1,10 +1,4 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  HStack,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack } from "@chakra-ui/react";
 import React, { MouseEvent, useState } from "react";
 import { useTenShadesOfGray } from "../hooks/useColors";
 
