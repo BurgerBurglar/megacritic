@@ -1,7 +1,6 @@
 import { Box, Flex, Heading, Input, Text } from "@chakra-ui/react";
 import React, { Dispatch } from "react";
 import { DateRange } from "../../types/utils";
-import { stringifyDate, parseDate } from "../../utils/date";
 
 interface ReleaseDatesProps {
   dateRange: DateRange;
@@ -21,13 +20,13 @@ export const ReleaseDates: React.FC<ReleaseDatesProps> = ({
         <Text color="gray.500">from</Text>
         <Input
           type="date"
-          value={stringifyDate(dateRange.from)}
+          value={dateRange.from}
           size="sm"
           maxW="160px"
           onChange={(e) =>
             setDateRange({
               ...dateRange,
-              from: parseDate(e.target.value),
+              from: e.target.value,
             })
           }
         />
@@ -36,13 +35,13 @@ export const ReleaseDates: React.FC<ReleaseDatesProps> = ({
         <Text color="gray.500">to</Text>
         <Input
           type="date"
-          value={stringifyDate(dateRange.to)}
+          value={dateRange.to}
           size="sm"
           maxW="160px"
           onChange={(e) =>
             setDateRange({
               ...dateRange,
-              to: parseDate(e.target.value),
+              to: e.target.value,
             })
           }
         />

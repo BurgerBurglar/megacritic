@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MovieOverview } from "../types/Movie";
 import { DateRange, Keyword } from "../types/utils";
-import { parseDateRange, stringifyDateRange } from "../utils/date";
+import { stringifyDate } from "../utils/date";
 import { getMovieOverviews } from "../utils/request";
 import { useLocalStorage } from "./useLocalStorage";
 
@@ -55,15 +55,10 @@ export const useSortFilter = (movies: MovieOverview[]) => {
       [...selectedGenreIds].join(",") || undefined;
   }, [selectedGenreIds]);
 
-  const [dateRange, setDateRange] = useLocalStorage<DateRange>(
-    "dateRange",
-    {
-      from: undefined,
-      to: new Date(),
-    },
-    stringifyDateRange,
-    parseDateRange
-  );
+  const [dateRange, setDateRange] = useLocalStorage<DateRange>("dateRange", {
+    from: undefined,
+    to: stringifyDate(new Date()),
+  });
 
   useEffect(() => {
     paramsRef.current["primary_release_date.gte"] = dateRange.from;

@@ -1,5 +1,3 @@
-import { DateRange } from "../types/utils";
-
 export const stringifyDate = (date?: Date) => {
   if (date === undefined) return undefined;
   let day = date.getDate().toString();
@@ -14,18 +12,4 @@ export const parseDate = (dateStr: string) => {
   const date = new Date(dateStr);
   const userTimezoneOffset = date.getTimezoneOffset() * 60000;
   return new Date(date.getTime() + userTimezoneOffset);
-};
-
-export const stringifyDateRange = ({ from, to }: DateRange) =>
-  JSON.stringify({
-    from: stringifyDate(from) || "",
-    to: stringifyDate(to) || "",
-  });
-
-export const parseDateRange = (dateRangeStr: string) => {
-  const { from, to } = JSON.parse(dateRangeStr) as { from: string; to: string };
-  return {
-    from: parseDate(from),
-    to: parseDate(to),
-  };
 };

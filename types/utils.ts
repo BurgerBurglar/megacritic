@@ -1,6 +1,6 @@
 export interface DateRange {
-  from?: Date;
-  to: Date;
+  from?: string;
+  to?: string;
 }
 
 export interface KeywordList {
