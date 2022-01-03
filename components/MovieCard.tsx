@@ -36,7 +36,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
       >
         <Box h="80%">
           <NextImage
-            src={getPosterUrl(poster)}
+            src={poster}
             alt={movie.title}
             h="300px"
             borderRadius="10px"
