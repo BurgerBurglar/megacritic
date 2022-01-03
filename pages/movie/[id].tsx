@@ -1,5 +1,6 @@
 import { Box, Flex, StackDivider, VStack } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
 import useSWR from "swr";
 import { CastSlider } from "../../components/movie/CastSlider";
 import { MovieCollection } from "../../components/movie/MovieCollection";
@@ -57,47 +58,52 @@ const Movie: NextPage<Props> = ({
   const { data: images } = useSWR("images", () => getMovieImages(id));
 
   return (
-    <Flex as="main" direction="column" align="center" w="100%">
-      <MovieHero movie={movie} crew={crew || []} credential={credential} />
-      <Flex
-        className="bottom"
-        direction={{ base: "column", lg: "row" }}
-        w="100%"
-        maxW="1400px"
-        mt={10}
-        px={5}
-      >
-        <VStack
-          divider={<StackDivider />}
-          align="start"
-          spacing={10}
-          flexGrow={1}
-          w={{ base: "100%", lg: "70%" }}
-        >
-          <CastSlider cast={cast || []} />
-          {reviews.length ? <MovieSocial reviews={reviews} /> : null}
-          {images && videos ? (
-            <MovieMedia images={images} videos={videos} />
-          ) : null}
-          {collection ? <MovieCollection collection={collection} /> : null}
-          <Recommendations recommendations={recommendations} />
-        </VStack>
-        <Box
-          className="sidebar"
-          ml={{ base: 0, lg: 10 }}
+    <>
+      <Head>
+        <title>{movie.title} - Megacritic</title>
+      </Head>
+      <Flex as="main" direction="column" align="center" w="100%">
+        <MovieHero movie={movie} crew={crew || []} credential={credential} />
+        <Flex
+          className="bottom"
+          direction={{ base: "column", lg: "row" }}
           w="100%"
-          maxW="300px"
-          // flex={0}
+          maxW="1400px"
+          mt={10}
+          px={5}
         >
-          <MovieSidebar
-            movie={movie}
-            keywords={keywords || []}
-            links={links}
-            homepage={movie?.homepage}
-          />
-        </Box>
+          <VStack
+            divider={<StackDivider />}
+            align="start"
+            spacing={10}
+            flexGrow={1}
+            w={{ base: "100%", lg: "70%" }}
+          >
+            <CastSlider cast={cast || []} />
+            {reviews.length ? <MovieSocial reviews={reviews} /> : null}
+            {images && videos ? (
+              <MovieMedia images={images} videos={videos} />
+            ) : null}
+            {collection ? <MovieCollection collection={collection} /> : null}
+            <Recommendations recommendations={recommendations} />
+          </VStack>
+          <Box
+            className="sidebar"
+            ml={{ base: 0, lg: 10 }}
+            w="100%"
+            maxW="300px"
+            // flex={0}
+          >
+            <MovieSidebar
+              movie={movie}
+              keywords={keywords || []}
+              links={links}
+              homepage={movie?.homepage}
+            />
+          </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };
 

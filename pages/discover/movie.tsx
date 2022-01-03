@@ -1,5 +1,6 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
 import React from "react";
 import { InfiniteGrid } from "../../components/discover/InfiniteGrid";
 import { SideBar } from "../../components/discover/SideBar";
@@ -32,6 +33,9 @@ const Movie: NextPage<Props> = ({ movies }) => {
 
   return (
     <>
+      <Head>
+        <title>Discover - Megacritic</title>
+      </Head>
       <Flex as="main" justify="center" w="100%" h="100%">
         <Flex direction="column" w="100%" maxW="1400px" mt={5} px={3}>
           <Heading as="h1" size="lg" mb={5}>
