@@ -11,6 +11,21 @@ export function useLocalStorage<T>(
   serializer?: (value: T) => string,
   deserializer?: (value: string) => T
 ): [T, SetValue<T>] {
+
+  const serialize = (value: T) => {
+    if (serializer === undefined) {
+      return JSON.stringify(value);
+    }
+    return serializer(value);
+  };
+
+  const deserialize = (value: string) => {
+    if (deserializer === undefined) {
+      return parseJSON(value) as T;
+    }
+    return deserializer(value);
+  };
+
   const readValue = (): T => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -26,20 +41,6 @@ export function useLocalStorage<T>(
   };
 
   const [storedValue, setStoredValue] = useState<T>(readValue);
-
-  const serialize = (value: T) => {
-    if (serializer === undefined) {
-      return JSON.stringify(value);
-    }
-    return serializer(value);
-  };
-
-  const deserialize = (value: string) => {
-    if (deserializer === undefined) {
-      return parseJSON(value) as T;
-    }
-    return deserializer(value);
-  };
 
   const setValue: SetValue<T> = (value) => {
     if (typeof window == "undefined") {

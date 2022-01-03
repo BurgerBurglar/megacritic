@@ -26,6 +26,8 @@ export const RatingSlider: React.FC<RatingSliderProps> = ({
           min={0}
           max={10}
           step={0.5}
+          position="relative"
+          left={-3}
           onChangeEnd={(val) => setRatings(val as [number, number])}
         >
           <RangeSliderTrack>
@@ -35,14 +37,7 @@ export const RatingSlider: React.FC<RatingSliderProps> = ({
           <RangeSliderThumb boxSize={6} index={1} />
         </RangeSlider>
       </Tooltip>
-      <Flex
-        justify="space-between"
-        color="gray.500"
-        w="full"
-        position="relative"
-        left={1}
-        mt={-2}
-      >
+      <Flex justify="space-between" color="gray.500" w="full">
         <Box>0</Box>
         <Box>5</Box>
         <Box>10</Box>
