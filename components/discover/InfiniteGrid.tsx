@@ -1,4 +1,10 @@
-import { Flex, Spinner, SimpleGrid, Image } from "@chakra-ui/react";
+import {
+  Flex,
+  Spinner,
+  SimpleGrid,
+  Image,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { MovieOverview } from "../../types/Movie";
@@ -24,7 +30,7 @@ export const InfiniteGrid: React.FC<GridProps> = ({
         <Flex
           justify="center"
           align="center"
-          bgColor="gray.200"
+          bgColor={useColorModeValue("purple.200", "purple.800")}
           borderRadius="md"
           w="100%"
           h="50px"
@@ -37,7 +43,7 @@ export const InfiniteGrid: React.FC<GridProps> = ({
         <Flex
           justify="center"
           align="center"
-          bgColor="gray.200"
+          bgColor={useColorModeValue("purple.200", "purple.800")}
           borderRadius="md"
           w="100%"
           h="50px"

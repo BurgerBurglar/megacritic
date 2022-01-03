@@ -25,7 +25,7 @@ export const Genres: React.FC<GenresProps> = ({
         <Button
           key={genre.id}
           variant={selectedGenreIds.includes(genre.id) ? "solid" : "outline"}
-          colorScheme="telegram"
+          colorScheme="purple"
           size="sm"
           borderRadius="full"
           fontWeight="normal"

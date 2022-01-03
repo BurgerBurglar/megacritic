@@ -8,6 +8,7 @@ import {
   TagLabel,
   TagLeftIcon,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
 import { formatDates } from "../../utils/formatDates";
@@ -27,12 +28,17 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ reviews }) => {
 
   const tabs = ["Reviews", "Discussions"];
   const counts = [reviews.length, 0];
+
+  const gray = useColorModeValue(
+    "var(--chakra-colors-gray-200) !important",
+    "var(--chakra-colors-gray-700) !important"
+  );
   const elements = [
     reviewsSorted.length ? (
       <Flex
         direction="column"
         align="start"
-        borderColor="gainsboro !important"
+        borderColor={gray}
         border="1px"
         p={5}
         maxH="500px"
@@ -44,7 +50,7 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ reviews }) => {
             key={review.id}
             shadow="md"
             w="100%"
-            borderColor="gainsboro !important"
+            borderColor={gray}
             border="1px"
             mb={4}
             p={5}
@@ -62,13 +68,7 @@ export const MovieSocial: React.FC<MovieSocialProps> = ({ reviews }) => {
                 <Text fontWeight="bold">{review.author}</Text>
                 <Text>{formatDates(review.created_at)}</Text>
                 {review.author_details.rating ? (
-                  <Tag
-                    h="2em"
-                    size="sm"
-                    variant="solid"
-                    color="white"
-                    bgColor="black"
-                  >
+                  <Tag h="2em" size="sm" variant="solid" colorScheme="purple">
                     <TagLeftIcon boxSize="12px" as={StarIcon} />
                     <TagLabel>{review.author_details.rating}</TagLabel>
                   </Tag>

@@ -1,5 +1,5 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { Box, BoxProps, Flex, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { Children } from "react";
 
 interface SliderProps extends BoxProps {}
@@ -21,7 +21,10 @@ export const Slider: React.FC<SliderProps> = ({ children, ...props }) => {
         position: "absolute",
         top: 0,
         right: 0,
-        bg: "linear-gradient(to right, rgba(255,255,255,0) 0%, #fff 100%)",
+        bg: useColorModeValue(
+          "linear-gradient(to right, #FFFFFF00 0%, #FFFFFFFF)",
+          "linear-gradient(to right, #20242C00 0%, #20242CFF)"
+        ),
         willChange: "opacity",
         pointerEvents: "none",
       }}

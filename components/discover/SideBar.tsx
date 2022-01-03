@@ -13,6 +13,7 @@ import {
   Tag,
   TagCloseButton,
   TagLabel,
+  useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
@@ -73,7 +74,10 @@ export const SideBar: React.FC<SideBarProps> = ({
     >
       <AccordionItem
         border="1px"
-        borderColor="LightGray !important"
+        borderColor={useColorModeValue(
+          "var(--chakra-colors-gray-200) !important",
+          "var(--chakra-colors-gray-700) !important"
+        )}
         borderRadius="md"
         shadow="md"
         mb={3}
@@ -81,7 +85,10 @@ export const SideBar: React.FC<SideBarProps> = ({
         <h2>
           <AccordionButton
             borderBottom="1px"
-            borderColor="LightGray !important"
+            borderColor={useColorModeValue(
+              "var(--chakra-colors-gray-200) !important",
+              "var(--chakra-colors-gray-700) !important"
+            )}
           >
             <Box flex="1" textAlign="left" fontWeight="bold">
               Sort
@@ -112,7 +119,10 @@ export const SideBar: React.FC<SideBarProps> = ({
       </AccordionItem>
       <AccordionItem
         border="1px"
-        borderColor="LightGray !important"
+        borderColor={useColorModeValue(
+          "var(--chakra-colors-gray-200) !important",
+          "var(--chakra-colors-gray-700) !important"
+        )}
         borderRadius="md"
         shadow="md"
         mb={3}
@@ -120,7 +130,10 @@ export const SideBar: React.FC<SideBarProps> = ({
         <h2>
           <AccordionButton
             borderBottom="1px"
-            borderColor="LightGray !important"
+            borderColor={useColorModeValue(
+              "var(--chakra-colors-gray-200) !important",
+              "var(--chakra-colors-gray-700) !important"
+            )}
           >
             <Box flex="1" textAlign="left" fontWeight="bold">
               Filters
@@ -184,7 +197,7 @@ export const SideBar: React.FC<SideBarProps> = ({
         </AccordionPanel>
       </AccordionItem>
       <Button
-        colorScheme="telegram"
+        colorScheme="purple"
         borderRadius="full"
         w="100%"
         onClick={refreshMovies}

@@ -1,18 +1,18 @@
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   Flex,
   Heading,
   HStack,
   IconButton,
   Link,
   Stack,
+  useColorMode,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-
-const Links: string[] = [];
 
 const NavLink: React.FC = ({ children }) => (
   <Link
@@ -21,7 +21,7 @@ const NavLink: React.FC = ({ children }) => (
     rounded={"md"}
     _hover={{
       textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
+      bg: useColorModeValue("purple.200", "purple.800"),
     }}
     href={"#"}
   >
@@ -30,47 +30,66 @@ const NavLink: React.FC = ({ children }) => (
 );
 interface NavbarProps {}
 
+const navLinks = () => (
+  <>
+    <NavLink>
+      <NextLink href="/discover/movie">
+        <Box>Discover</Box>
+      </NextLink>
+    </NavLink>
+  </>
+);
+
 export const Navbar: React.FC<NavbarProps> = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+    <Box
+      as="nav"
+      bg={useColorModeValue("purple.100", "purple.900")}
+      color={useColorModeValue("purple.900", "purple.100")}
+      position="sticky"
+      top={0}
+      zIndex={9}
+      px={4}
+    >
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <IconButton
           size={"md"}
+          colorScheme="purple"
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
           aria-label={"Open Menu"}
           display={{ md: "none" }}
           onClick={isOpen ? onClose : onOpen}
         />
         <HStack spacing={8} alignItems={"center"}>
-          <NextLink href="/">
-            <Link>
+          <NavLink>
+            <NextLink href="/">
               <Heading as="h1" size="md">
                 Megacritic
               </Heading>
-            </Link>
-          </NextLink>
-          <NextLink href="/discover/movie">
-            <Link>
-              <Box>Discover</Box>
-            </Link>
-          </NextLink>
+            </NextLink>
+          </NavLink>
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-            {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
-            ))}
+            {navLinks()}
           </HStack>
         </HStack>
-        <Flex alignItems={"center"}></Flex>
+        <Flex alignItems={"center"}>
+          <Button
+            colorScheme="purple"
+            variant="outline"
+            onClick={toggleColorMode}
+          >
+            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+          </Button>
+        </Flex>
       </Flex>
 
       {isOpen ? (
         <Box pb={4} display={{ md: "none" }}>
           <Stack as={"nav"} spacing={4}>
-            {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
-            ))}
+            {navLinks()}
           </Stack>
         </Box>
       ) : null}

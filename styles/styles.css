@@ -3,25 +3,9 @@ html, body {
     width: 100%;
 }
 
-html {
-    padding: 0;
-}
-
-body {
-    background: #3498db;
-}
-
 .App {
     font-family: sans-serif;
     padding: 10px 30px;
-}
-
-.App>div {
-    background-color: #5c2e91;
-    background-color: #fff;
-    color: #fff;
-    color: #3498db;
-    text-align: center;
 }
 
 .slick-next:before {

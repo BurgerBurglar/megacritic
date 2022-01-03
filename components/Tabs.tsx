@@ -1,4 +1,10 @@
-import { Box, Flex, Heading, HStack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  HStack,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import React, { MouseEvent, useState } from "react";
 
 interface TabsProps {
@@ -16,13 +22,15 @@ export const Tabs: React.FC<TabsProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState(0);
 
+  const activeTabColor = useColorModeValue("gray.800", "gray.100");
+
   const getTabs = () => {
     const activeBarProps = {
       _after: {
         content: "''",
         w: "full",
         h: "5px",
-        bgColor: "black",
+        bgColor: activeTabColor,
         position: "absolute",
         left: 0,
         bottom: "-10px",

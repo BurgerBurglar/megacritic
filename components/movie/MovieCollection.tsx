@@ -22,7 +22,7 @@ export const MovieCollection: React.FC<MovieCollectionProps> = ({
       overflow="hidden"
     >
       <Box
-        bgImage={`linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 100%), url(${backdrop})`}
+        bgImage={`linear-gradient(to right, #150029FF 0%, #150029AA 100%), url(${backdrop})`}
         bgRepeat="no-repeat"
         bgPosition="50% 50%"
         bgSize="cover"

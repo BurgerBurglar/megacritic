@@ -5,7 +5,9 @@ import {
   HStack,
   Icon,
   IconButton,
+  Tag,
   Text,
+  useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
@@ -41,6 +43,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
       ),
     ]),
   ];
+  const purple = useColorModeValue("purple.700", "purple.300");
   return (
     <VStack align="start" spacing={5}>
       <HStack flexWrap="wrap">
@@ -49,8 +52,8 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
             <IconButton
               variant="ghost"
               aria-label="facebook"
-              size="lg"
-              icon={<Icon as={FaFacebookSquare} w={8} h={8} />}
+              size="sm"
+              icon={<Icon as={FaFacebookSquare} color={purple} w={6} h={6} />}
             />
           </NextLink>
         ) : null}
@@ -59,8 +62,8 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
             <IconButton
               variant="ghost"
               aria-label="twitter"
-              size="lg"
-              icon={<Icon as={FaTwitter} w={8} h={8} />}
+              size="sm"
+              icon={<Icon as={FaTwitter} color={purple} w={6} h={6} />}
             />
           </NextLink>
         ) : null}
@@ -69,8 +72,8 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
             <IconButton
               variant="ghost"
               aria-label="instagram"
-              size="lg"
-              icon={<Icon as={FaInstagram} w={8} h={8} />}
+              size="sm"
+              icon={<Icon as={FaInstagram} color={purple} w={6} h={6} />}
             />
           </NextLink>
         ) : null}
@@ -79,8 +82,8 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
             <IconButton
               variant="ghost"
               aria-label="imdb"
-              size="lg"
-              icon={<Icon as={FaImdb} w={8} h={8} />}
+              size="sm"
+              icon={<Icon as={FaImdb} color={purple} w={6} h={6} />}
             />
           </NextLink>
         ) : null}
@@ -89,32 +92,32 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
             <IconButton
               variant="ghost"
               aria-label="homepage"
-              size="lg"
-              icon={<Icon as={FaHome} w={8} h={8} />}
+              size="sm"
+              icon={<Icon as={FaHome} color={purple} w={6} h={6} />}
             />
           </NextLink>
         ) : null}
       </HStack>
       <Box>
-        <Heading as="h4" size="sm">
+        <Heading as="h4" color={purple} size="sm">
           Status
         </Heading>
         {movie?.status}
       </Box>
       <Box>
-        <Heading as="h4" size="sm">
+        <Heading as="h4" color={purple} size="sm">
           Original Language
         </Heading>
         {languages.join(", ")}
       </Box>
       <Box>
-        <Heading as="h4" size="sm">
+        <Heading as="h4" color={purple} size="sm">
           Budget
         </Heading>
         {movie?.budget ? `$${Number(movie.budget).toLocaleString("en")}` : "-"}
       </Box>
       <Box>
-        <Heading as="h4" size="sm">
+        <Heading as="h4" color={purple} size="sm">
           Revenue
         </Heading>
         {movie?.revenue
@@ -122,27 +125,22 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
           : "-"}
       </Box>
       <Box>
-        <Heading as="h4" size="sm">
+        <Heading as="h4" color={purple} size="sm">
           Keywords
         </Heading>
         <Flex flexWrap="wrap">
           {keywords.length ? (
             keywords.map((keyword) => (
-              <Text
+              <Tag
                 key={keyword.id}
-                as="span"
-                bg="gray.200"
-                fontSize="sm"
-                borderRadius="md"
+                colorScheme="purple"
+                size="md"
                 border="1px"
-                borderColor="gray.300"
-                px="10px"
-                py="3px"
                 mx="2px"
                 my="4px"
               >
                 {keyword.name}
-              </Text>
+              </Tag>
             ))
           ) : (
             <Text>No keywords have been added.</Text>

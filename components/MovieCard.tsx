@@ -1,13 +1,13 @@
-import { Image } from "@chakra-ui/image";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
+import { useColorMode, useColorModeValue } from "@chakra-ui/react";
+import NextLink from "next/link";
 import React from "react";
 import { MovieOverview } from "../types/Movie";
 import { formatDates } from "../utils/formatDates";
-import { MovieCardRating } from "./MovieCardRating";
-import { TextEllipse } from "./TextEllipse";
-import NextLink from "next/link";
 import { getPosterUrl } from "../utils/getUrl";
+import { MovieCardRating } from "./MovieCardRating";
 import { NextImage } from "./NextImage";
+import { TextEllipse } from "./TextEllipse";
 interface MovieCardProps {
   movie: MovieOverview;
 }
@@ -21,7 +21,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         direction="column"
         justify="space-between"
         border="1px"
-        borderColor="gray.200"
+        borderColor={useColorModeValue("gray.200", "gray.800")}
         borderRadius="md"
         shadow="md"
         mx="auto"
@@ -31,7 +31,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         _hover={{
           cursor: "pointer",
           transition: "all .4s ease",
-          bgColor: "gray.100",
+          bgColor: useColorModeValue("purple.100", "purple.900"),
         }}
       >
         <Box h="80%">
@@ -53,6 +53,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
             tooltip={movie.title}
             Element={Heading}
             as="h2"
+            color={useColorModeValue("purple.700", "purple.300")}
             size="sm"
           >
             {movie.title}

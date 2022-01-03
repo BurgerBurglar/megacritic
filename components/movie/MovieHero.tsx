@@ -89,7 +89,7 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
           w="100%"
           h="100%"
           position="absolute"
-          bg={`linear-gradient(to right, rgba(20, 20, 20, 1), rgba(20, 20, 20, 1) ${bgOffsetPixels}px,rgba(20, 20, 20, 0.8))`}
+          bg={`linear-gradient(to right, #0B0014FF, #0B0014FF ${bgOffsetPixels}px,rgba(20, 20, 20, 0.8))`}
         />
       </Box>
       <Stack
