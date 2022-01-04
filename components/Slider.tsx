@@ -1,12 +1,10 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Box, BoxProps, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { Children } from "react";
-import { useThemeColor } from "../hooks/useColors";
 
 interface SliderProps extends BoxProps {}
 
 export const Slider: React.FC<SliderProps> = ({ children, ...props }) => {
-  const rightColor = useThemeColor(50);
   const hasChildren = Children.count(children) !== 0;
   return (
     <Box
