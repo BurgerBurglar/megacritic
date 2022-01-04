@@ -1,24 +1,10 @@
-import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { KeyboardEvent, useState } from "react";
 import { NextImage } from "../components/NextImage";
+import { SearchBar } from "../components/SearchBar";
 import { TextEllipse } from "../components/TextEllipse";
 import { useTenShadesOfGray, useThemeColor } from "../hooks/useColors";
 import { MovieOverview } from "../types/Movie";
@@ -32,47 +18,19 @@ interface Props {
   totalPages: number;
 }
 const Search: NextPage<Props> = ({ query, overviews, totalPages }) => {
-  const [newQuery, setNewQuery] = useState(
-    JSON.stringify(query?.query).replaceAll('"', "")
-  );
-  const [title, setTitle] = useState("Search");
-  const router = useRouter();
+  const initialQuery = JSON.stringify(query?.query).replaceAll('"', "");
+
   const borderColor = useTenShadesOfGray(200);
   const hoverColor = useThemeColor(100);
   const titleColor = useThemeColor(700);
 
-  const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      router.push(`/search?query=${newQuery}`);
-      setTitle(newQuery);
-    }
-  };
-
   return (
     <>
       <Head>
-        <title>{title} - Megacritic</title>
+        <title>{initialQuery ? initialQuery : "Search"} - Megacritic</title>
       </Head>
       <Container maxW={maxW}>
-        <InputGroup mb={5} color={useTenShadesOfGray(600)}>
-          <InputLeftElement pointerEvents="none">
-            <Search2Icon color="gray.300" />
-          </InputLeftElement>
-          <Input
-            placeholder="star wars y:1977"
-            value={newQuery}
-            onChange={(e) => setNewQuery(e.target.value)}
-            onKeyPress={handleEnter}
-          />
-          <InputRightElement>
-            <IconButton
-              icon={<CloseIcon />}
-              aria-label="clear"
-              variant="unstyled"
-              onClick={() => setNewQuery("")}
-            />
-          </InputRightElement>
-        </InputGroup>
+        <SearchBar initialQuery={initialQuery} />
         <VStack w="full">
           {overviews.length === 0 ? (
             <Text>What do you want to see?</Text>
@@ -126,7 +84,7 @@ const Search: NextPage<Props> = ({ query, overviews, totalPages }) => {
 export const getServerSideProps: GetServerSideProps<Props> = async ({
   query,
 }) => {
-  if (Object.keys(query).length === 0)
+  if (Object.keys(query).length === 0 || !query.query || !query.query.length)
     // WTF JavaScript
     return {
       props: {
