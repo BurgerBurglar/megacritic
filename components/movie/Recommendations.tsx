@@ -2,6 +2,7 @@ import { Flex, Heading, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 import { MovieRecommendation } from "../../types/Movie";
+import { maxW } from "../../utils/constants";
 import { getBackdropUrl } from "../../utils/getUrl";
 import { MovieCardRating } from "../MovieCardRating";
 import { NextImage } from "../NextImage";
@@ -16,7 +17,7 @@ export const Recommendations: React.FC<RecommendationsProps> = ({
   recommendations,
 }) => {
   return (
-    <Flex direction="column" w="100%" maxW="1400px">
+    <Flex direction="column" w="100%" maxW={maxW}>
       <Heading as="h3" size="md">
         Recommendations
       </Heading>

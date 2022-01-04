@@ -38,7 +38,7 @@ import {
 } from "../contexts/ColorSchemeProvider";
 import { useThemeColor } from "../hooks/useColors";
 import { ColorScheme } from "../types/utils";
-import { colorSchemes } from "../utils/constants";
+import { colorSchemes, maxW } from "../utils/constants";
 
 const NavLink: React.FC<BoxProps> = ({ children, ...props }) => (
   <Box
@@ -120,7 +120,7 @@ export const Navbar: React.FC = () => {
       zIndex={9}
       py={2}
     >
-      <Container maxW="1400px" display="flex" justifyContent="space-between">
+      <Container maxW={maxW} display="flex" justifyContent="space-between">
         <Flex display={{ md: "none" }} w={10} h={10}>
           <IconButton
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}

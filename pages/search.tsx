@@ -22,6 +22,7 @@ import { NextImage } from "../components/NextImage";
 import { TextEllipse } from "../components/TextEllipse";
 import { useTenShadesOfGray, useThemeColor } from "../hooks/useColors";
 import { MovieOverview } from "../types/Movie";
+import { maxW } from "../utils/constants";
 import { formatDates } from "../utils/formatDates";
 import { getPosterUrl } from "../utils/getUrl";
 import { getMovieOverviews } from "../utils/request";
@@ -52,7 +53,7 @@ const Search: NextPage<Props> = ({ query, overviews, totalPages }) => {
       <Head>
         <title>{title} - Megacritic</title>
       </Head>
-      <Container maxW="1400px">
+      <Container maxW={maxW}>
         <InputGroup mb={5} color={useTenShadesOfGray(600)}>
           <InputLeftElement pointerEvents="none">
             <Search2Icon color="gray.300" />

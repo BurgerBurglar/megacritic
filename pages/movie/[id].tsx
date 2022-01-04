@@ -30,6 +30,7 @@ import {
   getRecommendations,
   getReviews,
 } from "../../utils/request";
+import { maxW } from "../../utils/constants";
 
 interface Props {
   id: string;
@@ -68,7 +69,7 @@ const Movie: NextPage<Props> = ({
           className="bottom"
           direction={{ base: "column", lg: "row" }}
           w="100%"
-          maxW="1400px"
+          maxW={maxW}
           mt={10}
           px={5}
         >

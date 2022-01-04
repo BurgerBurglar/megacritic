@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { useTenShadesOfGray, useThemeColor } from "../../hooks/useColors";
+import { maxW } from "../../utils/constants";
 import { getProfileUrl } from "../../utils/getUrl";
 import { NextImage } from "../NextImage";
 import { Slider } from "../Slider";
@@ -19,7 +20,7 @@ export const CastSlider: React.FC<CastSliderProps> = ({ cast }) => {
   const nameColor = useThemeColor(700);
   const gray = useTenShadesOfGray(600);
   return (
-    <Flex direction="column" w="100%" maxW="1400px">
+    <Flex direction="column" w="100%" maxW={maxW}>
       <Heading as="h3" size="md" mb={3}>
         Top Billed Cast
       </Heading>

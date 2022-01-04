@@ -17,6 +17,7 @@ import NextLink from "next/link";
 import React from "react";
 import { useColorSchemeContext } from "../../contexts/ColorSchemeProvider";
 import { Movie } from "../../types/Movie";
+import { maxW } from "../../utils/constants";
 import { formatDates } from "../../utils/formatDates";
 import { getHourMinute } from "../../utils/getHourMinute";
 import { getBackdropUrl, getPosterUrl } from "../../utils/getUrl";
@@ -112,7 +113,7 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
         py={10}
         px={2}
         w="100%"
-        maxW="1400px"
+        maxW={maxW}
       >
         <Flex
           direction="column"

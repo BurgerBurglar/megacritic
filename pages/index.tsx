@@ -3,6 +3,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { MovieSlider } from "../components/MovieSlider";
 import { MovieOverview } from "../types/Movie";
+import { maxW } from "../utils/constants";
 import { getMovieOverviews } from "../utils/request";
 interface HomeProps {
   discover: MovieOverview[];
@@ -30,7 +31,7 @@ const Home: NextPage<HomeProps> = ({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box as="main" w="100%" maxW="1400px" mx="auto" mt={5}>
+      <Box as="main" w="100%" maxW={maxW} mx="auto" mt={5}>
         <Heading>Discover</Heading>
         <MovieSlider movies={discover} />
         <Heading>Now Playing</Heading>

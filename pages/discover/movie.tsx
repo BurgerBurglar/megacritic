@@ -7,6 +7,7 @@ import { SideBar } from "../../components/discover/SideBar";
 import { useSortFilter } from "../../hooks/useSortFilter";
 import { MovieOverview } from "../../types/Movie";
 import { getMovieOverviews } from "../../utils/request";
+import { maxW } from "../../utils/constants";
 
 interface Props {
   movies: MovieOverview[];
@@ -37,7 +38,7 @@ const Movie: NextPage<Props> = ({ movies }) => {
         <title>Discover - Megacritic</title>
       </Head>
       <Flex as="main" justify="center" w="100%" h="100%">
-        <Flex direction="column" w="100%" maxW="1400px" mt={5} px={3}>
+        <Flex direction="column" w="100%" maxW={maxW} mt={5} px={3}>
           <Heading as="h1" size="lg" mb={5}>
             Popular Movies
           </Heading>
