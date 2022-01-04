@@ -109,6 +109,7 @@ const Home: NextPage<HomeProps> = ({
                 colorScheme={colorScheme}
                 size={searchSize}
                 borderRadius="full"
+                onClick={search}
               >
                 Search
               </Button>
