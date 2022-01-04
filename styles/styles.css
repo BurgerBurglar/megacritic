@@ -8,29 +8,6 @@ html, body {
     padding: 10px 30px;
 }
 
-.slick-next:before {
-    color: black !important
-}
-
-.slick-prev:before {
-    color: black !important
-}
-
-button.slick-arrow.slick-next, button.slick-arrow.slick-prev {
-    background-color: rgba(0, 0, 0, 0);
-    height: 100%;
-    width: 50px;
-    z-index: 1;
-}
-
-button.slick-arrow.slick-prev:hover, button.slick-arrow.slick-next:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-.slick-slide {
-    padding: 38px 0;
-}
-
 ::-webkit-scrollbar {
     width: 15px;
 }
