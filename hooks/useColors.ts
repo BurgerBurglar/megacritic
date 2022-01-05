@@ -2,7 +2,7 @@ import { useColorModeValue } from "@chakra-ui/react";
 import { useColorSchemeContext } from "../contexts/ColorSchemeProvider";
 import { ColorScheme, shade } from "../types/utils";
 
-export const useColorScheme = (
+const useColorScheme = (
   colorScheme: ColorScheme,
   lightShade: shade,
   darkShade?: shade

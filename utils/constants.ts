@@ -40,3 +40,5 @@ export const colorSchemes: ColorScheme[] = [
 export const initialColorScheme: ColorScheme = "messenger";
 
 export const maxW = "1400px";
+
+export const PAGES_DISPLAY = 5;

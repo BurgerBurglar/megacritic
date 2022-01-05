@@ -24,13 +24,17 @@ export const request = async <T = any>(
   method: Method = "GET",
   params?: any
 ) => {
-  const { data } = await axios.request<T>({
-    url: BASE_URL + url,
-    method,
-    params,
-    headers: getHeaders(),
-  });
-  return data;
+  try {
+    const { data } = await axios.request<T>({
+      url: BASE_URL + url,
+      method,
+      params,
+      headers: getHeaders(),
+    });
+    return data;
+  } catch (err) {
+    return undefined;
+  }
 };
 
 type OverviewType =
@@ -58,7 +62,7 @@ export const getMovieOverviews = async (type: OverviewType, params?: any) => {
     params
   );
   const overviews = data?.results || [];
-  const totalPages = data.total_pages;
+  const totalPages = data?.total_pages;
   return {
     overviews,
     totalPages,
@@ -206,7 +210,7 @@ export const getCollection = async (id: string | null) => {
 };
 
 export const getMovieGenres = async () => {
-  const { genres } = await request<MovieGenreList>("genre/movie/list");
+  const genres = (await request<MovieGenreList>("genre/movie/list"))?.genres;
   return genres;
 };
 
