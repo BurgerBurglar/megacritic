@@ -27,6 +27,7 @@ export const Recommendations: React.FC<RecommendationsProps> = ({
             <NextLink
               key={recommendation.id}
               href={"http://localhost:3000/movie/" + recommendation.id}
+              passHref
             >
               <Flex
                 as="button"

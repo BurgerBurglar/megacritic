@@ -132,7 +132,10 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
         <VStack className="hero-info" spacing={5} align="start">
           <Box>
             <Link>
-              <NextLink href={`http://localhost:3000/movie/${movie?.id}`}>
+              <NextLink
+                href={`http://localhost:3000/movie/${movie?.id}`}
+                passHref
+              >
                 <Heading display="inline" fontSize="3xl">
                   {movie?.title}
                 </Heading>

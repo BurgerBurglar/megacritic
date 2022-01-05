@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
             reserved or something.
           </Text>
           <Stack direction={"row"} spacing={6}>
-            <NextLink href="https://github.com/BurgerBurglar">
+            <NextLink href="https://github.com/BurgerBurglar" passHref>
               <IconButton
                 icon={<FaGithub />}
                 aria-label="GitHub"

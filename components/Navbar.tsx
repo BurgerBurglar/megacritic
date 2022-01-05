@@ -19,6 +19,8 @@ import {
   HStack,
   Icon,
   IconButton,
+  Link,
+  LinkProps,
   Menu,
   MenuButton,
   MenuList,
@@ -40,30 +42,46 @@ import { useThemeColor } from "../hooks/useColors";
 import { ColorScheme } from "../types/utils";
 import { colorSchemes, maxW } from "../utils/constants";
 
-const NavLink: React.FC<BoxProps> = ({ children, ...props }) => (
-  <Box
-    as="a"
-    py={1}
-    px={{ base: 0, md: 2 }}
-    rounded="md"
-    _hover={{
-      bg: useThemeColor(200),
-    }}
-    {...props}
-  >
-    {children}
-  </Box>
+const NavLink: React.FC<LinkProps & { href: string }> = ({
+  href,
+  children,
+  ...props
+}) => (
+  <NextLink href={href} passHref>
+    <Link
+      py={1}
+      px={{ base: 0, md: 2 }}
+      rounded="md"
+      _hover={{
+        bg: useThemeColor(200),
+      }}
+      {...props}
+    >
+      {children}
+    </Link>
+  </NextLink>
 );
 
-const NavLinks: React.FC = () => (
-  <>
-    <NavLink>
-      <NextLink href="/discover/movie">
-        <Box>Discover</Box>
-      </NextLink>
-    </NavLink>
-  </>
+const NavBrand: React.FC = () => (
+  <NavLink href="/">
+    <Heading as="h1" size="md">
+      Megacritic
+    </Heading>
+  </NavLink>
 );
+
+const NavLinks: React.FC = () => {
+  const links = [{ name: "Discover", href: "/discover/movie" }];
+  return (
+    <>
+      {links.map(({ name, href }) => (
+        <NavLink key={href} href={href}>
+          {name}
+        </NavLink>
+      ))}
+    </>
+  );
+};
 
 const ColorSchemeSelector: React.FC<{ colorScheme: ColorScheme }> = ({
   colorScheme,
@@ -140,15 +158,7 @@ export const Navbar: React.FC = () => {
           >
             <DrawerOverlay />
             <DrawerContent bg={useThemeColor(100)}>
-              <DrawerHeader>
-                <NextLink href="/">
-                  <NavLink>
-                    <Heading as="h1" size="md">
-                      Megacritic
-                    </Heading>
-                  </NavLink>
-                </NextLink>
-              </DrawerHeader>
+              <DrawerHeader></DrawerHeader>
               <DrawerBody>
                 <VStack spacing={2} divider={<StackDivider />} align="start">
                   <NavLinks />
@@ -161,13 +171,7 @@ export const Navbar: React.FC = () => {
         </Flex>
 
         <Flex className="nav-left" align="center">
-          <NextLink href="/">
-            <NavLink>
-              <Heading as="h1" size="md">
-                Megacritic
-              </Heading>
-            </NavLink>
-          </NextLink>
+          <NavBrand />
           <Flex display={{ base: "none", md: "flex" }}>
             <NavLinks />
           </Flex>

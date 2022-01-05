@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+import { IconType } from "react-icons";
 import {
   FaFacebookSquare,
   FaHome,
@@ -30,6 +31,12 @@ interface MovieSidebarProps {
   homepage?: string;
 }
 
+interface SocialButtonProps {
+  href: string;
+  ariaLabel: string;
+  icon: IconType;
+}
+
 export const MovieSidebar: React.FC<MovieSidebarProps> = ({
   movie,
   keywords,
@@ -37,6 +44,7 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
   homepage,
 }) => {
   const colorScheme = useColorSchemeContext();
+  const iconColor = useThemeColor(700);
   const languages = [
     ...new Set([
       formatLanguage(movie?.original_language),
@@ -45,93 +53,83 @@ export const MovieSidebar: React.FC<MovieSidebarProps> = ({
       ),
     ]),
   ];
-  const iconColor = useThemeColor(700);
+  const SocialButton: React.FC<SocialButtonProps> = ({
+    href,
+    ariaLabel,
+    icon,
+  }) => {
+    return (
+      <NextLink href={href}>
+        <IconButton
+          variant="ghost"
+          aria-label={ariaLabel}
+          size="sm"
+          icon={<Icon as={icon} color={iconColor} w={6} h={6} />}
+        />
+      </NextLink>
+    );
+  };
+
+  const SideBarHeading: React.FC = ({ children }) => (
+    <Heading as="h4" color={iconColor} size="sm">
+      {children}
+    </Heading>
+  );
   return (
     <VStack align="start" spacing={5}>
       <HStack flexWrap="wrap">
         {links?.facebook_id ? (
-          <NextLink href={"https://www.facebook.com/" + links.facebook_id}>
-            <IconButton
-              variant="ghost"
-              aria-label="facebook"
-              size="sm"
-              icon={
-                <Icon as={FaFacebookSquare} color={iconColor} w={6} h={6} />
-              }
-            />
-          </NextLink>
+          <SocialButton
+            href={"https://www.facebook.com/" + links.facebook_id}
+            ariaLabel="facebook"
+            icon={FaFacebookSquare}
+          />
         ) : null}
         {links?.twitter_id ? (
-          <NextLink href={"https://www.twitter.com/" + links.twitter_id}>
-            <IconButton
-              variant="ghost"
-              aria-label="twitter"
-              size="sm"
-              icon={<Icon as={FaTwitter} color={iconColor} w={6} h={6} />}
-            />
-          </NextLink>
+          <SocialButton
+            href={"https://www.twitter.com/" + links.twitter_id}
+            ariaLabel="twitter"
+            icon={FaTwitter}
+          />
         ) : null}
         {links?.instagram_id ? (
-          <NextLink href={"https://www.instagram.com/" + links.instagram_id}>
-            <IconButton
-              variant="ghost"
-              aria-label="instagram"
-              size="sm"
-              icon={<Icon as={FaInstagram} color={iconColor} w={6} h={6} />}
-            />
-          </NextLink>
+          <SocialButton
+            href={"https://www.instagram.com/" + links.instagram_id}
+            ariaLabel="instagram"
+            icon={FaInstagram}
+          />
         ) : null}
         {links?.imdb_id ? (
-          <NextLink href={"https://www.imdb.com/title/" + links.imdb_id}>
-            <IconButton
-              variant="ghost"
-              aria-label="imdb"
-              size="sm"
-              icon={<Icon as={FaImdb} color={iconColor} w={6} h={6} />}
-            />
-          </NextLink>
+          <SocialButton
+            href={"https://www.imdb.com/title/" + links.imdb_id}
+            ariaLabel="imdb"
+            icon={FaImdb}
+          />
         ) : null}
         {homepage ? (
-          <NextLink href={homepage}>
-            <IconButton
-              variant="ghost"
-              aria-label="homepage"
-              size="sm"
-              icon={<Icon as={FaHome} color={iconColor} w={6} h={6} />}
-            />
-          </NextLink>
+          <SocialButton href={homepage} ariaLabel="homepage" icon={FaHome} />
         ) : null}
       </HStack>
       <Box>
-        <Heading as="h4" color={iconColor} size="sm">
-          Status
-        </Heading>
+        <SideBarHeading>Status</SideBarHeading>
         {movie?.status}
       </Box>
       <Box>
-        <Heading as="h4" color={iconColor} size="sm">
-          Original Language
-        </Heading>
+        <SideBarHeading> Original Language</SideBarHeading>
         {languages.join(", ")}
       </Box>
       <Box>
-        <Heading as="h4" color={iconColor} size="sm">
-          Budget
-        </Heading>
+        <SideBarHeading>Budget</SideBarHeading>
         {movie?.budget ? `$${Number(movie.budget).toLocaleString("en")}` : "-"}
       </Box>
       <Box>
-        <Heading as="h4" color={iconColor} size="sm">
-          Revenue
-        </Heading>
+        <SideBarHeading>Revenue</SideBarHeading>
         {movie?.revenue
           ? `$${Number(movie.revenue).toLocaleString("en")}`
           : "-"}
       </Box>
       <Box>
-        <Heading as="h4" color={iconColor} size="sm">
-          Keywords
-        </Heading>
+        <SideBarHeading>Keywords</SideBarHeading>
         <Flex flexWrap="wrap">
           {keywords.length ? (
             keywords.map((keyword) => (
