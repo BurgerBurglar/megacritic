@@ -51,7 +51,7 @@ export const MovieCollection: React.FC<MovieCollectionProps> = ({
           h="full"
         />
       </Box>
-      <Flex direction="column" justify="center" ml={5}>
+      <Flex direction="column" justify="center" ml={5} p={2}>
         <Heading as="h4" size="lg" color="white">
           Part of the {collection.name}
         </Heading>
