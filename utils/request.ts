@@ -71,7 +71,7 @@ export const getMovieOverviews = async (type: OverviewType, params?: any) => {
 
 export const getMovieVideos = async (id: string) => {
   const data = await request<MovieVideoList>(`movie/${id}/videos`);
-  return data?.results.filter(({ site }) => site === "YouTube");
+  return data?.results.filter(({ site }) => site === "YouTube") || [];
 };
 export const getMovieLinks = async (id: string) => {
   const data = await request<MovieLinks>(`movie/${id}/external_ids`);

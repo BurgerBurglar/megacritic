@@ -1,7 +1,6 @@
 import { Box, Flex, StackDivider, VStack } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import useSWR from "swr";
 import { CastSlider } from "../../components/movie/CastSlider";
 import { MovieCollection } from "../../components/movie/MovieCollection";
 import { MovieHero } from "../../components/movie/MovieHero";
@@ -14,10 +13,14 @@ import {
   Collection,
   CrewOverview,
   Movie,
+  MovieImages,
   MovieKeyword,
   MovieLinks,
   MovieRecommendation,
+  MovieReview,
+  MovieVideo,
 } from "../../types/Movie";
+import { maxW } from "../../utils/constants";
 import {
   getCollection,
   getKeywords,
@@ -30,10 +33,8 @@ import {
   getRecommendations,
   getReviews,
 } from "../../utils/request";
-import { maxW } from "../../utils/constants";
 
 interface Props {
-  id: string;
   movie: Movie;
   crew: CrewOverview[];
   cast: CastOverview[];
@@ -42,9 +43,11 @@ interface Props {
   links: MovieLinks | null;
   recommendations: MovieRecommendation[];
   collection: Collection | null;
+  reviews: MovieReview[];
+  videos: MovieVideo[];
+  images: MovieImages | null;
 }
 const Movie: NextPage<Props> = ({
-  id,
   movie,
   crew,
   cast,
@@ -53,11 +56,10 @@ const Movie: NextPage<Props> = ({
   links,
   recommendations,
   collection,
+  reviews,
+  videos,
+  images,
 }) => {
-  const reviews = useSWR("reviews", () => getReviews(id)).data || [];
-  const videos = useSWR("videos", () => getMovieVideos(id)).data || [];
-  const { data: images } = useSWR("images", () => getMovieImages(id));
-
   return (
     <>
       <Head>
@@ -133,9 +135,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
       ? movie.belongs_to_collection.id.toString()
       : null
   );
+
+  const reviews = await getReviews(id);
+  const videos = await getMovieVideos(id);
+  const images = await getMovieImages(id);
   return {
     props: {
-      id,
       movie,
       crew,
       cast,
@@ -144,6 +149,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
       links,
       recommendations,
       collection,
+      reviews,
+      videos,
+      images,
     },
   };
 };
