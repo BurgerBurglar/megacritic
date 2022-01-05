@@ -31,7 +31,7 @@ export const CastSlider: React.FC<CastSliderProps> = ({ cast }) => {
               key={castMember.id}
               w="140px"
               minW="140px"
-              h="90%"
+              h="290px"
               display="inline-block"
               m={2}
               borderRadius="lg"

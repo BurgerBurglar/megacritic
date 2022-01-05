@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   Box,
   Flex,
   Heading,
@@ -115,20 +116,26 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
         w="100%"
         maxW={maxW}
       >
-        <Flex
-          direction="column"
-          w="100%"
+        <Box
+          flexShrink={0}
+          w="full"
+          h={{ md: "full" }}
           maxW="300px"
-          borderRadius="lg"
-          overflow="hidden"
+          maxH="450px"
         >
-          <NextImage
-            src={poster}
-            alt={movie?.title}
-            imageProps={{ quality: 100 }}
-            h="450px"
-          />
-        </Flex>
+          <AspectRatio
+            className="aspect-ratio"
+            ratio={300 / 450}
+            borderRadius="lg"
+            overflow="hidden"
+          >
+            <NextImage
+              src={poster}
+              alt={movie?.title}
+              imageProps={{ quality: 100 }}
+            />
+          </AspectRatio>
+        </Box>
         <VStack className="hero-info" spacing={5} align="start">
           <Box>
             <Link>
