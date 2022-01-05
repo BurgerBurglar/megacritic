@@ -123,18 +123,14 @@ export const MovieHero: React.FC<MovieHeroProps> = ({
           maxW="300px"
           maxH="450px"
         >
-          <AspectRatio
-            className="aspect-ratio"
+          <NextImage
+            src={poster}
+            alt={movie?.title}
             ratio={300 / 450}
             borderRadius="lg"
             overflow="hidden"
-          >
-            <NextImage
-              src={poster}
-              alt={movie?.title}
-              imageProps={{ quality: 100 }}
-            />
-          </AspectRatio>
+            imageProps={{ quality: 100 }}
+          />
         </Box>
         <VStack className="hero-info" spacing={5} align="start">
           <Box>
