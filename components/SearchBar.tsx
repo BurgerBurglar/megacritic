@@ -18,10 +18,9 @@ interface SearchBarProps {
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({ initialQuery }) => {
-  const { newQuery, setNewQuery, router } = useSearch(initialQuery);
+  const { newQuery, setNewQuery, search } = useSearch(initialQuery);
   const colorScheme = useColorSchemeContext();
 
-  const search = () => router.push(`/search?query=${newQuery}`);
   return (
     <Flex>
       <InputGroup mb={5} color={useTenShadesOfGray(600)} mr={1}>

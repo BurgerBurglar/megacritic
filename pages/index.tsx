@@ -36,7 +36,7 @@ const Home: NextPage<HomeProps> = ({
   topRated,
   upcoming,
 }) => {
-  const { newQuery, setNewQuery, router } = useSearch("");
+  const { newQuery, setNewQuery, search } = useSearch("");
   const colorScheme = useColorSchemeContext();
 
   const main = useMemo(
@@ -59,7 +59,6 @@ const Home: NextPage<HomeProps> = ({
     [discover, nowPlaying, popular, topRated, trending, upcoming]
   );
 
-  const search = () => router.push(`/search?query=${newQuery}`);
   const searchSize = useBreakpointValue({ base: "md", md: "lg" });
   const heroHeight = useBreakpointValue({ base: "300px", md: "500px" });
 
