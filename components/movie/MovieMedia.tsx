@@ -78,6 +78,8 @@ export const MovieMedia: React.FC<MovieMediaProps> = ({ images, videos }) => {
           alt={backdrop.file_path}
           w="533px"
           h="300px"
+          maxW="80vw"
+          maxH={(80 * 300) / 533 + "vw"}
           flexShrink={0}
         />
       ))}
