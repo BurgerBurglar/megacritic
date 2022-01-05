@@ -12,6 +12,7 @@ import {
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import React, { useMemo } from "react";
+import useSWR from "swr";
 import { MovieSlider } from "../components/MovieSlider";
 import { useColorSchemeContext } from "../contexts/ColorSchemeProvider";
 import { useTenShadesOfGray, useThemeColor } from "../hooks/useColors";
@@ -22,20 +23,19 @@ import { getMovieOverviews } from "../utils/request";
 
 interface HomeProps {
   discover: MovieOverview[];
-  nowPlaying: MovieOverview[];
-  popular: MovieOverview[];
-  trending: MovieOverview[];
-  topRated: MovieOverview[];
-  upcoming: MovieOverview[];
 }
-const Home: NextPage<HomeProps> = ({
-  discover,
-  nowPlaying,
-  popular,
-  trending,
-  topRated,
-  upcoming,
-}) => {
+const Home: NextPage<HomeProps> = ({ discover }) => {
+  const nowPlaying = useSWR("nowPlaying", () => getMovieOverviews("nowPlaying"))
+    .data?.overviews;
+  const popular = useSWR("popular", () => getMovieOverviews("popular")).data
+    ?.overviews;
+  const trending = useSWR("trending", () => getMovieOverviews("trending")).data
+    ?.overviews;
+  const topRated = useSWR("topRated", () => getMovieOverviews("topRated")).data
+    ?.overviews;
+  const upcoming = useSWR("upcoming", () => getMovieOverviews("upcoming")).data
+    ?.overviews;
+
   const { newQuery, setNewQuery, search } = useSearch("");
   const colorScheme = useColorSchemeContext();
 
@@ -45,15 +45,15 @@ const Home: NextPage<HomeProps> = ({
         <Heading>Discover</Heading>
         <MovieSlider movies={discover} />
         <Heading>Now Playing</Heading>
-        <MovieSlider movies={nowPlaying} />
+        <MovieSlider movies={nowPlaying || []} />
         <Heading>Popular</Heading>
-        <MovieSlider movies={popular} />
+        <MovieSlider movies={popular || []} />
         <Heading>Trending</Heading>
-        <MovieSlider movies={trending} />
+        <MovieSlider movies={trending || []} />
         <Heading>Top Rated</Heading>
-        <MovieSlider movies={topRated} />
+        <MovieSlider movies={topRated || []} />
         <Heading>Upcoming</Heading>
-        <MovieSlider movies={upcoming} />
+        <MovieSlider movies={upcoming || []} />
       </>
     ),
     [discover, nowPlaying, popular, topRated, trending, upcoming]
@@ -147,19 +147,9 @@ const Home: NextPage<HomeProps> = ({
 export default Home;
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const { overviews: discover } = await getMovieOverviews("discover");
-  const { overviews: nowPlaying } = await getMovieOverviews("nowPlaying");
-  const { overviews: popular } = await getMovieOverviews("popular");
-  const { overviews: trending } = await getMovieOverviews("trending");
-  const { overviews: topRated } = await getMovieOverviews("topRated");
-  const { overviews: upcoming } = await getMovieOverviews("upcoming");
   return {
     props: {
       discover,
-      nowPlaying,
-      popular,
-      trending,
-      topRated,
-      upcoming,
     },
   };
 };
