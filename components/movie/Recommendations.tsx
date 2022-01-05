@@ -28,7 +28,7 @@ export const Recommendations: React.FC<RecommendationsProps> = ({
           {recommendations.slice(0, 9).map((recommendation) => (
             <NextLink
               key={recommendation.id}
-              href={"http://localhost:3000/movie/" + recommendation.id}
+              href={"/movie/" + recommendation.id}
               passHref
             >
               <Flex

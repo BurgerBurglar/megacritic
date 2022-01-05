@@ -16,11 +16,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   const poster = getPosterUrl(movie.poster_path);
 
   return (
-    <NextLink
-      key={movie.id}
-      href={"http://localhost:3000/movie/" + movie.id}
-      passHref
-    >
+    <NextLink key={movie.id} href={"/movie/" + movie.id} passHref>
       <Flex
         direction="column"
         justify="space-between"
