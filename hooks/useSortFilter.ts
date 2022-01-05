@@ -30,7 +30,7 @@ export const useSortFilter = (movies: MovieOverview[]) => {
     paramsRef.current.page++;
     const { overviews: newMovies, totalPages } = await fetchMovies();
     setAllMovies((prevMovies) => [...prevMovies, ...newMovies]);
-    if (paramsRef.current.page >= totalPages) {
+    if (paramsRef.current.page >= (totalPages || 0)) {
       setHasMore(false);
     } else {
       setHasMore(true);

@@ -33,7 +33,7 @@ export const request = async <T = any>(
     });
     return data;
   } catch (err) {
-    return undefined;
+    return null;
   }
 };
 
@@ -163,7 +163,7 @@ export const getMovieCredits = async (
 export const getMovieCredential = async (id: string) => {
   const data = await request<MovieReleaseList>(`movie/${id}/release_dates`);
   if (!data) {
-    return undefined;
+    return null;
   }
   const americanReleaseDate = data.results
     .filter(({ iso_3166_1 }) => iso_3166_1 === "US")[0]
@@ -182,8 +182,7 @@ export const getMovieCredential = async (id: string) => {
 
   const credential = releaseDatesWCertification[0].certification;
 
-  return;
-  credential;
+  return credential;
 };
 
 export const getKeywords = async (id: string) => {

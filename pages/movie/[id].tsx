@@ -37,9 +37,9 @@ interface Props {
   movie: Movie;
   crew: CrewOverview[];
   cast: CastOverview[];
-  credential?: string;
+  credential: string | null;
   keywords: MovieKeyword[];
-  links: MovieLinks;
+  links: MovieLinks | null;
   recommendations: MovieRecommendation[];
   collection: Collection | null;
 }
@@ -61,10 +61,14 @@ const Movie: NextPage<Props> = ({
   return (
     <>
       <Head>
-        <title>{movie.title} - Megacritic</title>
+        <title>{movie?.title} - Megacritic</title>
       </Head>
       <Flex as="main" direction="column" align="center" w="100%">
-        <MovieHero movie={movie} crew={crew || []} credential={credential} />
+        <MovieHero
+          movie={movie}
+          crew={crew || []}
+          credential={credential || undefined}
+        />
         <Flex
           className="bottom"
           direction={{ base: "column", lg: "row" }}
@@ -98,7 +102,7 @@ const Movie: NextPage<Props> = ({
             <MovieSidebar
               movie={movie}
               keywords={keywords || []}
-              links={links}
+              links={links || undefined}
               homepage={movie?.homepage}
             />
           </Box>
@@ -113,13 +117,19 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 ) => {
   const id = context.params?.id as string;
   const movie = await getMovieDetails(id);
+  if (!movie) {
+    return {
+      notFound: true,
+    };
+  }
+
   const { crew, cast } = await getMovieCredits(id);
   const credential = await getMovieCredential(id);
-  const keywords = await getKeywords(id);
+  const keywords = (await getKeywords(id)) || [];
   const links = await getMovieLinks(id);
   const recommendations = await getRecommendations(id);
   const collection = await getCollection(
-    movie.belongs_to_collection
+    movie?.belongs_to_collection
       ? movie.belongs_to_collection.id.toString()
       : null
   );
