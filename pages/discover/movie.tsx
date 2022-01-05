@@ -1,4 +1,14 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Flex,
+  Heading,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import React from "react";
@@ -32,6 +42,30 @@ const Movie: NextPage<Props> = ({ movies }) => {
     setQueries,
   } = useSortFilter(movies);
 
+  const sideBarPosition = useBreakpointValue({
+    base: "top",
+    lg: "left",
+  });
+
+  console.log({ sideBarPosition });
+
+  const SideBarWithProps: React.FC = () => (
+    <SideBar
+      sortBy={sortBy}
+      setSortBy={setSortBy}
+      selectedGenreIds={selectedGenreIds}
+      handleToggleGenre={handleToggleGenre}
+      refreshMovies={refreshMovies}
+      clearGenres={clearGenres}
+      dateRange={dateRange}
+      setDateRange={setDateRange}
+      ratings={ratings}
+      setRatings={setRatings}
+      queries={queries}
+      setQueries={setQueries}
+    />
+  );
+
   return (
     <>
       <Head>
@@ -42,22 +76,30 @@ const Movie: NextPage<Props> = ({ movies }) => {
           <Heading as="h1" size="lg" mb={5}>
             Popular Movies
           </Heading>
+          {sideBarPosition === "top" ? (
+            <Accordion allowToggle>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="center">
+                      Sort and Filters
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <SideBarWithProps />
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
+          ) : null}
           <Flex w="100%">
-            <SideBar
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              selectedGenreIds={selectedGenreIds}
-              handleToggleGenre={handleToggleGenre}
-              refreshMovies={refreshMovies}
-              clearGenres={clearGenres}
-              dateRange={dateRange}
-              setDateRange={setDateRange}
-              ratings={ratings}
-              setRatings={setRatings}
-              queries={queries}
-              setQueries={setQueries}
-            />
-            <Box w="100%" ml={3}>
+            {sideBarPosition === "left" ? (
+              <Box w="30%" maxW={300}>
+                <SideBarWithProps />
+              </Box>
+            ) : null}
+            <Box w="100%" ml={{ base: 0, lg: 3 }} mt={{ base: 3, lg: 0 }}>
               <InfiniteGrid
                 movies={allMovies}
                 loadMore={loadMore}

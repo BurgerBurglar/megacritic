@@ -4,6 +4,7 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+  AccordionProps,
   Box,
   Button,
   Heading,
@@ -39,7 +40,7 @@ interface SideBarProps {
   setQueries: Dispatch<SetStateAction<Keyword[]>>;
 }
 
-export const SideBar: React.FC<SideBarProps> = ({
+export const SideBar: React.FC<SideBarProps & AccordionProps> = ({
   sortBy,
   setSortBy,
   selectedGenreIds,
@@ -52,6 +53,7 @@ export const SideBar: React.FC<SideBarProps> = ({
   setRatings,
   queries,
   setQueries,
+  ...props
 }) => {
   const colorScheme = useColorSchemeContext();
   const [newQuery, setNewQuery] = useState("");
@@ -67,13 +69,7 @@ export const SideBar: React.FC<SideBarProps> = ({
   };
 
   return (
-    <Accordion
-      defaultIndex={[0, 1]}
-      allowMultiple
-      w="30%"
-      maxW="300px"
-      h="fit-content"
-    >
+    <Accordion defaultIndex={[0, 1]} allowMultiple h="fit-content" {...props}>
       <AccordionItem
         border="1px"
         borderColor={useTenShadesOfGray(200)}
