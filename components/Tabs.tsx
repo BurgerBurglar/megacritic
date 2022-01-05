@@ -39,7 +39,7 @@ export const Tabs: React.FC<TabsProps> = ({
       <Heading
         key={i}
         data-id={i}
-        as="h4"
+        as="button"
         size="sm"
         position="relative"
         margin="10px 0"
