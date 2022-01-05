@@ -18,11 +18,16 @@ interface Props {
   totalPages: number;
 }
 const Search: NextPage<Props> = ({ query, overviews, totalPages }) => {
-  const initialQuery = JSON.stringify(query?.query).replaceAll('"', "");
+  const initialQuery = (JSON.stringify(query?.query) || "").replaceAll('"', "");
 
   const borderColor = useTenShadesOfGray(200);
   const hoverColor = useThemeColor(50);
   const titleColor = useThemeColor(700);
+
+  const emptyMessage =
+    initialQuery.length === 0
+      ? "What do you want to see?"
+      : "No results have been found. Try again?";
 
   return (
     <>
@@ -33,7 +38,7 @@ const Search: NextPage<Props> = ({ query, overviews, totalPages }) => {
         <SearchBar initialQuery={initialQuery} />
         <VStack w="full">
           {overviews.length === 0 ? (
-            <Text>What do you want to see?</Text>
+            <Text>{emptyMessage}</Text>
           ) : (
             overviews.map((movie) => (
               <Box key={movie.id} w="full">

@@ -71,7 +71,10 @@ const NavBrand: React.FC = () => (
 );
 
 const NavLinks: React.FC = () => {
-  const links = [{ name: "Discover", href: "/discover/movie" }];
+  const links = [
+    { name: "Discover", href: "/discover/movie" },
+    { name: "Search", href: "/search" },
+  ];
   return (
     <>
       {links.map(({ name, href }) => (
