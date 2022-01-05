@@ -112,7 +112,7 @@ const Home: NextPage<HomeProps> = ({
           <InputGroup
             mb={5}
             size={searchSize}
-            color={useTenShadesOfGray(600)}
+            color={useTenShadesOfGray(700, 700)}
             mt={3}
           >
             <Input

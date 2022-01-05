@@ -31,7 +31,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         _hover={{
           cursor: "pointer",
           transition: "all .4s ease",
-          bgColor: useThemeColor(100),
+          bgColor: useThemeColor(50),
         }}
       >
         <Box h="80%">

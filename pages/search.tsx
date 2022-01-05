@@ -21,7 +21,7 @@ const Search: NextPage<Props> = ({ query, overviews, totalPages }) => {
   const initialQuery = JSON.stringify(query?.query).replaceAll('"', "");
 
   const borderColor = useTenShadesOfGray(200);
-  const hoverColor = useThemeColor(100);
+  const hoverColor = useThemeColor(50);
   const titleColor = useThemeColor(700);
 
   return (

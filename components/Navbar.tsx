@@ -71,10 +71,11 @@ const ColorSchemeSelector: React.FC<{ colorScheme: ColorScheme }> = ({
   const setColorScheme = useContext(SetColorSchemeContext)!;
   return (
     <HStack justify="space-between" w="full">
-      <Text w="full">Color Scheme</Text>
+      <Text>Color Scheme</Text>
       <Select
-        value={colorScheme}
+        flex={1}
         bgColor={useThemeColor(100)}
+        value={colorScheme}
         onChange={(e) => setColorScheme(e.target.value as ColorScheme)}
       >
         {colorSchemes.map((color) => (
@@ -108,13 +109,14 @@ const ThemeToggler: React.FC<{ colorScheme: ColorScheme }> = ({
 export const Navbar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const colorScheme = useColorSchemeContext();
+  const textColor = useThemeColor(900);
   const btnRef = useRef<any>();
 
   return (
     <Box
       as="nav"
-      bg={useThemeColor(300, 900)}
-      color={useThemeColor(900)}
+      bg={useThemeColor(400, 900)}
+      color={textColor}
       position="sticky"
       top={0}
       zIndex={9}
@@ -188,7 +190,7 @@ export const Navbar: React.FC = () => {
               colorScheme={colorScheme}
               as={IconButton}
               variant="ghost"
-              icon={<Icon as={FaPalette} />}
+              icon={<Icon as={FaPalette} color={textColor} />}
               aria-label="color scheme"
               rightIcon={<ChevronDownIcon />}
               p={4}
