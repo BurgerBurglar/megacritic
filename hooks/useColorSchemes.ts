@@ -8,7 +8,10 @@ export const useColorSchemes = (): [
 ] => {
   const [colorScheme, setColorScheme] = useState(initialColorScheme);
   useEffect(() => {
-    setColorScheme(window.localStorage.getItem("colorScheme") as ColorScheme);
+    setColorScheme(
+      (window.localStorage.getItem("colorScheme") ||
+        initialColorScheme) as ColorScheme
+    );
   }, []);
   useEffect(() => {
     window.localStorage.setItem("colorScheme", colorScheme);
