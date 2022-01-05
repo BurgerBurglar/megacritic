@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import React from "react";
+import React, { useMemo } from "react";
 import { MovieSlider } from "../components/MovieSlider";
 import { useColorSchemeContext } from "../contexts/ColorSchemeProvider";
 import { useTenShadesOfGray, useThemeColor } from "../hooks/useColors";
@@ -38,6 +38,27 @@ const Home: NextPage<HomeProps> = ({
 }) => {
   const { newQuery, setNewQuery, router } = useSearch("");
   const colorScheme = useColorSchemeContext();
+
+  const main = useMemo(
+    () => (
+      <>
+        <Heading>Discover</Heading>
+        <MovieSlider movies={discover} />
+        <Heading>Now Playing</Heading>
+        <MovieSlider movies={nowPlaying} />
+        <Heading>Popular</Heading>
+        <MovieSlider movies={popular} />
+        <Heading>Trending</Heading>
+        <MovieSlider movies={trending} />
+        <Heading>Top Rated</Heading>
+        <MovieSlider movies={topRated} />
+        <Heading>Upcoming</Heading>
+        <MovieSlider movies={upcoming} />
+      </>
+    ),
+    [discover, nowPlaying, popular, topRated, trending, upcoming]
+  );
+
   const search = () => router.push(`/search?query=${newQuery}`);
   const searchSize = useBreakpointValue({ base: "md", md: "lg" });
   const heroHeight = useBreakpointValue({ base: "300px", md: "500px" });
@@ -118,18 +139,7 @@ const Home: NextPage<HomeProps> = ({
         </Box>
       </Container>
       <Container as="main" maxW={maxW} mt={5}>
-        <Heading>Discover</Heading>
-        <MovieSlider movies={discover} />
-        <Heading>Now Playing</Heading>
-        <MovieSlider movies={nowPlaying} />
-        <Heading>Popular</Heading>
-        <MovieSlider movies={popular} />
-        <Heading>Trending</Heading>
-        <MovieSlider movies={trending} />
-        <Heading>Top Rated</Heading>
-        <MovieSlider movies={topRated} />
-        <Heading>Upcoming</Heading>
-        <MovieSlider movies={upcoming} />
+        {main}
       </Container>
     </>
   );
